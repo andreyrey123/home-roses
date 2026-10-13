@@ -162,23 +162,34 @@ section.s{padding:clamp(90px,13vw,170px) var(--pad);border-top:1px solid var(--l
 .sorts.sm{font-size:clamp(19px,1.8vw,28px)}
 .afoot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-top:26px;border-top:1px solid var(--line);color:var(--dim)}
 /* reviews */
-.yarate{display:flex;align-items:center;gap:14px 24px;flex-wrap:wrap;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-decoration:none;color:inherit;margin-bottom:22px}
-.yarate b{font:300 clamp(40px,4vw,64px)/1 Unbounded;letter-spacing:-.04em}
+.revwrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(20px,3vw,48px);align-items:start}
+.feat{display:block;position:relative;padding:clamp(28px,3vw,44px);background:var(--wine);color:#F5E4E8;text-decoration:none}
+.feat .q{position:absolute;right:clamp(18px,2.4vw,34px);top:-.08em;font:300 clamp(120px,12vw,190px)/1 Unbounded;color:rgba(245,228,232,.14)}
+.feat blockquote{position:relative;margin:0 0 30px;font:300 clamp(26px,2.6vw,42px)/1.15 Unbounded;letter-spacing:-.035em;max-width:18ch}
+.fc{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.fc > span:nth-child(2){display:grid;gap:2px;margin-right:auto}
+.av{flex:none;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#F5E4E8;color:var(--wine);font:500 16px "Golos Text"}
+.st5{color:#E8B547;letter-spacing:2px;font-size:16px;white-space:nowrap}
+.md{opacity:.6;font-size:11px}
+.minis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+.mini{display:flex;flex-direction:column;gap:10px;padding:18px;background:#F6F2EC;border:1px solid var(--line);text-decoration:none;color:inherit;transition:border-color .3s}
+.mini:hover{border-color:var(--ink)}
+.mini .av{width:34px;height:34px;font-size:14px;background:var(--wine);color:#F5E4E8}
+.mini .mh{display:grid;gap:2px}
+.mini p{margin:0;flex:1;font-size:14.5px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.yarate{display:flex;align-items:center;gap:12px 22px;flex-wrap:wrap;margin-top:22px;padding-top:22px;border-top:1px solid var(--line);text-decoration:none;color:inherit}
+.yarate b{font:300 clamp(40px,4vw,60px)/1 Unbounded;letter-spacing:-.04em}
 .yarate .mono{color:var(--dim)}
 .yarate .go{margin-left:auto;display:inline-flex;align-items:center;gap:12px;font-weight:500}
 .yarate .go i{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);font-style:normal;transition:background .4s,color .4s,transform .5s var(--ease)}
 .yarate:hover .go i{background:var(--ink);color:var(--cream);transform:rotate(-45deg)}
 .stars{position:relative;display:inline-block;font-size:22px;line-height:1;letter-spacing:2px;color:rgba(23,18,15,.15)}
 .stars::before{content:"★★★★★"}
-.stars i{position:absolute;left:0;top:0;overflow:hidden;white-space:nowrap;color:#D9A441}
+.stars i{position:absolute;left:0;top:0;overflow:hidden;white-space:nowrap;color:#E8B547}
 .stars i::before{content:"★★★★★"}
-.revs{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
-.rev{display:flex;flex-direction:column;gap:14px;padding:22px;background:#F6F2EC;border:1px solid var(--line);text-decoration:none;color:inherit;transition:border-color .3s}
-.rev:hover{border-color:var(--ink)}
-.rev .rh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
-.rev .rh .mono{color:var(--dim)}
-.rev p{margin:0;flex:1}
-.rev .src{color:var(--accent)}
+.ywidget{position:sticky;top:96px;display:grid;gap:10px}
+.ywidget iframe{display:block;width:100%;height:min(780px,82vh);border:1px solid var(--line);border-radius:10px;background:#fff}
+.ywidget a{color:var(--dim);text-decoration:none;font-size:11px}
 /* countdown */
 .cut{display:grid;gap:4px;padding:16px 0;margin-bottom:18px;border-top:1px solid rgba(245,228,232,.18);border-bottom:1px solid rgba(245,228,232,.18)}
 .cut span{opacity:.65}.cut b{font:300 clamp(22px,2vw,30px)/1.1 Unbounded;letter-spacing:-.03em}.cut small{margin:0!important}
@@ -261,6 +272,7 @@ dialog::backdrop{background:rgba(23,18,15,.55);backdrop-filter:blur(4px)}
   .assort .grp{grid-template-columns:1fr;gap:6px}.assort .cap{padding-top:0}
   .assort .side{flex-direction:row;justify-content:space-between;align-items:flex-end}.fl{width:42px;height:56px}
   .yarate .go{margin-left:0}
+  .revwrap{grid-template-columns:1fr}.minis{grid-template-columns:1fr}.ywidget{position:static}.ywidget iframe{height:640px}
 }
 html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:none!important}
 @media (prefers-reduced-motion:reduce){.fill,.fl{animation:none}.reel{animation-duration:220s}.rv{opacity:1;transform:none}}
@@ -380,13 +392,29 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
 <!-- ============ REVIEWS ============ -->
 <section class="s" id="reviews">
   <div class="kicker rv"><h2>Отзывы с Яндекс Карт</h2><p>Публикуем без правок. Все отзывы, включая критические, можно прочитать там же.</p></div>
-  <a class="yarate rv" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener">
-    <span class="mono">Яндекс Карты · Home roses</span>
-    <b>4,4</b><span class="stars" role="img" aria-label="Рейтинг 4,4 из 5"><i style="width:88%"></i></span>
-    <span class="mono">10 оценок · 9 отзывов</span>
-    <span class="go"><i>→</i>Все отзывы</span>
-  </a>
-  <div class="revs rv"><a class="rev" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener"><div class="rh"><b>Лейла Лейла</b><span class="mono">24 августа 2025</span></div><p>Большой выбор цветов и очень демократичные цены для оптовиков</p><span class="src mono">Яндекс Карты ↗</span></a><a class="rev" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener"><div class="rh"><b>Pavel Voronov</b><span class="mono">22 декабря 2025</span></div><p>Отличное место с дружелюбным и компетентным персоналом. Приятные цены, минимальная покупка- упаковка (25шт.) На месте можно подарочно упаковать. Рассказали про каждый сорт, какой будет когда распустится полностью, будет запах или нет. Может делать индивидуальные заказы от одной упаковки за 7 дней.</p><span class="src mono">Яндекс Карты ↗</span></a><a class="rev" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener"><div class="rh"><b>teenw</b><span class="mono">25 декабря 2025</span></div><p>Невероятный выбор, да ещё и такой свежак, только-только привезли поставку 😍 Супер!! Пахло ВО, КРАСОТА 💐💐💐</p><span class="src mono">Яндекс Карты ↗</span></a><a class="rev" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener"><div class="rh"><b>Евгения Стёпочкина</b><span class="mono">10 апреля 2026</span></div><p>Лучшие цветы в СПБ и ЛО</p><span class="src mono">Яндекс Карты ↗</span></a></div>
+  <div class="revwrap">
+    <div class="revmain rv">
+      <a class="feat" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener">
+        <span class="q" aria-hidden="true">“</span>
+        <blockquote>Большой выбор цветов и очень демократичные цены для оптовиков</blockquote>
+        <span class="fc"><span class="av">Л</span><span><b>Лейла Лейла</b><span class="mono md">24 августа 2025 · Яндекс Карты ↗</span></span><span class="st5" role="img" aria-label="Оценка 5 из 5">★★★★★</span></span>
+      </a>
+      <div class="minis">
+        <a class="mini" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener"><span class="av">P</span><span class="mh"><b>Pavel Voronov</b><span class="st5" role="img" aria-label="Оценка 5 из 5">★★★★★</span></span><p>Отличное место с дружелюбным и компетентным персоналом. Приятные цены, минимальная покупка- упаковка (25шт.) На месте можно подарочно упаковать. Рассказали про каждый сорт, какой будет когда распустится полностью, будет запах или нет. Может делать индивидуальные заказы от одной упаковки за 7 дней.</p><span class="mono md">22 декабря 2025 · Яндекс Карты ↗</span></a>
+        <a class="mini" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener"><span class="av">T</span><span class="mh"><b>teenw</b><span class="st5" role="img" aria-label="Оценка 5 из 5">★★★★★</span></span><p>Невероятный выбор, да ещё и такой свежак, только-только привезли поставку 😍 Супер!! Пахло ВО, КРАСОТА 💐💐💐</p><span class="mono md">25 декабря 2025 · Яндекс Карты ↗</span></a>
+        <a class="mini" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener"><span class="av">Е</span><span class="mh"><b>Евгения Стёпочкина</b><span class="st5" role="img" aria-label="Оценка 5 из 5">★★★★★</span></span><p>Лучшие цветы в СПБ и ЛО</p><span class="mono md">10 апреля 2026 · Яндекс Карты ↗</span></a>
+      </div>
+      <a class="yarate" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener">
+        <b>4,4</b><span class="stars" role="img" aria-label="Рейтинг 4,4 из 5"><i style="width:88%"></i></span>
+        <span class="mono">10 оценок · 9 отзывов</span>
+        <span class="go"><i>→</i>Все отзывы</span>
+      </a>
+    </div>
+    <div class="ywidget rv">
+      <iframe src="https://yandex.ru/maps-reviews-widget/168479410734?comments" title="Отзывы о Home roses на Яндекс Картах" loading="lazy"></iframe>
+      <a class="mono" href="https://yandex.ru/maps/org/home_roses/168479410734/" target="_blank" rel="noopener">Home roses на Яндекс Картах ↗</a>
+    </div>
+  </div>
 </section>
 
 <!-- ============ GALLERY ============ -->
