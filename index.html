@@ -73,6 +73,8 @@ img{display:block;max-width:100%}
 .card{position:absolute;z-index:4;width:clamp(110px,11.5vw,190px);pointer-events:none;opacity:0;will-change:transform,opacity}
 .card img{width:100%;aspect-ratio:3/4;object-fit:cover}
 .card span{display:block;margin-top:8px;opacity:.75}
+.geo{position:absolute;inset:0;z-index:5;pointer-events:none}
+.geo span{position:absolute;left:0;top:0;opacity:0;white-space:pre;text-align:center;font:400 clamp(9px,.78vw,12px)/1.45 "Martian Mono",monospace;letter-spacing:.06em;text-transform:uppercase}
 .intro{position:absolute;z-index:6;left:var(--pad);right:var(--pad);bottom:clamp(26px,5vh,48px);display:grid;grid-template-columns:minmax(0,1.3fr) auto;gap:30px;align-items:end}
 .intro h1{margin:0;font:300 clamp(20px,1.9vw,30px)/1.22 Unbounded;letter-spacing:-.03em;max-width:34ch}
 .intro .isub{margin:10px 0 0;max-width:52ch;font-size:clamp(15px,1.1vw,17px);line-height:1.5;opacity:.72}
@@ -271,6 +273,7 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
     <div class="portal" id="portal" aria-hidden="true"><img id="pimg" src="img/p38.webp" alt=""><i></i></div>
     <div id="words" aria-hidden="true"></div>
     <div id="cards" aria-hidden="true"></div>
+    <div class="geo" id="geo" aria-hidden="true"></div>
     <div class="intro" id="intro">
       <div><h1><span class="vh">HOME ROSES — </span>Розы и гвоздики из Эквадора, Колумбии и Голландии</h1><p class="isub">Под заказ и со склада в Санкт-Петербурге. Возим с 2018 года, по каждой партии сверяем документы.</p></div>
       <div class="act"><button class="pill solid" data-price>Запросить прайс</button><span class="cue mono"><i></i>Листайте</span></div>
@@ -458,8 +461,8 @@ dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
 // each word hides the next one inside its «О»; inside the «О» you already see the next world's colour
 const CHAIN = [
   {w: 'РОЗЫ',      o: 1, nav: 'Розы',      bg: '#EEE8E0', fg: '#17120F', pos: '0%'},
-  {w: 'EC CO NL', o: 4, nav: 'Плантации', bg: '#1D3A2F', fg: '#ECE6D8', pos: '-40%', coord: 'Напрямую с плантаций', name: 'Эквадор · 0°13′ ю. ш.\nКолумбия · 4°36′ с. ш.\nГолландия · 52°22′ с. ш.', text: 'Закупаем напрямую у плантаций. В одной партии может быть несколько ферм — плантация указана в документах по каждой позиции.', cards: ['01', '38']},
-  {w: 'ДОМ',       o: 1, nav: 'Дом',       bg: '#3D0A17', fg: '#F5E4E8', pos: '-95%', coord: '59°48′ с. ш.', name: 'Санкт-Петербург · Шушары', text: 'Через 7–10 дней после вылета цветы на нашем складе.', cards: ['10', '41']},
+  {w: 'EC CO NL', o: 4, nav: 'Плантации', bg: '#1D3A2F', fg: '#ECE6D8', pos: '-40%', coord: 'Напрямую с плантаций', name: 'Эквадор · Колумбия · Голландия', geo: [{a: 0, b: 2, t: '0°13′ ю. ш.\n78°31′ з. д.'}, {a: 3, b: 5, t: '4°36′ с. ш.\n74°05′ з. д.'}, {a: 6, b: 8, t: '52°22′ с. ш.\n4°54′ в. д.'}], text: 'Закупаем напрямую у плантаций. В одной партии может быть несколько ферм — плантация указана в документах по каждой позиции.', cards: ['01', '38']},
+  {w: 'ДОМ',       o: 1, nav: 'Дом',       bg: '#3D0A17', fg: '#F5E4E8', pos: '-95%', geo: [{a: 0, b: 3, t: '59°48′ с. ш. · 30°24′ в. д.'}], coord: '59°48′ с. ш.', name: 'Санкт-Петербург · Шушары', text: 'Через 7–10 дней после вылета цветы на нашем складе.', cards: ['10', '41']},
 ];
 const N = CHAIN.length, TAIL = .3;               // extra scroll to rest on ДОМ
 const nav = document.getElementById('nav'), stage = document.getElementById('stage'), chainEl = document.getElementById('chain'), portal = document.getElementById('portal');
@@ -476,6 +479,20 @@ CHAIN.forEach((c, j) => (c.cards || []).forEach((id, k) => {
   d.innerHTML = `<img src="img/w/p${id}.webp" alt="" loading="lazy"><span class="mono">Склад СПб · реальное фото</span>`;
   cardsEl.appendChild(d); CARDS.push({el: d, j, k});
 }));
+// coordinate captions: one span per code, placed under the letters every frame (they never scale with the dive)
+const geoEl = document.getElementById('geo');
+const GEO = CHAIN.map(c => (c.geo || []).map(g => { const el = document.createElement('span'); el.textContent = g.t; geoEl.appendChild(el); return {...g, el}; }));
+// screen box of characters a..b of a word, across the text nodes around the «О» span
+function charRect(el, a, b) {
+  const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), range = document.createRange();
+  let n, i = 0, started = false;
+  while ((n = walk.nextNode())) {
+    if (!started && a < i + n.length) { range.setStart(n, a - i); started = true; }
+    if (started && b <= i + n.length) { range.setEnd(n, b - i); break; }
+    i += n.length;
+  }
+  return range.getBoundingClientRect();
+}
 const twins = CHAIN.map((c, j) => { const t = els[j].cloneNode(true); t.className = 'word solid'; t.style.backgroundPositionX = ''; wordsEl.appendChild(t); return t; });
 const PHOTO = ['', 'img/p38.webp', 'img/p10.webp'];
 PHOTO.forEach(src => { if (src) { const im = new Image(); im.src = src; im.decode && im.decode().catch(() => {}); } });
@@ -510,8 +527,10 @@ function measure() {
     if (r0.width > fit) e.style.fontSize = parseFloat(getComputedStyle(e).fontSize) * fit / r0.width + 'px';
     const span = e.querySelector('.o'), r = e.getBoundingClientRect(), o = span.getBoundingClientRect(), hole = counter(span);
     twins[els.indexOf(e)].style.fontSize = e.style.fontSize;
-    return hole ? {w: r.width, h: r.height, ox: o.left - r.left + hole.x, oy: o.top - r.top + hole.y, hd: hole.d}
-                : {w: r.width, h: r.height, ox: o.left - r.left + o.width / 2, oy: o.top - r.top + o.height * .52, hd: o.width * .34};
+    const g = hole ? {w: r.width, h: r.height, ox: o.left - r.left + hole.x, oy: o.top - r.top + hole.y, hd: hole.d}
+                   : {w: r.width, h: r.height, ox: o.left - r.left + o.width / 2, oy: o.top - r.top + o.height * .52, hd: o.width * .34};
+    g.geo = GEO[els.indexOf(e)].map(c => { const cr = charRect(e, c.a, c.b); return cr.left + cr.width / 2 - r.left; });
+    return g;
   });
   portal.style.width = portal.style.height = D + 'px';
 }
@@ -538,6 +557,11 @@ function chainFrame() {
   const left = C[0] - g.w / 2, top = C[1] - g.h / 2, Pi = [left + g.ox, top + g.oy];
   els.forEach((e, j) => { e.style.visibility = (j === i || j === i + 1) ? 'visible' : 'hidden'; e.style.opacity = 1; });
   twins.forEach(t => t.style.visibility = 'hidden');
+  GEO.forEach(list => list.forEach(c => { c.el.style.opacity = 0; }));
+  const geoAt = (j, tx, ty, sc, op) => op > 0 && GEO[j].forEach((c, q) => {
+    c.el.style.opacity = op * .8;
+    c.el.style.transform = `translate(${tx + G[j].geo[q] * sc}px,${ty + G[j].h * sc + 14}px) translateX(-50%)`;
+  });
   els[i].style.zIndex = 3;
   stage.style.background = CHAIN[i].bg;
   if (!last) {
@@ -562,8 +586,11 @@ function chainFrame() {
     portal.style.opacity = appear;
     twins[i + 1].style.opacity = (1 - fillIn) * appear; els[i + 1].style.opacity = fillIn * appear;
     portal.style.transform = `translate(${cx - D * s / 2}px,${cy - D * s / 2}px) scale(${s})`;
+    geoAt(i, tx, ty, k, 1 - seg(u, .16, .3));
+    geoAt(i + 1, cx - n.w * s / 2, cy - n.h * s / 2, s, seg(u, .9, 1));
   } else {
     els[i].style.transform = `translate(${left}px,${top}px)`;
+    geoAt(i, left, top, 1, 1);
     portal.style.visibility = 'hidden';
   }
   // UI colour follows whichever world fills most of the screen
@@ -587,7 +614,7 @@ function chainFrame() {
     const vis = seg(t, -.12, .05) * (1 - seg(t, .25, .55));
     const side = c.k === 0 ? -1 : 1, mob = W < 900;
     const cwid = c.el.offsetWidth, chei = cwid * 4 / 3 + 30;
-    const bx = mob ? (c.k === 0 ? W * .06 : W * .94 - cwid) : (c.k === 0 ? W * .1 : W * .86 - cwid), by = mob ? (c.k === 0 ? H * .13 : H * .6) : (c.k === 0 ? Math.max(84, H * .5 - G[c.j].h / 2 - chei - 10) : Math.min(H - chei - 20, H * .5 + G[c.j].h / 2 + 14));
+    const bx = mob ? (c.k === 0 ? W * .06 : W * .94 - cwid) : (c.k === 0 ? W * .1 : W * .86 - cwid), by = mob ? (c.k === 0 ? H * .13 : H * .6) : (c.k === 0 ? Math.max(84, H * .5 - G[c.j].h / 2 - chei - 10) : Math.min(H - chei - 20, H * .5 + G[c.j].h / 2 + 64));
     const push = Math.max(0, t) * 260 * side;
     c.el.style.opacity = vis;
     c.el.style.transform = `translate(${bx + push}px,${by + Math.max(0, t) * 60 * side}px) rotate(${side * (2 + t * 4)}deg)`;
