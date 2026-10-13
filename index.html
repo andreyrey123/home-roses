@@ -1,0 +1,848 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HOME ROSES — розы и гвоздика с плантаций Эквадора, Колумбии и Голландии</title>
+<meta name="description" content="Импорт срезанных цветов из Эквадора, Колумбии и Голландии в Россию с 2018 года. Поставка под заказ, продажа со склада в Санкт-Петербурге, импорт и логистика как услуга.">
+<meta name="theme-color" content="#EEE8E0">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="HOME ROSES">
+<meta property="og:title" content="HOME ROSES — розы оптом с плантаций Эквадора, Колумбии и Голландии">
+<meta property="og:description" content="Вылеты по средам и воскресеньям, через 7–10 дней цветы на складе в Санкт-Петербурге. Под заказ и со склада, минимальный заказ — 1 банч.">
+<meta property="og:image" content="og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Florist", "name": "HOME ROSES", "description": "Импорт срезанных цветов из Эквадора, Колумбии и Голландии. Оптом под заказ и со склада в Санкт-Петербурге.", "image": "og.jpg", "telephone": ["+7 931 222-00-42", "+7 911 962-42-42"], "email": "invoice.2007@mail.ru", "foundingDate": "2018", "priceRange": "от 1 банча", "address": {"@type": "PostalAddress", "streetAddress": "1-й Бадаевский проезд, 9А", "addressLocality": "посёлок Шушары, Санкт-Петербург", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 59.808188, "longitude": 30.402877}, "areaServed": "RU", "sameAs": ["https://t.me/hr_LTDA", "https://instagram.com/homeroses_", "https://yandex.ru/maps/org/home_roses/168479410734/"]}</script>
+<link rel="preload" href="fonts/unbounded-cyrillic-c86556.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/golos-text-cyrillic-f57bdd.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
+<!-- libraries are kept in /vendor: lenis 1.1.13, gsap 3.13.0, d3-array 3.2.4, d3-geo 3.1.1, topojson-client 3.1.0 -->
+<script src="vendor/lenis.min.js"></script>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/SplitText.min.js"></script>
+<script src="vendor/d3-array.min.js"></script>
+<script src="vendor/d3-geo.min.js"></script>
+<script src="vendor/topojson-client.min.js"></script>
+<style>
+:root{
+  --cream:#EEE8E0; --ink:#17120F; --dim:#857B72; --line:rgba(23,18,15,.13); --wine:#3D0A17; --accent:#8E1530;
+  --bg:#EEE8E0; --fg:#17120F;
+  --pad:clamp(18px,3.2vw,46px); --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html{background:var(--cream)}
+html.lenis{height:auto}.lenis.lenis-smooth{scroll-behavior:auto}
+body{margin:0;color:var(--ink);font:400 16px/1.6 "Golos Text",system-ui,sans-serif;overflow-x:hidden}
+html,body{overflow-x:clip}
+::selection{background:var(--accent);color:#fff}
+a{color:inherit}
+img{display:block;max-width:100%}
+.mono{font:400 11px/1.35 "Martian Mono",monospace;letter-spacing:.07em;text-transform:uppercase}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* photo-filled display type: the brand device */
+.fill{color:transparent;-webkit-background-clip:text;background-clip:text;background-image:url(img/w/collage.webp);background-size:auto 150%;background-repeat:repeat-x;animation:drift 90s linear infinite}
+@keyframes drift{to{background-position-x:-2700px}}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;z-index:50;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;padding:22px var(--pad);color:var(--fg);transition:background .35s,padding .35s,box-shadow .35s}
+.nav.bar{background:var(--bg);padding-top:14px;padding-bottom:14px;box-shadow:0 1px 0 color-mix(in srgb,var(--fg) 12%,transparent)}
+.logo{font:900 15px/1 Unbounded;letter-spacing:.08em;text-decoration:none}
+.links{display:flex;gap:30px;font-size:14px}
+.links a{text-decoration:none;opacity:.7;transition:opacity .2s}.links a:hover{opacity:1}
+.pill{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 22px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:500 14px "Golos Text";cursor:pointer;text-decoration:none;white-space:nowrap}
+.pill:hover{background:var(--fg);color:var(--bg)}
+.pill.solid{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.pill.solid:hover{opacity:.88}
+
+/* ---------- the chain ---------- */
+.chain{position:relative;height:270vh}
+.stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;background:var(--bg);color:var(--fg)}
+.portal{position:absolute;left:0;top:0;border-radius:50%;overflow:hidden;transform-origin:0 0;will-change:transform;z-index:1}
+.portal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(var(--pz,1.25));will-change:transform}
+.portal i{position:absolute;inset:0;background:var(--pc);opacity:var(--po,0)}
+.word.solid{background:none;-webkit-background-clip:border-box;background-clip:border-box;animation:none;color:#FFF7F2;text-shadow:0 0 .12em rgba(0,0,0,.35)}
+.word{position:absolute;left:0;top:0;font:900 clamp(96px,20vw,380px)/.8 Unbounded;letter-spacing:-.06em;white-space:nowrap;transform-origin:0 0}
+.card{position:absolute;z-index:4;width:clamp(110px,11.5vw,190px);pointer-events:none;opacity:0;will-change:transform,opacity}
+.card img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.card span{display:block;margin-top:8px;opacity:.75}
+.intro{position:absolute;z-index:6;left:var(--pad);right:var(--pad);bottom:clamp(26px,5vh,48px);display:grid;grid-template-columns:minmax(0,1.3fr) auto;gap:30px;align-items:end}
+.intro h1{margin:0;font:300 clamp(20px,1.9vw,30px)/1.22 Unbounded;letter-spacing:-.03em;max-width:34ch}
+.intro .act{display:flex;flex-direction:column;align-items:flex-end;gap:14px}
+.ifacts{grid-column:1/-1;display:flex;gap:clamp(18px,3.4vw,52px);padding-top:18px;border-top:1px solid var(--line)}
+.ifacts b{display:block;margin-top:6px;font:300 clamp(17px,1.5vw,23px)/1.1 Unbounded;letter-spacing:-.03em;text-transform:none}
+.cue{display:flex;align-items:center;gap:10px}
+.cue i{width:18px;height:26px;border:1.5px solid currentColor;border-radius:50%;position:relative}
+.cue i::after{content:"";position:absolute;left:50%;top:5px;width:2px;height:6px;margin-left:-1px;background:currentColor;border-radius:2px;animation:cue 1.8s var(--ease) infinite}
+@keyframes cue{0%{opacity:0;transform:translateY(-2px)}40%{opacity:1}100%{opacity:0;transform:translateY(8px)}}
+.place{position:absolute;z-index:6;left:var(--pad);bottom:clamp(26px,5vh,48px);max-width:min(620px,60vw)}
+.place .coord{font:300 clamp(30px,3.4vw,54px)/1 Unbounded;letter-spacing:-.04em}
+.place .name{margin:12px 0 10px;line-height:1.7}.place .name span{display:inline-block;margin-right:18px}
+.place p{margin:0;font-size:16px;line-height:1.5;opacity:.85;max-width:36ch}
+.place > *{transition:opacity .45s,transform .7s var(--ease)}
+.place.swap > *{opacity:0;transform:translateY(10px)}
+.worlds{position:absolute;z-index:6;right:var(--pad);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;text-align:right}
+.worlds button{all:unset;cursor:pointer;opacity:.38;transition:opacity .3s;display:flex;align-items:center;justify-content:flex-end;gap:10px}
+.worlds button::after{content:"";width:14px;height:1px;background:currentColor;transition:width .4s var(--ease)}
+.worlds button.on{opacity:1}.worlds button.on::after{width:34px}
+.worlds button:focus-visible{outline:1px solid currentColor;outline-offset:4px}
+.home{position:absolute;z-index:6;left:50%;bottom:clamp(26px,5vh,48px);transform:translateX(-50%);width:min(820px,92vw);text-align:center;opacity:0;pointer-events:none}
+.home .facts{display:flex;justify-content:center;gap:clamp(18px,3vw,44px);margin-bottom:24px}
+.home .facts b{display:block;margin-top:6px;font:300 clamp(18px,1.7vw,26px)/1.1 Unbounded;letter-spacing:-.03em;text-transform:none}
+.home .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* ---------- content sections ---------- */
+section.s{padding:clamp(90px,13vw,170px) var(--pad);border-top:1px solid var(--line)}
+.kicker{display:flex;justify-content:space-between;align-items:baseline;gap:20px;margin-bottom:clamp(40px,6vw,80px)}
+.kicker h2{margin:0;font:300 clamp(34px,4.4vw,72px)/1.02 Unbounded;letter-spacing:-.045em;max-width:18ch}
+.kicker p{margin:0;max-width:36ch;color:var(--dim)}
+/* formats as photo-filled words */
+.fmt{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(20px,4vw,70px);align-items:center;padding:clamp(26px,3.6vw,46px) 0;border-top:1px solid var(--line);text-decoration:none;color:inherit}
+.fmt:last-child{border-bottom:1px solid var(--line)}
+.fmt .big{font:900 clamp(48px,8.4vw,150px)/.86 Unbounded;letter-spacing:-.055em}
+.fmt:hover .big{animation-duration:20s}
+.fmt .who{color:var(--accent);margin-bottom:10px}
+.fmt p{margin:0 0 18px;font-size:17px;max-width:38ch}
+.fmt .go{display:inline-flex;align-items:center;gap:12px;font-weight:500}
+.fmt .go i{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);transition:background .4s,border-color .4s,transform .5s var(--ease)}
+.fmt:hover .go i{background:var(--ink);border-color:var(--ink);color:var(--cream);transform:rotate(-45deg)}
+.note{display:flex;gap:30px;flex-wrap:wrap;margin-top:28px;color:var(--dim)}
+/* process */
+.steps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.6vw,40px)}
+.steps::before{content:"";position:absolute;left:0;right:0;top:22px;height:1px;background:var(--line)}
+.steps::after{content:"";position:absolute;left:0;top:22px;height:1px;width:var(--prog,0%);background:var(--accent)}
+.step .n{position:relative;z-index:1;display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--cream);border:1px solid var(--line);font:400 15px Unbounded;transition:border-color .5s,color .5s}
+.step.on .n{border-color:var(--accent);color:var(--accent)}
+.step h3{margin:26px 0 8px;font:300 clamp(22px,2vw,30px)/1.1 Unbounded;letter-spacing:-.03em}
+.step p{margin:0;color:var(--dim)}
+/* schedule */
+.sched{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(20px,4vw,70px);align-items:stretch}
+.week{display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--line)}
+.week div{padding:22px 0 26px;text-align:center;border-left:1px solid var(--line);color:var(--dim)}
+.week div:first-child{border-left:0}
+.week b{display:block;font:300 clamp(18px,1.8vw,26px)/1 Unbounded;color:var(--ink);margin-bottom:12px}
+.week .fly{background:var(--wine);color:#F5E4E8}.week .fly b{color:#F5E4E8}
+.next{padding:clamp(22px,2.6vw,36px);background:var(--wine);color:#F5E4E8;display:flex;flex-direction:column}
+.next .d{font:300 clamp(26px,2.6vw,40px)/1.05 Unbounded;letter-spacing:-.03em;margin:12px 0 22px}
+.next dl{display:grid;grid-template-columns:auto 1fr;gap:8px 20px;margin:0 0 20px}
+.next dt{opacity:.65}.next dd{margin:0}
+.next small{opacity:.6;font-size:12px;margin-bottom:22px}
+.next .pill{align-self:flex-start;margin-top:auto;color:#F5E4E8}
+.next .pill:hover{background:#F5E4E8;color:var(--wine)}
+.cap-under{margin-top:14px;color:var(--dim)}
+/* why */
+.why{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:clamp(20px,4vw,70px);align-items:start}
+.why h2{position:sticky;top:110px}
+.why ol{list-style:none;margin:0;padding:0;border-bottom:1px solid var(--line)}
+.why li{display:grid;grid-template-columns:70px 1fr;gap:10px;padding:clamp(24px,3vw,38px) 0;border-top:1px solid var(--line)}
+.why li .mono{padding-top:10px;color:var(--accent)}
+.why h3{margin:0 0 8px;font:300 clamp(22px,2.2vw,32px)/1.1 Unbounded;letter-spacing:-.03em}
+.why p{margin:0;color:var(--dim);max-width:46ch}
+/* assortment */
+.assort .grp{display:grid;grid-template-columns:200px 1fr;gap:20px;padding:26px 0;border-top:1px solid var(--line)}
+.assort .cap{color:var(--accent);padding-top:12px}
+.sorts{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;font:300 clamp(24px,2.7vw,42px)/1.3 Unbounded;letter-spacing:-.035em}
+.sorts li:not(:last-child)::after{content:"·";margin:0 .4em;color:var(--accent);opacity:.6}
+.sorts.sm{font-size:clamp(19px,1.8vw,28px)}
+.afoot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-top:26px;border-top:1px solid var(--line);color:var(--dim)}
+/* reviews */
+.yarate{display:flex;align-items:center;gap:14px 24px;flex-wrap:wrap;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-decoration:none;color:inherit;margin-bottom:22px}
+.yarate b{font:300 clamp(40px,4vw,64px)/1 Unbounded;letter-spacing:-.04em}
+.yarate .mono{color:var(--dim)}
+.yarate .go{margin-left:auto;display:inline-flex;align-items:center;gap:12px;font-weight:500}
+.yarate .go i{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);font-style:normal;transition:background .4s,color .4s,transform .5s var(--ease)}
+.yarate:hover .go i{background:var(--ink);color:var(--cream);transform:rotate(-45deg)}
+.stars{position:relative;display:inline-block;font-size:22px;line-height:1;letter-spacing:2px;color:rgba(23,18,15,.15)}
+.stars::before{content:"★★★★★"}
+.stars i{position:absolute;left:0;top:0;overflow:hidden;white-space:nowrap;color:#D9A441}
+.stars i::before{content:"★★★★★"}
+.revs{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.rev{display:flex;flex-direction:column;gap:14px;padding:22px;background:#F6F2EC;border:1px solid var(--line);text-decoration:none;color:inherit;transition:border-color .3s}
+.rev:hover{border-color:var(--ink)}
+.rev .rh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.rev .rh .mono{color:var(--dim)}
+.rev p{margin:0;flex:1}
+.rev .src{color:var(--accent)}
+/* countdown */
+.cut{display:grid;gap:4px;padding:16px 0;margin-bottom:18px;border-top:1px solid rgba(245,228,232,.18);border-bottom:1px solid rgba(245,228,232,.18)}
+.cut span{opacity:.65}.cut b{font:300 clamp(22px,2vw,30px)/1.1 Unbounded;letter-spacing:-.03em}.cut small{margin:0!important}
+/* cold chain + warehouse coordinate */
+.cold{display:flex;align-items:baseline;gap:8px 14px;flex-wrap:wrap;margin-top:18px;color:rgba(236,230,216,.6)}
+.cold b{font:300 22px/1 Unbounded;letter-spacing:-.02em;color:#9FD3E6}
+.clist .lat{display:block;margin-top:4px;opacity:.55;font-size:12px}
+/* gallery */
+section.s.gallery{padding-left:0;padding-right:0;overflow:hidden}
+.gallery .kicker{padding:0 var(--pad)}
+.reel{display:flex;gap:12px;width:max-content;animation:reel 110s linear infinite}
+.reel img{width:clamp(180px,17vw,270px);aspect-ratio:3/4;object-fit:cover}
+@keyframes reel{to{transform:translateX(-50%)}}
+/* route + globe */
+.route{background:#1D3A2F;color:#ECE6D8;border-top:0;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(20px,4vw,70px);align-items:center}
+.route h2{margin:0 0 22px;font:300 clamp(34px,4.4vw,72px)/1.02 Unbounded;letter-spacing:-.045em}
+.route p{margin:0 0 26px;max-width:40ch;color:rgba(236,230,216,.72)}
+.legs{list-style:none;margin:0;padding:0;border-top:1px solid rgba(236,230,216,.18)}
+.legs li{display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid rgba(236,230,216,.18)}
+.legs b{font:300 18px/1.2 Unbounded;letter-spacing:-.02em}
+.legs li{align-items:center}.legs span{opacity:.6;text-align:right;line-height:1.5}.legs i{display:block;font-style:normal;color:#D9B98C;opacity:1}
+.globe-box{position:relative;width:100%;max-width:640px;aspect-ratio:1;justify-self:center}
+.globe-box canvas{display:block;width:100%;height:100%;cursor:grab;touch-action:pan-y;-webkit-mask-image:radial-gradient(circle closest-side,#000 84%,transparent 100%);mask-image:radial-gradient(circle closest-side,#000 84%,transparent 100%)}
+.globe-box canvas:active{cursor:grabbing}
+.map-note{position:absolute;left:0;bottom:0;opacity:.55}
+/* faq */
+.faq{max-width:980px}
+.faq details{border-top:1px solid var(--line)}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;display:flex;justify-content:space-between;gap:20px;padding:24px 0;cursor:pointer;font:300 clamp(18px,1.7vw,24px)/1.25 Unbounded;letter-spacing:-.02em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary i{flex:none;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);position:relative;transition:transform .4s var(--ease),background .3s}
+.faq summary i::before,.faq summary i::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:1px;background:currentColor;transform:translate(-50%,-50%)}
+.faq summary i::after{transform:translate(-50%,-50%) rotate(90deg)}
+.faq details[open] summary i{transform:rotate(45deg);background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.faq details p{margin:0 0 26px;color:var(--dim);max-width:64ch}
+/* contacts: back home, in the wine world */
+.contacts{background:var(--wine);color:#F5E4E8;border-top:0}
+.contacts .kicker p{color:rgba(245,228,232,.65)}
+.contacts .homeword{font:900 clamp(110px,22vw,400px)/.8 Unbounded;letter-spacing:-.06em;margin:0 0 clamp(30px,5vw,70px) -.04em}
+.cgrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,70px)}
+.clist{list-style:none;margin:0;padding:0}
+.clist li{display:grid;grid-template-columns:170px 1fr;gap:16px;padding:16px 0;border-top:1px solid rgba(245,228,232,.18)}
+.clist .k{opacity:.6}
+.clist a{text-decoration:none;border-bottom:1px solid rgba(245,228,232,.4)}
+.clist a:hover{border-color:#F5E4E8}
+.channels{display:grid;gap:10px;align-content:start}
+.channels .pill{justify-content:space-between;height:58px;color:#F5E4E8}
+.channels .pill:hover{background:#F5E4E8;color:var(--wine)}
+.channels .pill.solid{background:#F5E4E8;color:var(--wine);border-color:#F5E4E8}
+footer{background:var(--wine);color:rgba(245,228,232,.6);padding:30px var(--pad) 40px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font-size:13px;border-top:1px solid rgba(245,228,232,.14)}
+footer p{width:100%;margin:0;font-size:12px}
+/* price dialog */
+dialog{border:0;padding:0;background:var(--cream);color:var(--ink);width:min(460px,calc(100vw - 32px))}
+dialog::backdrop{background:rgba(23,18,15,.55);backdrop-filter:blur(4px)}
+.dlg{padding:30px}
+.dlg h3{margin:0 0 8px;font:300 28px/1.1 Unbounded;letter-spacing:-.03em}
+.dlg p{margin:0 0 22px;color:var(--dim)}
+.dlg .channels .pill{color:var(--ink)}
+.dlg .channels .pill:hover{background:var(--ink);color:var(--cream)}
+.dlg .channels .pill.solid{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.x{position:absolute;right:14px;top:14px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:none;cursor:pointer;font-size:18px}
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity 1s var(--ease),transform 1.2s var(--ease)}
+.rv.in{opacity:1;transform:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media (max-width:900px){
+  .links{display:none}
+  .word{font-size:23vw}
+  .intro{grid-template-columns:1fr;gap:18px}.intro .act{align-items:flex-start;flex-direction:row}.ifacts{flex-wrap:wrap;gap:12px 22px}.ifacts span{flex:0 0 40%}
+  .worlds{top:auto;bottom:auto;top:90px;right:var(--pad);transform:none;gap:6px}.worlds button::after{width:8px}.worlds button.on::after{width:18px}
+  .card{display:none}
+  .place{max-width:none;right:var(--pad)}.place .name span{display:block}
+  .home .facts{display:grid;grid-template-columns:1fr 1fr;gap:14px 22px}
+  .kicker{flex-direction:column}
+  .fmt,.sched,.why,.cgrid,.route{grid-template-columns:1fr}
+  .why h2{position:static}
+  .steps{grid-template-columns:1fr 1fr;row-gap:36px}.steps::before,.steps::after{display:none}
+  .clist li{grid-template-columns:1fr;gap:2px}
+  .assort .grp{grid-template-columns:1fr;gap:6px}.assort .cap{padding-top:0}
+  .yarate .go{margin-left:0}
+}
+html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:none!important}
+@media (prefers-reduced-motion:reduce){.fill{animation:none}.reel{animation-duration:220s}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header class="nav" id="nav">
+  <a class="logo" href="#top">HOME ROSES</a>
+  <nav class="links" aria-label="Разделы"><a href="#formats">Форматы</a><a href="#assort">Сорта</a><a href="#process">Как проходит заказ</a><a href="#schedule">Вылеты</a><a href="#faq">Вопросы</a><a href="#contacts">Контакты</a></nav>
+  <button class="pill" data-price>Запросить прайс</button>
+</header>
+
+<main id="top">
+<!-- ============ THE CHAIN: Розы → Эквадор → Колумбия → Голландия → Дом ============ -->
+<section class="chain" id="chain" aria-label="Откуда наши цветы">
+  <div class="stage" id="stage">
+    <div class="portal" id="portal" aria-hidden="true"><img id="pimg" src="img/p38.webp" alt=""><i></i></div>
+    <div id="words" aria-hidden="true"></div>
+    <div id="cards" aria-hidden="true"></div>
+    <div class="intro" id="intro">
+      <h1><span class="vh">HOME ROSES — </span>Розы, гвоздика и другие цветы с плантаций Эквадора, Колумбии и Голландии. Под заказ и со склада в Санкт-Петербурге.</h1>
+      <div class="act"><button class="pill solid" data-price>Запросить прайс</button><span class="cue mono"><i></i>Листайте</span></div>
+      <div class="ifacts mono"><span>Вылеты<b>ср · вс</b></span><span>На складе СПб<b>через 7–10 дней</b></span><span>Стебель<b>40–100+ см</b></span><span>Заказ<b>от 1 банча</b></span></div>
+    </div>
+    <div class="place" id="place" aria-live="polite"><div class="coord" id="coord"></div><div class="name mono" id="pname"></div><p id="ptext"></p></div>
+    <nav class="worlds mono" id="worlds" aria-label="Путь цветов"></nav>
+    <div class="home" id="home">
+      <div class="facts mono"><span>Вылеты<b>ср · вс</b></span><span>В пути<b>7–10 дней</b></span><span>Стебель<b>40–100+ см</b></span><span>Заказ<b>от 1 банча</b></span></div>
+      <div class="actions"><button class="pill solid" data-price>Запросить прайс</button><a class="pill" data-tg href="#" target="_blank" rel="noopener">Telegram</a><a class="pill" data-wa href="#" target="_blank" rel="noopener">WhatsApp</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROUTE: globe with planes ============ -->
+<section class="s route" id="route">
+  <div class="rv">
+    <h2>Три страны — один склад</h2>
+    <p>Закупаем напрямую у плантаций. Вылеты по средам и воскресеньям, через 7–10 дней цветы на складе в Санкт-Петербурге.</p>
+    <ul class="legs mono"><li><b>Эквадор</b><span><i>0°13′ ю. ш.</i>плантации</span></li><li><b>Колумбия</b><span><i>4°36′ с. ш.</i>плантации</span></li><li><b>Голландия</b><span><i>52°22′ с. ш.</i>плантации</span></li><li><b>Санкт-Петербург</b><span><i>59°48′ с. ш.</i>склад · Шушары</span></li></ul>
+    <div class="cold mono"><span>Холодная цепь</span><b>+2…+4 °C</b><span>от плантации до нашего склада</span></div>
+  </div>
+  <div class="globe-box rv">
+    <canvas id="globe" role="img" aria-label="Земной шар: цветы летят из Эквадора, Колумбии и Голландии на склад в Санкт-Петербурге"></canvas>
+    <span class="map-note mono">Схема условная · потяните, чтобы повернуть</span>
+  </div>
+</section>
+
+<!-- ============ FORMATS ============ -->
+<section class="s" id="formats">
+  <div class="kicker rv"><h2>Три способа работать с&nbsp;нами</h2><p>От крупной оптовой поставки до закупки со склада без ожидания рейса.</p></div>
+  <a class="fmt rv" href="#" data-price>
+    <div class="big fill" style="background-position-x:-10%">Под заказ</div>
+    <div><div class="who mono">Оптовикам и цветочным базам</div><p>Присылаете сорта, длину и количество коробок — размещаем заказ на плантациях и привозим.</p><span class="go"><i>→</i>Запросить прайс</span></div>
+  </a>
+  <a class="fmt rv" href="#" data-price>
+    <div class="big fill" style="background-position-x:-40%">Со склада</div>
+    <div><div class="who mono">Магазинам и флористам</div><p>Цветы в наличии на складе в Санкт-Петербурге — без ожидания рейса.</p><span class="go"><i>→</i>Узнать наличие</span></div>
+  </a>
+  <a class="fmt rv" href="#" data-price>
+    <div class="big fill" style="background-position-x:-70%">Логистика</div>
+    <div><div class="who mono">Импортёрам без своей логистики</div><p>Закупаете у плантаций сами — мы берём на себя доставку в Россию и документы.</p><span class="go"><i>→</i>Обсудить условия</span></div>
+  </a>
+  <div class="note mono rv"><span>Минимальный заказ — 1 банч</span><span>Доставляем в регионы России</span><span>Длина стебля 40–100+ см — под вашу заявку</span></div>
+</section>
+
+<!-- ============ ASSORTMENT ============ -->
+<section class="s" id="assort">
+  <div class="kicker rv"><h2>Что мы привозим</h2><p>Сорта, которые возим постоянно. Наличие и цены на ближайший рейс — в прайсе.</p></div>
+  <div class="assort rv">
+    <div class="grp"><div class="cap mono">Розы</div><ul class="sorts"><li>Explorer</li><li>Mondial</li><li>Candlelight</li><li>Esperance</li><li>Mandala</li><li>Gotcha</li><li>Pink Mondial</li><li>Red Panther</li><li>Nina</li><li>Be Sweet</li><li>Pink Floyd</li><li>Kahala</li><li>Full Monty</li><li>Lola</li><li>Mandarin X-pression</li><li>Playa Blanca</li><li>Country Blues</li><li>Silantoi</li><li>Frutteto</li><li>Freedom</li><li>Iguazu</li><li>Hermosa</li></ul></div>
+    <div class="grp"><div class="cap mono">Кустовые розы</div><ul class="sorts sm"><li>SP — спрей-розы разных сортов</li></ul></div>
+    <div class="grp"><div class="cap mono">Не только розы</div><ul class="sorts sm"><li>Гвоздика стандартная</li><li>Гвоздика мини</li><li>Альстромерия</li><li>Гипсофила</li><li>Гортензия</li><li>Маттиола</li><li>Лимониум</li><li>Статица</li><li>Ранункулюс</li></ul></div>
+    <div class="afoot"><span class="mono">Длина стебля 40–100+ см · другие сорта — под заказ</span><button class="pill" data-price>Запросить прайс с наличием</button></div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="s" id="process">
+  <div class="kicker rv"><h2>Четыре шага до&nbsp;получения</h2><p>Каждую партию ведём сами — от заявки до документов.</p></div>
+  <ol class="steps" id="steps" style="list-style:none;margin:0;padding:0">
+    <li class="step"><span class="n">1</span><h3>Заявка</h3><p>Сорта, длина стебля, количество коробок.</p></li>
+    <li class="step"><span class="n">2</span><h3>Закупка</h3><p>Размещаем заказ на плантациях.</p></li>
+    <li class="step"><span class="n">3</span><h3>Доставка</h3><p>Вылеты в среду и воскресенье; через 7–10 дней после вылета цветы на складе в Санкт-Петербурге.</p></li>
+    <li class="step"><span class="n">4</span><h3>Получение</h3><p>Со склада или с доставкой в ваш регион, с полным комплектом документов.</p></li>
+  </ol>
+</section>
+
+<!-- ============ SCHEDULE ============ -->
+<section class="s" id="schedule">
+  <div class="kicker rv"><h2>Среда и&nbsp;воскресенье. Каждую неделю</h2><p>Постоянный график — можно планировать продажи заранее.</p></div>
+  <div class="sched rv">
+    <div><div class="week" id="week"></div><div class="cap-under mono">Через 7–10 дней после вылета цветы на складе в Санкт-Петербурге</div></div>
+    <div class="next">
+      <span class="mono">Ближайший вылет</span>
+      <div class="d" id="nd">—</div>
+      <dl><dt>На складе в СПб</dt><dd id="na">—</dd><dt>Следующий вылет</dt><dd id="nn">—</dd></dl>
+      <div class="cut"><span class="mono">Приём заявок на этот рейс</span><b id="cutT">—</b><small id="cutD"></small></div>
+      <small>Даты рассчитаны по графику и ориентировочны. Точные сроки по вашему заказу уточняйте у нас.</small>
+      <button class="pill" data-price>Успеть к этому вылету</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY ============ -->
+<section class="s" id="why">
+  <div class="why">
+    <h2 class="kicker rv" style="display:block"><span style="font:300 clamp(34px,4.4vw,72px)/1.02 Unbounded;letter-spacing:-.045em">Порядок в&nbsp;каждой партии</span></h2>
+    <ol class="rv">
+      <li><span class="mono">01</span><div><h3>Стабильные вылеты</h3><p>Два раза в неделю по постоянному графику — можно планировать продажи заранее.</p></div></li>
+      <li><span class="mono">02</span><div><h3>Несколько плантаций в&nbsp;одной партии</h3><p>Заказ не привязан к одной ферме.</p></div></li>
+      <li><span class="mono">03</span><div><h3>Проверенные документы</h3><p>По каждой партии сверяем инвойсы, сертификаты и пакинг: номера, вес, количество коробок. Плантация указана по каждой позиции.</p></div></li>
+      <li><span class="mono">04</span><div><h3>Прозрачные расчёты</h3><p>По каждому клиенту ведём выписку: инвойсы, оплаты, рекламации, остаток.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="s" id="reviews">
+  <div class="kicker rv"><h2>Что пишут о нас</h2><p>Отзывы покупателей на Яндекс Картах — без правок. Там же можно прочитать все, включая критические.</p></div>
+  <a class="yarate rv" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener">
+    <span class="mono">Яндекс Карты · Home roses</span>
+    <b>4,4</b><span class="stars" role="img" aria-label="Рейтинг 4,4 из 5"><i style="width:88%"></i></span>
+    <span class="mono">10 оценок · 9 отзывов</span>
+    <span class="go"><i>→</i>Все отзывы</span>
+  </a>
+  <div class="revs rv"><a class="rev" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener"><div class="rh"><b>Pavel Voronov</b><span class="mono">22 декабря 2025</span></div><p>Отличное место с дружелюбным и компетентным персоналом. Приятные цены, минимальная покупка- упаковка (25шт.) На месте можно подарочно упаковать. Рассказали про каждый сорт, какой будет когда распустится полностью, будет запах или нет. Может делать индивидуальные заказы от одной упаковки за 7 дней.</p><span class="src mono">Яндекс Карты ↗</span></a><a class="rev" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener"><div class="rh"><b>Лейла Лейла</b><span class="mono">24 августа 2025</span></div><p>Большой выбор цветов и очень демократичные цены для оптовиков</p><span class="src mono">Яндекс Карты ↗</span></a><a class="rev" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener"><div class="rh"><b>teenw</b><span class="mono">25 декабря 2025</span></div><p>Невероятный выбор, да ещё и такой свежак, только-только привезли поставку 😍 Супер!! Пахло ВО, КРАСОТА 💐💐💐</p><span class="src mono">Яндекс Карты ↗</span></a><a class="rev" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener"><div class="rh"><b>Евгения Стёпочкина</b><span class="mono">10 апреля 2026</span></div><p>Лучшие цветы в СПБ и ЛО</p><span class="src mono">Яндекс Карты ↗</span></a></div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="s gallery" id="photos">
+  <div class="kicker rv"><h2>Так выглядят наши поставки</h2><p>Реальные фото с нашего склада. Новые партии публикуем в <a href="https://t.me/hr_LTDA" target="_blank" rel="noopener">Telegram-группе</a>.</p></div>
+  <div class="reel" id="reel" data-photos="01,06,07,10,12,15,18,20,23,27,29,31,03,08,11,16,21,24,30,34,35,36,40,41"></div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="s" id="faq">
+  <div class="kicker rv"><h2>Частые вопросы</h2></div>
+  <div class="faq rv">
+    <details><summary>Какой минимальный заказ?<i></i></summary><p>Минимальный заказ — 1 банч.</p></details>
+    <details><summary>Сколько ждать цветы под заказ?<i></i></summary><p>Вылеты два раза в неделю — в среду и воскресенье. Через 7–10 дней после вылета цветы на складе в Санкт-Петербурге.</p></details>
+    <details><summary>Можно купить без ожидания рейса?<i></i></summary><p>Да. Со склада в Санкт-Петербурге продаём цветы в наличии. Напишите нам — расскажем, что есть сейчас.</p></details>
+    <details><summary>Доставляете в регионы?<i></i></summary><p>Да. Цветы можно забрать со склада или получить с доставкой в ваш регион.</p></details>
+    <details><summary>Какие документы я получу?<i></i></summary><p>Полный комплект документов по партии. По каждой позиции указаны плантация, сорт, длина стебля и количество стеблей. Инвойсы, сертификаты и пакинг мы сверяем: номера, вес, количество коробок.</p></details>
+    <details><summary>Можно собрать заказ с разных плантаций?<i></i></summary><p>Да. В одной партии может быть несколько плантаций — заказ не привязан к одной ферме.</p></details>
+    <details><summary>Как учитываются оплаты и рекламации?<i></i></summary><p>По каждому клиенту ведём выписку: инвойсы, оплаты, рекламации, остаток.</p></details>
+    <details><summary>Как получить прайс?<i></i></summary><p>Напишите нам в Telegram, WhatsApp или на почту — пришлём актуальный прайс.</p></details>
+  </div>
+</section>
+
+<!-- ============ CONTACTS ============ -->
+<section class="s contacts" id="contacts">
+  <div class="homeword fill" aria-hidden="true">ДОМ</div>
+  <div class="kicker"><h2>Запросите прайс — ответим в&nbsp;мессенджере</h2><p>Склад HOME ROSES в Санкт-Петербурге. Импортируем цветы с 2018 года.</p></div>
+  <div class="cgrid">
+    <ul class="clist">
+      <li><span class="k">Контактное лицо</span><span>Рахман</span></li>
+      <li><span class="k">Телефон</span><span><a href="tel:+79312220042">+7 931 222-00-42</a></span></li>
+      <li><span class="k">WhatsApp и Telegram</span><span><a href="tel:+79119624242">+7 911 962-42-42</a></span></li>
+      <li><span class="k">Почта</span><span><a data-mail href="#">invoice.2007@mail.ru</a></span></li>
+      <li><span class="k">Склад</span><span><a id="mapLink" href="#" target="_blank" rel="noopener">Санкт-Петербург, пос. Шушары, 1-й Бадаевский, 9А</a><span class="lat mono">59°48′ с. ш. · 30°24′ в. д.</span></span></li>
+    </ul>
+    <div class="channels">
+      <a class="pill solid" data-tg href="#" target="_blank" rel="noopener">Telegram<span class="mono">@home_roses_ltda</span></a>
+      <a class="pill" data-wa href="#" target="_blank" rel="noopener">WhatsApp<span class="mono">+7 911 962-42-42</span></a>
+      <a class="pill" href="https://t.me/hr_LTDA" target="_blank" rel="noopener">Группа с фото<span class="mono">t.me/hr_LTDA</span></a>
+      <a class="pill" href="https://instagram.com/homeroses_" target="_blank" rel="noopener">Instagram*<span class="mono">@homeroses_</span></a>
+    </div>
+  </div>
+</section>
+</main>
+<footer><span>© <span id="year"></span> HOME ROSES · Импорт цветов с 2018 года · Санкт-Петербург</span><span>Широты стран указаны по столицам: Кито, Богота, Амстердам. Склад — Шушары, 59°48′ с. ш.</span>
+<p>* Instagram принадлежит компании Meta, признанной экстремистской организацией и запрещённой на территории РФ. Фотографии на сайте — реальные, с нашего склада.</p></footer>
+
+<dialog id="dlg" aria-labelledby="dlgT"><div class="dlg">
+  <button class="x" data-close aria-label="Закрыть">×</button>
+  <h3 id="dlgT">Запросить прайс</h3>
+  <p>Выберите, куда удобнее написать. Текст сообщения уже подготовлен.</p>
+  <div class="channels">
+    <a class="pill solid" data-tg href="#" target="_blank" rel="noopener">Telegram<span class="mono">@home_roses_ltda</span></a>
+    <a class="pill" data-wa href="#" target="_blank" rel="noopener">WhatsApp<span class="mono">+7 911 962-42-42</span></a>
+    <a class="pill" data-mail href="#">Почта<span class="mono">invoice.2007@mail.ru</span></a>
+  </div>
+</div></dialog>
+
+<script>
+(() => {
+/* ---------- contacts & price dialog ---------- */
+const MSG = 'Здравствуйте! Хочу получить прайс HOME ROSES.';
+const L = {
+  tg: 'https://t.me/home_roses_ltda?text=' + encodeURIComponent(MSG),
+  wa: 'https://wa.me/79119624242?text=' + encodeURIComponent(MSG),
+  mail: 'mailto:invoice.2007@mail.ru?subject=' + encodeURIComponent('Запрос прайса HOME ROSES') + '&body=' + encodeURIComponent(MSG + '\n\nСорта:\nДлина стебля:\nКоличество коробок:\nГород доставки:'),
+};
+document.querySelectorAll('[data-tg]').forEach(a => a.href = L.tg);
+document.querySelectorAll('[data-wa]').forEach(a => a.href = L.wa);
+document.querySelectorAll('[data-mail]').forEach(a => a.href = L.mail);
+document.getElementById('mapLink').href = 'https://yandex.ru/maps/?text=' + encodeURIComponent('Санкт-Петербург, посёлок Шушары, 1-й Бадаевский, 9А');
+document.getElementById('year').textContent = new Date().getFullYear();
+const dlg = document.getElementById('dlg');
+document.querySelectorAll('[data-price]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); dlg.showModal ? dlg.showModal() : location.hash = '#contacts'; }));
+dlg.querySelector('[data-close]').addEventListener('click', () => dlg.close());
+dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+
+/* ---------- the chain ---------- */
+// each word hides the next one inside its «О»; inside the «О» you already see the next world's colour
+const CHAIN = [
+  {w: 'РОЗЫ',      o: 1, nav: 'Розы',      bg: '#EEE8E0', fg: '#17120F', pos: '0%'},
+  {w: 'EC CO NL', o: 4, nav: 'Плантации', bg: '#1D3A2F', fg: '#ECE6D8', pos: '-40%', coord: 'Напрямую с плантаций', name: 'Эквадор · 0°13′ ю. ш.\nКолумбия · 4°36′ с. ш.\nГолландия · 52°22′ с. ш.', text: 'Закупаем напрямую у плантаций. В одной партии может быть несколько ферм — плантация указана в документах по каждой позиции.', cards: ['01', '38']},
+  {w: 'ДОМ',       o: 1, nav: 'Дом',       bg: '#3D0A17', fg: '#F5E4E8', pos: '-95%', coord: '59°48′ с. ш.', name: 'Санкт-Петербург · Шушары', text: 'Через 7–10 дней после вылета цветы на нашем складе.', cards: ['10', '41']},
+];
+const N = CHAIN.length, TAIL = .3;               // extra scroll to rest on ДОМ
+const nav = document.getElementById('nav'), stage = document.getElementById('stage'), chainEl = document.getElementById('chain'), portal = document.getElementById('portal');
+const wordsEl = document.getElementById('words'), cardsEl = document.getElementById('cards'), place = document.getElementById('place');
+const els = CHAIN.map(c => {
+  const e = document.createElement('div'); e.className = 'word fill';
+  e.innerHTML = [...c.w].map((ch, i) => i === c.o ? `<span class="o">${ch}</span>` : ch).join('');
+  e.style.backgroundPositionX = c.pos; wordsEl.appendChild(e); return e;
+});
+// floating photo cards: two per world, drifting past as you fly
+const CARDS = [];
+CHAIN.forEach((c, j) => (c.cards || []).forEach((id, k) => {
+  const d = document.createElement('figure'); d.className = 'card'; d.style.margin = 0;
+  d.innerHTML = `<img src="img/w/p${id}.webp" alt="" loading="lazy"><span class="mono">Склад СПб · реальное фото</span>`;
+  cardsEl.appendChild(d); CARDS.push({el: d, j, k});
+}));
+const twins = CHAIN.map((c, j) => { const t = els[j].cloneNode(true); t.className = 'word solid'; t.style.backgroundPositionX = ''; wordsEl.appendChild(t); return t; });
+const PHOTO = ['', 'img/p38.webp', 'img/p10.webp'];
+PHOTO.forEach(src => { if (src) { const im = new Image(); im.src = src; im.decode && im.decode().catch(() => {}); } });
+const worlds = document.getElementById('worlds');
+worlds.innerHTML = CHAIN.map((c, j) => `<button data-j="${j}">${c.nav}</button>`).join('');
+let G = [], W = 0, H = 0, D = 0;
+// rasterise the «О» once and find its counter (the hole): centre and diameter relative to the letter's box
+const holeCv = document.createElement('canvas'), holeCtx = holeCv.getContext('2d', {willReadFrequently: true});
+function counter(span) {
+  const cs = getComputedStyle(span), font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+  holeCtx.font = font;
+  const m = holeCtx.measureText(span.textContent), asc = Math.ceil(m.fontBoundingBoxAscent), desc = Math.ceil(m.fontBoundingBoxDescent);
+  holeCv.width = Math.ceil(m.width + 4); holeCv.height = asc + desc;
+  holeCtx.font = font; holeCtx.fillStyle = '#000'; holeCtx.fillText(span.textContent, 0, asc);
+  const px = holeCtx.getImageData(0, 0, holeCv.width, holeCv.height).data, ink = (x, y) => px[(y * holeCv.width + x) * 4 + 3] > 120;
+  const midY = Math.round(asc - (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2);
+  const midX = Math.round((m.actualBoundingBoxRight - m.actualBoundingBoxLeft) / 2);
+  if (ink(midX, midY)) return null;
+  let l = midX, r = midX, t = midY, b = midY;
+  while (l > 0 && !ink(l - 1, midY)) l--;
+  while (r < holeCv.width - 1 && !ink(r + 1, midY)) r++;
+  const hx = Math.round((l + r) / 2);
+  while (t > 0 && !ink(hx, t - 1)) t--;
+  while (b < holeCv.height - 1 && !ink(hx, b + 1)) b++;
+  return {x: (l + r + 1) / 2, y: (t + b + 1) / 2, d: Math.min(r - l + 1, b - t + 1)};
+}
+function measure() {
+  W = stage.clientWidth; H = stage.clientHeight; D = Math.hypot(W, H) * 1.04;
+  G = els.map(e => {
+    e.style.transform = 'none'; e.style.fontSize = '';
+    const fit = W * (W < 900 ? .9 : .74), r0 = e.getBoundingClientRect();
+    if (r0.width > fit) e.style.fontSize = parseFloat(getComputedStyle(e).fontSize) * fit / r0.width + 'px';
+    const span = e.querySelector('.o'), r = e.getBoundingClientRect(), o = span.getBoundingClientRect(), hole = counter(span);
+    twins[els.indexOf(e)].style.fontSize = e.style.fontSize;
+    return hole ? {w: r.width, h: r.height, ox: o.left - r.left + hole.x, oy: o.top - r.top + hole.y, hd: hole.d}
+                : {w: r.width, h: r.height, ox: o.left - r.left + o.width / 2, oy: o.top - r.top + o.height * .52, hd: o.width * .34};
+  });
+  portal.style.width = portal.style.height = D + 'px';
+}
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x)), seg = (p, a, b) => clamp((p - a) / (b - a));
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const VARS = {}; const setVar = (k, v) => { if (VARS[k] !== v) { VARS[k] = v; document.documentElement.style.setProperty(k, v); } };
+let shownPlace = -1;
+function showPlace(j) {
+  if (j === shownPlace) return; shownPlace = j;
+  place.classList.add('swap');
+  setTimeout(() => {
+    const c = CHAIN[j];
+    document.getElementById('coord').textContent = c.coord || '';
+    document.getElementById('pname').innerHTML = (c.name || '').split('\n').map(x => `<span>${x}</span>`).join('');
+    document.getElementById('ptext').textContent = c.text || '';
+    place.classList.remove('swap');
+  }, 260);
+}
+function chainFrame() {
+  const r = chainEl.getBoundingClientRect(), span = chainEl.offsetHeight - innerHeight;
+  const p = clamp(-r.top / span), T = p * (N - 1 + TAIL);
+  const i = Math.min(N - 1, Math.floor(T)), u = clamp(T - i), last = i === N - 1;
+  const C = [W / 2, H * (W < 900 ? .4 : H < 820 ? .44 : .5)], g = G[i];
+  const left = C[0] - g.w / 2, top = C[1] - g.h / 2, Pi = [left + g.ox, top + g.oy];
+  els.forEach((e, j) => { e.style.visibility = (j === i || j === i + 1) ? 'visible' : 'hidden'; e.style.opacity = 1; });
+  twins.forEach(t => t.style.visibility = 'hidden');
+  els[i].style.zIndex = 3;
+  stage.style.background = CHAIN[i].bg;
+  if (!last) {
+    const n = G[i + 1];
+    // zoom factor: next word must sit inside the «О», and the portal disc must start inside the counter
+    const K = Math.max(n.w / (g.hd * .8), D / (g.hd * .97)), e = ease(u), k = Math.pow(K, e);
+    const tx = left - (Pi[0] - C[0]) * e + (k - 1) * (left - Pi[0]), ty = top - (Pi[1] - C[1]) * e + (k - 1) * (top - Pi[1]);
+    els[i].style.transform = `translate(${tx}px,${ty}px) scale(${k})`;
+    const s = k / K, cx = Pi[0] - (Pi[0] - C[0]) * e, cy = Pi[1] - (Pi[1] - C[1]) * e;
+    els[i + 1].style.zIndex = 2;
+    els[i + 1].style.transform = `translate(${cx - n.w * s / 2}px,${cy - n.h * s / 2}px) scale(${s})`;
+    portal.style.visibility = 'visible';
+    const pimg = document.getElementById('pimg'); if (!pimg.src.endsWith(PHOTO[i + 1])) pimg.src = PHOTO[i + 1];
+    // photo window: sharp roses while small, then it dissolves into the next world's colour as it fills the screen
+    portal.style.setProperty('--pc', CHAIN[i + 1].bg);
+    portal.style.setProperty('--po', .18 + .82 * seg(u, .5, .92));
+    portal.style.setProperty('--pz', 1.35 - .3 * e);
+    const fillIn = seg(u, .72, .95);
+    twins[i + 1].style.visibility = 'visible'; twins[i + 1].style.zIndex = 2;
+    twins[i + 1].style.transform = `translate(${cx - n.w * s / 2}px,${cy - n.h * s / 2}px) scale(${s})`;
+    const appear = Math.pow(seg(u, .04, .97), 2.2);   // ~5% at a quarter, ~22% halfway, solid only at the end
+    portal.style.opacity = appear;
+    twins[i + 1].style.opacity = (1 - fillIn) * appear; els[i + 1].style.opacity = fillIn * appear;
+    portal.style.transform = `translate(${cx - D * s / 2}px,${cy - D * s / 2}px) scale(${s})`;
+  } else {
+    els[i].style.transform = `translate(${left}px,${top}px)`;
+    portal.style.visibility = 'hidden';
+  }
+  // UI colour follows whichever world fills most of the screen
+  const cw = !last && u > .78 ? CHAIN[i + 1] : CHAIN[i];
+  if (stage.style.color !== cw.fg) stage.style.color = cw.fg;
+  const inChain = r.bottom > 60, ct = document.getElementById('contacts').getBoundingClientRect().top < 60;
+  const rr = document.getElementById('route').getBoundingClientRect(), inRoute = rr.top < 60 && rr.bottom > 60;
+  nav.classList.toggle('bar', r.bottom < innerHeight - 2);
+  setVar('--fg', inChain ? cw.fg : inRoute ? '#ECE6D8' : ct ? '#F5E4E8' : '#17120F'); setVar('--bg', inChain ? cw.bg : inRoute ? '#1D3A2F' : ct ? '#3D0A17' : '#EEE8E0');
+  // texts
+  const focus = !last && u > .78 ? i + 1 : i;
+  document.getElementById('intro').style.opacity = 1 - seg(T, .02, .16);
+  document.getElementById('intro').style.pointerEvents = T < .1 ? 'auto' : 'none';
+  if (focus > 0) showPlace(focus);
+  place.style.opacity = focus === 0 || (last && u > .04) ? 0 : (u > .3 && u < .78 && !last ? 1 - seg(u, .3, .55) : 1);
+  const home = document.getElementById('home'); home.style.opacity = last ? seg(u, .04, .16) : 0; home.style.pointerEvents = last && u > .08 ? 'auto' : 'none';
+  [...worlds.children].forEach((b, j) => b.classList.toggle('on', j === focus));
+  // cards drift past: they live around the arrival of their world and slide outward as the next zoom starts
+  CARDS.forEach(c => {
+    const t = T - c.j;                                           // 0 when we arrive in world j
+    const vis = seg(t, -.12, .05) * (1 - seg(t, .25, .55));
+    const side = c.k === 0 ? -1 : 1, mob = W < 900;
+    const cwid = c.el.offsetWidth, chei = cwid * 4 / 3 + 30;
+    const bx = mob ? (c.k === 0 ? W * .06 : W * .94 - cwid) : (c.k === 0 ? W * .1 : W * .86 - cwid), by = mob ? (c.k === 0 ? H * .13 : H * .6) : (c.k === 0 ? Math.max(84, H * .5 - G[c.j].h / 2 - chei - 10) : Math.min(H - chei - 20, H * .5 + G[c.j].h / 2 + 14));
+    const push = Math.max(0, t) * 260 * side;
+    c.el.style.opacity = vis;
+    c.el.style.transform = `translate(${bx + push}px,${by + Math.max(0, t) * 60 * side}px) rotate(${side * (2 + t * 4)}deg)`;
+  });
+}
+worlds.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  const j = +b.dataset.j, span = chainEl.offsetHeight - innerHeight, y = chainEl.offsetTop + span * (j / (N - 1 + TAIL));
+  lenis ? lenis.scrollTo(y, {duration: 2.2}) : scrollTo({top: y, behavior: 'smooth'});
+});
+
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* ---------- globe ---------- */
+  (function globe() {
+    const cv = document.getElementById('globe'), ctx = cv.getContext('2d');
+    const D2R = Math.PI / 180;
+    const P = {ec:[-78.5, -0.2], co:[-74.1, 4.7], nl:[4.9, 52.4], spb:[30.3, 59.9]};
+    const LABELS = [
+      {p:P.ec, t:'Эквадор', sub:'0°13′ ю. ш.', dx:-14, dy:16, al:'right'},
+      {p:P.co, t:'Колумбия', sub:'4°36′ с. ш.', dx:14, dy:-6, al:'left'},
+      {p:P.nl, t:'Голландия', sub:'52°22′ с. ш.', dx:-12, dy:20, al:'right'},
+      {p:P.spb, t:'Санкт-Петербург', sub:'59°48′ с. ш. · склад', dx:14, dy:-14, al:'left', main:true},
+    ];
+    const xyz = ([lon, lat]) => [Math.cos(lat * D2R) * Math.cos(lon * D2R), Math.cos(lat * D2R) * Math.sin(lon * D2R), Math.sin(lat * D2R)];
+    const toLL = ([x, y, z]) => [Math.atan2(y, x) / D2R, Math.asin(Math.max(-1, Math.min(1, z))) / D2R];
+    const slerp = (a, b) => { const A = xyz(a), B = xyz(b), d = Math.acos(A[0] * B[0] + A[1] * B[1] + A[2] * B[2]);
+      return {d, at: t => { const s1 = Math.sin((1 - t) * d) / Math.sin(d), s2 = Math.sin(t * d) / Math.sin(d); return toLL([A[0] * s1 + B[0] * s2, A[1] * s1 + B[1] * s2, A[2] * s1 + B[2] * s2]); }}; };
+    const ROUTES = [P.ec, P.co, P.nl].map((from, i) => {
+      const g = slerp(from, P.spb), N = 90, alt = Math.max(.1, .05 + .2 * g.d);
+      return {delay: i * 1.3, home: i === 2, pts: Array.from({length:N + 1}, (_, k) => ({ll:g.at(k / N), h:1 + alt * Math.sin(Math.PI * k / N)}))};
+    });
+    let W, dpr, R, R0, cx, cy, lon0 = 0, lat0 = 0, land = null, landAlpha = 0;
+    // scroll camera: starts over the plantations, then flies to Europe and leans in on Holland -> Saint Petersburg
+    const camT = () => { const r = cv.getBoundingClientRect(); return ease(Math.max(0, Math.min(1, (innerHeight - (r.top + r.height / 2)) / (innerHeight * .6)))); };
+    const view = () => { const e = camT(); return {l: -64 + 80 * e + lon0 + (RM ? 0 : 6 * (1 - e) * Math.sin(idle / 6000)), p: 10 + 42 * e + lat0, z: 1 + .85 * e}; };
+    // orthographic projection
+    const proj = (ll, v, k = 1) => {
+      const l = (ll[0] - v.l) * D2R, p = ll[1] * D2R, p0 = v.p * D2R;
+      const cp = Math.cos(p), cosc = Math.sin(p0) * Math.sin(p) + Math.cos(p0) * cp * Math.cos(l);
+      const x = cp * Math.sin(l), y = Math.cos(p0) * Math.sin(p) - Math.sin(p0) * cp * Math.cos(l);
+      return [cx + x * R * k, cy - y * R * k, cosc, (x * x + y * y) * k * k];
+    };
+    const resize = () => {
+      W = cv.clientWidth; dpr = Math.min(devicePixelRatio || 1, 2);
+      cv.width = cv.height = Math.round(W * dpr); R = R0 = W * dpr * .37; cx = cy = W * dpr / 2;
+      if (!running) draw(performance.now());
+    };
+    // real coastlines: Natural Earth 110m land (world-atlas)
+    const geo = d3.geoOrthographic().clipAngle(90).precision(.4), gpath = d3.geoPath(geo, ctx);
+    const cap = (lat, south) => d3.geoCircle().center([0, south ? -90 : 90]).radius(south ? 90 + lat : 90 - lat).precision(2)();
+    const CLIMATE = [ // painted from the equator outwards; every cap stays smaller than a hemisphere
+      [[cap(14), cap(-14, true)], '#6B7656'],                 // temperate
+      [[cap(14), cap(34)], '#9C8A66', 'evenodd'],             // northern deserts
+      [[cap(-18, true), cap(-34, true)], '#958566', 'evenodd'],
+      [[cap(50), cap(66)], '#5A6650', 'evenodd'],             // taiga
+      [[cap(66), cap(-60, true)], '#D4D8CF'],                 // ice
+    ];
+    fetch('vendor/land-110m.json').then(r => r.json())
+      .then(t => { land = topojson.feature(t, t.objects.land); if (!running) draw(performance.now()); }).catch(() => {});
+
+    const plane = new Path2D('M14 0 C14 -1.3 12.5 -2 11 -2 L4 -2 L-3 -11 L-6 -11 L-2 -2 L-9 -2 L-12 -6 L-14 -6 L-12 0 L-14 6 L-12 6 L-9 2 L-2 2 L-6 11 L-3 11 L4 2 L11 2 C12.5 2 14 1.3 14 0Z');
+    let idle = 0, last = 0, t0 = null, running = false, dragging = null, seen = false;
+    const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    function draw(now) {
+      if (!R) return;
+      if (t0 === null) t0 = now;
+      const t = RM ? 99 : (now - t0) / 1000, v = view();
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      R = R0 * v.z;
+      geo.rotate([-v.l, -v.p]).scale(R).translate([cx, cy]);
+      // atmosphere
+      let g = ctx.createRadialGradient(cx, cy, R * .95, cx, cy, R * 1.22);
+      g.addColorStop(0, 'rgba(150,200,220,.28)'); g.addColorStop(1, 'rgba(150,200,220,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, R * 1.22, 0, 7); ctx.fill();
+      // ocean
+      g = ctx.createRadialGradient(cx - R * .35, cy - R * .4, R * .05, cx, cy, R);
+      g.addColorStop(0, '#2B4E5C'); g.addColorStop(.65, '#16303A'); g.addColorStop(1, '#0B1A20');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.fill();
+      // graticule
+      ctx.beginPath(); gpath(d3.geoGraticule10()); ctx.strokeStyle = 'rgba(236,230,216,.05)'; ctx.lineWidth = dpr; ctx.stroke();
+      // land with soft climate zones
+      if (land) {
+        landAlpha = Math.min(1, landAlpha + .05);
+        ctx.save(); ctx.globalAlpha = landAlpha; ctx.beginPath(); gpath(land); ctx.clip();
+        ctx.fillStyle = '#56684A'; ctx.fillRect(0, 0, cv.width, cv.height);   // tropics
+        ctx.filter = `blur(${5 * dpr}px)`;
+        CLIMATE.forEach(([caps, col, rule]) => { ctx.beginPath(); caps.forEach(c => gpath(c)); ctx.fillStyle = col; ctx.fill(rule); });
+        ctx.filter = 'none'; ctx.restore();
+        ctx.globalAlpha = landAlpha; ctx.beginPath(); gpath(land); ctx.strokeStyle = 'rgba(20,30,25,.35)'; ctx.lineWidth = .8 * dpr; ctx.stroke(); ctx.globalAlpha = 1;
+      }
+      // sunlight and terminator shadow
+      g = ctx.createRadialGradient(cx - R * .45, cy - R * .5, 0, cx, cy, R * 1.05);
+      g.addColorStop(0, 'rgba(255,255,255,.14)'); g.addColorStop(.55, 'rgba(255,255,255,0)'); g.addColorStop(1, 'rgba(0,0,0,.5)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.fill();
+      ctx.strokeStyle = 'rgba(243,237,228,.18)'; ctx.lineWidth = 1.2 * dpr; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.stroke();
+
+      // routes
+      ROUTES.forEach(rt => {
+        const scr = rt.pts.map(p => proj(p.ll, v, p.h));
+        const vis = q => q[2] > 0 || q[3] > 1;
+        const reveal = Math.max(0, Math.min(1, (t - .4 - rt.delay * .5) / 1.8)), nShow = Math.floor(ease(reveal) * (scr.length - 1));
+        // faint full path
+        const s0 = scr[0], s1 = scr[scr.length - 1], lg = ctx.createLinearGradient(s0[0], s0[1], s1[0], s1[1]);
+        lg.addColorStop(0, 'rgba(240,122,146,.95)'); lg.addColorStop(1, 'rgba(217,185,140,.95)');
+        ctx.beginPath(); scr.slice(0, nShow + 1).forEach((q, k) => vis(q) && (k ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1])));
+        ctx.lineCap = 'round'; ctx.strokeStyle = `rgba(240,122,146,${rt.home ? .25 : .14})`; ctx.lineWidth = (rt.home ? 9 : 6) * dpr; ctx.stroke();
+        if (!rt.home) ctx.setLineDash([5 * dpr, 6 * dpr]);
+        ctx.strokeStyle = lg; ctx.lineWidth = (rt.home ? 2.6 : 1.8) * dpr; ctx.stroke();
+        ctx.setLineDash([]);
+        if (reveal < 1) return;
+        // plane + glowing trail
+        const T = 5.5, u = RM ? .58 : ease(((t - rt.delay) % T + T) % T / T), pos = u * (scr.length - 1), k = Math.floor(pos);
+        const tail = Math.max(0, k - 28);
+        for (let j = tail; j < k; j++) {
+          const a = scr[j], b = scr[j + 1]; if (!vis(a) || !vis(b)) continue;
+          const f = (j - tail) / Math.max(1, k - tail);
+          ctx.strokeStyle = `rgba(255,214,224,${f})`; ctx.lineWidth = (1.2 + f * 3) * dpr;
+          ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+        }
+        const a = scr[Math.min(k, scr.length - 2)], b = scr[Math.min(k + 1, scr.length - 1)], fr = pos - k;
+        if (vis(a)) {
+          const x = a[0] + (b[0] - a[0]) * fr, y = a[1] + (b[1] - a[1]) * fr, ang = Math.atan2(b[1] - a[1], b[0] - a[0]);
+          const fade = Math.min(1, u * 12, (1 - u) * 12);
+          ctx.save(); ctx.globalAlpha = fade; ctx.translate(x, y); ctx.rotate(ang); ctx.scale((rt.home ? 1.3 : 1.1) * dpr, (rt.home ? 1.3 : 1.1) * dpr);
+          ctx.shadowColor = 'rgba(240,122,146,.9)'; ctx.shadowBlur = 14 * dpr; ctx.fillStyle = '#FFF4EA'; ctx.fill(plane); ctx.restore();
+        }
+      });
+      // markers + labels
+      LABELS.forEach(L => {
+        const q = proj(L.p, v); if (q[2] <= 0) return;
+        const col = L.main ? '217,185,140' : '240,122,146', r0 = (L.main ? 6 : 4.2) * dpr;
+        const ph = RM ? .5 : (((t * .55 + (L.main ? .5 : L.p[0] / 50)) % 1) + 1) % 1;
+        ctx.strokeStyle = `rgba(${col},${1 - ph})`; ctx.lineWidth = 1.4 * dpr; ctx.beginPath(); ctx.arc(q[0], q[1], r0 + ph * 18 * dpr, 0, 7); ctx.stroke();
+        const gl = ctx.createRadialGradient(q[0], q[1], 0, q[0], q[1], r0 * 4); gl.addColorStop(0, `rgba(${col},.55)`); gl.addColorStop(1, `rgba(${col},0)`);
+        ctx.fillStyle = gl; ctx.beginPath(); ctx.arc(q[0], q[1], r0 * 4, 0, 7); ctx.fill();
+        ctx.fillStyle = `rgb(${col})`; ctx.beginPath(); ctx.arc(q[0], q[1], r0, 0, 7); ctx.fill();
+        ctx.textAlign = L.al; ctx.shadowColor = 'rgba(0,0,0,.85)'; ctx.shadowBlur = 8 * dpr;
+        ctx.font = `700 ${(L.main ? 14 : 12.5) * dpr}px "Golos Text", sans-serif`; ctx.fillStyle = '#F3EDE4';
+        // flip the label to the other side when it would run off the canvas
+        let dx = L.dx * dpr, al = L.al;
+        // small globe (phones): latitudes are already in the list above, keep only «склад»
+        const sub = W < 480 ? (L.main ? 'склад' : '') : L.sub;
+        let tw = ctx.measureText(L.t).width;
+        if (sub) { const f = ctx.font; ctx.font = `400 ${10 * dpr}px "Martian Mono", monospace`; tw = Math.max(tw, ctx.measureText(sub).width); ctx.font = f; }
+        if (al === 'left' && q[0] + dx + tw > cv.width - 4 * dpr) { al = 'right'; dx = -dx; }
+        if (al === 'right' && q[0] + dx - tw < 4 * dpr) { al = 'left'; dx = -dx; }
+        ctx.textAlign = al;
+        ctx.fillText(L.t, q[0] + dx, q[1] + L.dy * dpr);
+        if (sub) { ctx.font = `400 ${10 * dpr}px "Martian Mono", monospace`; ctx.fillStyle = '#D9B98C'; ctx.fillText(sub, q[0] + dx, q[1] + (L.dy + 15) * dpr); }
+        ctx.shadowBlur = 0;
+      });
+    }
+    function loop(now) {
+      if (!running) return;
+      if (!dragging) idle += now - (last || now);
+      last = now; draw(now); requestAnimationFrame(loop);
+    }
+    new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting && !RM && !running) { if (!seen) { seen = true; t0 = null; } running = true; last = 0; requestAnimationFrame(loop); }
+      if (!e.isIntersecting) running = false;
+    })).observe(cv);
+    // drag to rotate
+    cv.addEventListener('pointerdown', e => { dragging = {x:e.clientX, y:e.clientY, l:lon0, p:lat0}; cv.setPointerCapture(e.pointerId); });
+    cv.addEventListener('pointermove', e => {
+      if (!dragging) return;
+      const k = 180 / (R / dpr) / Math.PI;
+      lon0 = dragging.l - (e.clientX - dragging.x) * k; lat0 = Math.max(-30, Math.min(30, dragging.p + (e.clientY - dragging.y) * k));
+      if (!running) draw(performance.now());
+    });
+    const up = () => { dragging = null; };
+    cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+    new ResizeObserver(resize).observe(cv);
+    if (RM) addEventListener('scroll', () => draw(performance.now()), {passive: true});
+    document.fonts && document.fonts.ready.then(() => !running && draw(performance.now()));
+  })();
+
+
+/* ---------- sections ---------- */
+document.getElementById('reel').innerHTML = (h => h + h)(document.getElementById('reel').dataset.photos.split(',').map(n => `<img src="img/w/p${n}.webp" alt="Цветы в коробке на складе HOME ROSES" loading="lazy">`).join(''));
+const DAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'], FLY = [2, 6];
+document.getElementById('week').innerHTML = DAYS.map((d, i) => `<div class="${FLY.includes(i) ? 'fly' : ''}"><b>${d}</b><span class="mono">${FLY.includes(i) ? 'вылет' : '—'}</span></div>`).join('');
+const fmt = (d, o) => d.toLocaleDateString('ru-RU', o), add = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+const today = new Date(); today.setHours(0, 0, 0, 0);
+const flights = []; for (let d = new Date(today); flights.length < 2; d = add(d, 1)) if (FLY.includes((d.getDay() + 6) % 7) && d > today) flights.push(d);
+document.getElementById('nd').textContent = fmt(flights[0], {weekday: 'long', day: 'numeric', month: 'long'}).replace(/^./, c => c.toUpperCase());
+document.getElementById('na').textContent = `${fmt(add(flights[0], 7), {day: 'numeric', month: 'long'})} – ${fmt(add(flights[0], 10), {day: 'numeric', month: 'long'})}`;
+document.getElementById('nn').textContent = fmt(flights[1], {weekday: 'long', day: 'numeric', month: 'long'});
+const GEN = ['воскресенья', 'понедельника', 'вторника', 'среды', 'четверга', 'пятницы', 'субботы'];
+const cutDay = add(flights[0], -1), cutAt = Date.UTC(cutDay.getFullYear(), cutDay.getMonth(), cutDay.getDate(), 20, 59, 59);   // 23:59:59 MSK
+document.getElementById('cutD').textContent = `Заявки принимаем накануне вылета — до 23:59 ${GEN[cutDay.getDay()]} по Москве`;
+const tickCut = () => {
+  const m = Math.floor((cutAt - Date.now()) / 60000), d = Math.floor(m / 1440), h = Math.floor(m % 1440 / 60);
+  document.getElementById('cutT').textContent = m < 0 ? 'приём на этот рейс закрыт' : 'осталось ' + (d ? `${d} д ` : '') + (d || h ? `${h} ч ` : '') + `${m % 60} мин`;
+};
+tickCut(); setInterval(tickCut, 30000);
+/* ---------- GSAP polish (the chain stays hand-driven; GSAP only takes the sections below it) ---------- */
+const GS = !!(window.gsap && window.ScrollTrigger);
+if (GS) {
+  gsap.registerPlugin(ScrollTrigger, ...(window.SplitText ? [SplitText] : []));
+  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+    const inView = el => ({trigger: el, start: 'top 88%', once: true});
+    // headings: lines rise out of a mask, the rest of the block follows
+    if (window.SplitText) document.querySelectorAll('.kicker > h2, h2.kicker > span, .route h2').forEach(h => {
+      const host = h.closest('.rv') || h.parentElement; host.classList.remove('rv');
+      // SplitText turns &nbsp; into plain spaces, so keep such word pairs together explicitly
+      h.innerHTML = h.innerHTML.replace(/[^\s<>]+(?:&nbsp;[^\s<>]+)+/g, m => `<span style="white-space:nowrap">${m}</span>`);
+      SplitText.create(h, {type: 'lines', mask: 'lines', autoSplit: true,
+        onSplit: sp => gsap.from(sp.lines, {yPercent: 110, duration: 1.1, ease: 'expo.out', stagger: .09, scrollTrigger: inView(h)})});
+      const rest = [...host.children].filter(c => c !== h && !c.contains(h));
+      if (rest.length) gsap.from(rest, {opacity: 0, y: 18, duration: 1, ease: 'power3.out', delay: .2, stagger: .08, scrollTrigger: inView(h)});
+    });
+    // reasons appear one by one
+    document.querySelectorAll('.why ol').forEach(ol => {
+      ol.classList.remove('rv');
+      gsap.from(ol.children, {opacity: 0, y: 24, duration: .9, ease: 'power3.out', stagger: .12, scrollTrigger: {trigger: ol, start: 'top 85%', once: true}});
+    });
+    // photo-filled words: the photo slides inside the letters with the scroll
+    document.querySelectorAll('.fmt .big, .homeword').forEach(b => gsap.fromTo(b, {backgroundPositionY: '0%'},
+      {backgroundPositionY: '100%', ease: 'none', scrollTrigger: {trigger: b, start: 'top bottom', end: 'bottom top', scrub: true}}));
+  });
+}
+const rv = [...document.querySelectorAll('.rv')], stepsEl = document.getElementById('steps'), steps = [...stepsEl.children];
+function sectionsFrame() {
+  const vh = innerHeight;
+  rv.forEach(el => { if (!el.classList.contains('in') && el.getBoundingClientRect().top < vh * .86) el.classList.add('in'); });
+  const sr = stepsEl.getBoundingClientRect(), sp = clamp((vh * .75 - sr.top) / (sr.height + vh * .25));
+  stepsEl.style.setProperty('--prog', sp * 100 + '%');
+  steps.forEach((s, i) => s.classList.toggle('on', sp >= i / (steps.length - 1) - .02));
+}
+
+/* ---------- loop ---------- */
+const lenis = window.Lenis ? new Lenis({lerp: .085}) : null;
+document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+  const id = a.getAttribute('href'); if (id.length < 2 || a.hasAttribute('data-price')) return;
+  const t = document.querySelector(id); if (!t) return; e.preventDefault();
+  lenis ? lenis.scrollTo(t, {duration: 1.6}) : t.scrollIntoView({behavior: 'smooth'});
+}));
+// one clock for everything: Lenis, the chain and the section reveals run on GSAP's ticker when it is there
+const tick = t => { if (lenis) lenis.raf(t); if (G.length) chainFrame(); sectionsFrame(); };
+function frame(t) { tick(t); requestAnimationFrame(frame); }
+if (GS && lenis) lenis.on('scroll', ScrollTrigger.update);
+(document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+  measure();
+  if (GS) { gsap.ticker.lagSmoothing(0); gsap.ticker.add(time => tick(time * 1000)); ScrollTrigger.refresh(); }
+  else requestAnimationFrame(frame);
+});
+addEventListener('resize', measure);
+// preview helpers: ?p=0..1 scrolls through the chain, ?y=n jumps n screens down
+const Q = new URLSearchParams(location.search);
+if (Q.has('shot')) document.documentElement.classList.add('shot-mode');
+if (Q.has('p') || Q.has('y')) addEventListener('load', () => setTimeout(() => {
+  const y = Q.has('p') ? chainEl.offsetTop + (chainEl.offsetHeight - innerHeight) * +Q.get('p') : +Q.get('y') * innerHeight;
+  lenis ? lenis.scrollTo(y, {immediate: true}) : scrollTo(0, y);
+  if (Q.has('shot')) rv.forEach(el => el.classList.add('in'));
+}, 400));
+})();
+</script>
+</body>
+</html>

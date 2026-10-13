@@ -1,0 +1,8 @@
+# working files, not part of the published site
+mocks/
+photos/
+.claude/
+img/*
+!img/p10.webp
+!img/p38.webp
+!img/w/
