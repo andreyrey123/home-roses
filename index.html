@@ -19,7 +19,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Florist", "name": "HOME ROSES", "description": "Импорт срезанных цветов из Эквадора, Колумбии и Голландии. Оптом под заказ и со склада в Санкт-Петербурге.", "image": "https://andreyrey123.github.io/home-roses/og.jpg", "url": "https://andreyrey123.github.io/home-roses/", "telephone": ["+7 931 222-00-42", "+7 911 962-42-42"], "email": "invoice.2007@mail.ru", "foundingDate": "2018", "priceRange": "от 1 банча", "address": {"@type": "PostalAddress", "streetAddress": "1-й Бадаевский проезд, 9А", "addressLocality": "посёлок Шушары, Санкт-Петербург", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 59.808188, "longitude": 30.402877}, "areaServed": "RU", "sameAs": ["https://t.me/hr_LTDA", "https://instagram.com/homeroses_", "https://yandex.ru/maps/org/home_roses/168479410734/"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Florist", "name": "HOME ROSES", "description": "Импорт срезанных цветов из Эквадора, Колумбии и Голландии. Оптом под заказ и со склада в Санкт-Петербурге.", "image": "https://andreyrey123.github.io/home-roses/og.jpg", "url": "https://andreyrey123.github.io/home-roses/", "telephone": ["+7 931 222-00-42", "+7 911 962-42-42"], "foundingDate": "2018", "priceRange": "от 1 банча", "address": {"@type": "PostalAddress", "streetAddress": "1-й Бадаевский проезд, 9А", "addressLocality": "посёлок Шушары, Санкт-Петербург", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 59.808188, "longitude": 30.402877}, "areaServed": "RU", "sameAs": ["https://t.me/hr_LTDA", "https://instagram.com/homeroses_", "https://yandex.ru/maps/org/home_roses/168479410734/"]}</script>
 <link rel="preload" href="fonts/unbounded-cyrillic-c86556.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/golos-text-cyrillic-f57bdd.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
@@ -97,8 +97,6 @@ img{display:block;max-width:100%}
 .worlds button.on{opacity:1}.worlds button.on::after{width:34px}
 .worlds button:focus-visible{outline:1px solid currentColor;outline-offset:4px}
 .home{position:absolute;z-index:6;left:50%;bottom:clamp(26px,5vh,48px);transform:translateX(-50%);width:min(820px,92vw);text-align:center;opacity:0;pointer-events:none}
-.home .facts{display:flex;justify-content:center;gap:clamp(18px,3vw,44px);margin-bottom:24px}
-.home .facts b{display:block;margin-top:6px;font:300 clamp(18px,1.7vw,26px)/1.1 Unbounded;letter-spacing:-.03em;text-transform:none}
 .home .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 
 /* ---------- content sections ---------- */
@@ -139,7 +137,6 @@ section.s{padding:clamp(90px,13vw,170px) var(--pad);border-top:1px solid var(--l
 .next small{opacity:.6;font-size:12px;margin-bottom:22px}
 .next .pill{align-self:flex-start;margin-top:auto;color:#F5E4E8}
 .next .pill:hover{background:#F5E4E8;color:var(--wine)}
-.cap-under{margin-top:14px;color:var(--dim)}
 /* why */
 .why{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:clamp(20px,4vw,70px);align-items:start}
 .why h2{position:sticky;top:110px}
@@ -232,6 +229,7 @@ section.s.gallery{padding-left:0;padding-right:0;overflow:hidden}
 .clist .k{opacity:.6}
 .clist a{text-decoration:none;border-bottom:1px solid rgba(245,228,232,.4)}
 .clist a:hover{border-color:#F5E4E8}
+.reveal{all:unset;cursor:pointer;border-bottom:1px dashed rgba(245,228,232,.55)}.reveal:hover{border-bottom-style:solid}.reveal:focus-visible{outline:2px solid #F5E4E8;outline-offset:3px}
 .channels{display:grid;gap:10px;align-content:start}
 .channels .pill{justify-content:space-between;height:58px;color:#F5E4E8}
 .channels .pill:hover{background:#F5E4E8;color:var(--wine)}
@@ -259,7 +257,6 @@ dialog::backdrop{background:rgba(23,18,15,.55);backdrop-filter:blur(4px)}
   .worlds{top:auto;bottom:auto;top:90px;right:var(--pad);transform:none;gap:6px}.worlds button::after{width:8px}.worlds button.on::after{width:18px}
   .card{display:none}
   .place{max-width:none;right:var(--pad)}.place .name span{display:block}
-  .home .facts{display:grid;grid-template-columns:1fr 1fr;gap:14px 22px}
   .kicker{flex-direction:column}
   .fmt,.sched,.why,.cgrid,.route{grid-template-columns:1fr}
   .why h2{position:static}
@@ -440,7 +437,7 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
       <li><span class="k">Контактное лицо</span><span>Рахман</span></li>
       <li><span class="k">Телефон</span><span><a href="tel:+79312220042">+7 931 222-00-42</a></span></li>
       <li><span class="k">WhatsApp и Telegram</span><span><a href="tel:+79119624242">+7 911 962-42-42</a></span></li>
-      <li><span class="k">Почта</span><span><a data-mail href="#">invoice.2007@mail.ru</a></span></li>
+      <li><span class="k">Почта</span><span><button class="reveal" type="button" data-mail>Показать почту</button></span></li>
       <li><span class="k">Склад</span><span><a id="mapLink" href="#" target="_blank" rel="noopener">Санкт-Петербург, пос. Шушары, 1-й Бадаевский, 9А</a><span class="lat mono">59°48′ с. ш. · 30°24′ в. д.</span></span></li>
     </ul>
     <div class="channels">
@@ -462,7 +459,7 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
   <div class="channels">
     <a class="pill solid" data-tg href="#" target="_blank" rel="noopener">Telegram<span class="mono">@home_roses_ltda</span></a>
     <a class="pill" data-wa href="#" target="_blank" rel="noopener">WhatsApp<span class="mono">+7 911 962-42-42</span></a>
-    <a class="pill" data-mail href="#">Почта<span class="mono">invoice.2007@mail.ru</span></a>
+    <a class="pill" data-mail href="#">Почта<span class="mono">написать письмо</span></a>
   </div>
 </div></dialog>
 
@@ -473,11 +470,17 @@ const MSG = 'Здравствуйте! Хочу получить прайс HOME
 const L = {
   tg: 'https://t.me/home_roses_ltda?text=' + encodeURIComponent(MSG),
   wa: 'https://wa.me/79119624242?text=' + encodeURIComponent(MSG),
-  mail: 'mailto:invoice.2007@mail.ru?subject=' + encodeURIComponent('Запрос прайса HOME ROSES') + '&body=' + encodeURIComponent(MSG + '\n\nСорта:\nДлина стебля:\nКоличество коробок:\nГород доставки:'),
 };
 document.querySelectorAll('[data-tg]').forEach(a => a.href = L.tg);
 document.querySelectorAll('[data-wa]').forEach(a => a.href = L.wa);
-document.querySelectorAll('[data-mail]').forEach(a => a.href = L.mail);
+// e-mail is assembled only on click so scrapers find neither the address nor a mailto: link in the page
+const mailAddr = () => ['invoice', '2007'].join('.') + String.fromCharCode(64) + ['mail', 'ru'].join('.');
+const mailTo = () => 'mailto:' + mailAddr() + '?subject=' + encodeURIComponent('Запрос прайса HOME ROSES') + '&body=' + encodeURIComponent(MSG + '\n\nСорта:\nДлина стебля:\nКоличество коробок:\nГород доставки:');
+document.querySelectorAll('[data-mail]').forEach(el => el.addEventListener('click', e => {
+  e.preventDefault();
+  if (el.classList.contains('reveal') && !el.dataset.shown) { el.dataset.shown = '1'; el.textContent = mailAddr(); el.title = 'Нажмите ещё раз, чтобы написать письмо'; return; }
+  location.href = mailTo();
+}));
 document.getElementById('mapLink').href = 'https://yandex.ru/maps/?text=' + encodeURIComponent('Санкт-Петербург, посёлок Шушары, 1-й Бадаевский, 9А');
 document.getElementById('year').textContent = new Date().getFullYear();
 const dlg = document.getElementById('dlg');

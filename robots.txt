@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://andreyrey123.github.io/home-roses/sitemap.xml
