@@ -19,7 +19,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Florist", "name": "HOME ROSES", "description": "Импорт срезанных цветов из Эквадора, Колумбии и Голландии. Оптом под заказ и со склада в Санкт-Петербурге.", "image": "https://andreyrey123.github.io/home-roses/og.jpg", "url": "https://andreyrey123.github.io/home-roses/", "telephone": ["+7 931 222-00-42", "+7 911 962-42-42"], "foundingDate": "2018", "priceRange": "от 1 банча", "address": {"@type": "PostalAddress", "streetAddress": "1-й Бадаевский проезд, 9А", "addressLocality": "посёлок Шушары, Санкт-Петербург", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 59.808188, "longitude": 30.402877}, "areaServed": "RU", "sameAs": ["https://t.me/hr_LTDA", "https://instagram.com/homeroses_", "https://yandex.ru/maps/org/home_roses/168479410734/"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Florist", "name": "HOME ROSES", "description": "Импорт срезанных цветов из Эквадора, Колумбии и Голландии. Оптом под заказ и со склада в Санкт-Петербурге.", "image": "https://andreyrey123.github.io/home-roses/og.jpg", "url": "https://andreyrey123.github.io/home-roses/", "telephone": ["+7 931 222-00-42", "+7 911 962-42-42", "+7 981 052-42-42"], "foundingDate": "2018", "priceRange": "от 1 банча", "address": {"@type": "PostalAddress", "streetAddress": "1-й Бадаевский проезд, 9А", "addressLocality": "посёлок Шушары, Санкт-Петербург", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 59.808188, "longitude": 30.402877}, "areaServed": "RU", "sameAs": ["https://t.me/hr_LTDA", "https://instagram.com/homeroses_", "https://yandex.ru/maps/org/home_roses/168479410734/"]}</script>
 <link rel="preload" href="fonts/unbounded-cyrillic-c86556.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/golos-text-cyrillic-f57bdd.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
@@ -77,9 +77,13 @@ img{display:block;max-width:100%}
 .geo span{position:absolute;left:0;top:0;opacity:0;white-space:pre;text-align:center;font:400 clamp(9px,.78vw,12px)/1.45 "Martian Mono",monospace;letter-spacing:.06em;text-transform:uppercase}
 .intro{position:absolute;z-index:6;left:var(--pad);right:var(--pad);bottom:clamp(26px,5vh,48px);display:grid;grid-template-columns:minmax(0,1.3fr) auto;gap:30px;align-items:end}
 .intro h1{margin:0;font:300 clamp(20px,1.9vw,30px)/1.22 Unbounded;letter-spacing:-.03em;max-width:34ch}
+.ft{font-weight:500;color:transparent;-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 .6px rgba(23,18,15,.55))}
+.ft.ec{background-image:radial-gradient(circle at 50% 60%,#6B4F2A 0 .09em,transparent .1em),linear-gradient(#FFD100 0 52%,#034EA2 0 71%,#ED1C24 0)}
+.ft.co{background-image:linear-gradient(#FCD116 0 52%,#003893 0 71%,#CE1126 0)}
+.ft.nl{background-image:linear-gradient(#AE1C28 0 46%,#fff 0 63%,#21468B 0)}
 .intro .isub{margin:10px 0 0;max-width:52ch;font-size:clamp(15px,1.1vw,17px);line-height:1.5;opacity:.72}
 .intro .act{display:flex;flex-direction:column;align-items:flex-end;gap:14px}
-.ifacts{grid-column:1/-1;display:flex;gap:clamp(18px,3.4vw,52px);padding-top:18px;border-top:1px solid var(--line)}
+.ifacts{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:14px clamp(18px,3.4vw,52px);padding-top:18px;border-top:1px solid var(--line)}
 .ifacts b{display:block;margin-top:6px;font:300 clamp(17px,1.5vw,23px)/1.1 Unbounded;letter-spacing:-.03em;text-transform:none}
 .cue{display:flex;align-items:center;gap:10px}
 .cue i{width:18px;height:26px;border:1.5px solid currentColor;border-radius:50%;position:relative}
@@ -257,7 +261,7 @@ dialog::backdrop{background:rgba(23,18,15,.55);backdrop-filter:blur(4px)}
 @media (max-width:900px){
   .links{display:none}
   .word{font-size:23vw}
-  .intro{grid-template-columns:1fr;gap:18px}.intro .act{align-items:flex-start;flex-direction:row}.ifacts{flex-wrap:wrap;gap:12px 22px}.ifacts span{flex:0 0 40%}
+  .intro{grid-template-columns:1fr;gap:18px}.intro .act{align-items:flex-start;flex-direction:row}.ifacts{flex-wrap:wrap;gap:12px 22px}.ifacts span{flex:0 0 40%}.ifacts b{font-size:15px}
   .worlds{top:auto;bottom:auto;top:90px;right:var(--pad);transform:none;gap:6px}.worlds button::after{width:8px}.worlds button.on::after{width:18px}
   .card{display:none}
   .place{max-width:none;right:var(--pad)}.place .name span{display:block}
@@ -291,14 +295,14 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
     <div id="cards" aria-hidden="true"></div>
     <div class="geo" id="geo" aria-hidden="true"></div>
     <div class="intro" id="intro">
-      <div><h1><span class="vh">HOME ROSES — </span>Розы и гвоздики из Эквадора, Колумбии и Голландии</h1><p class="isub">Под заказ и со склада в Санкт-Петербурге. Возим с 2018 года, по каждой партии сверяем документы.</p></div>
+      <div><h1><span class="vh">HOME ROSES — </span>Цветы из <span class="ft ec">Эквадора</span>, <span class="ft co">Колумбии</span> и&nbsp;<span class="ft nl">Голландии</span></h1><p class="isub">Под заказ и со склада в Санкт-Петербурге. Возим с 2018 года, по каждой партии сверяем документы.</p></div>
       <div class="act"><button class="pill solid" data-price>Запросить прайс</button><span class="cue mono"><i></i>Листайте</span></div>
-      <div class="ifacts mono"><span>Вылеты<b>ср · вс</b></span><span>На складе СПб<b>через 7–10 дней</b></span><span>Стебель<b>40–100+ см</b></span><span>Заказ<b>от 1 банча</b></span></div>
+      <div class="ifacts mono"><span>Вылеты<b>ср · вс</b></span><span>На складе СПб<b>через 7–10 дней</b></span><span>Стебель<b>40–100+ см</b></span><span>Заказ<b>от 1 банча</b></span><span>Доставка<b>по всему миру</b></span><span>Склад<b>1-й Бадаевский пр., 9А</b></span></div>
     </div>
     <div class="place" id="place" aria-live="polite"><div class="coord" id="coord"></div><div class="name mono" id="pname"></div><p id="ptext"></p></div>
     <nav class="worlds mono" id="worlds" aria-label="Путь цветов"></nav>
     <div class="home" id="home">
-      <div class="actions"><a class="pill" data-tg href="#" target="_blank" rel="noopener">Telegram</a><a class="pill" data-wa href="#" target="_blank" rel="noopener">WhatsApp</a></div>
+      <div class="actions"><a class="pill" data-tg href="#" target="_blank" rel="noopener">Telegram</a><a class="pill" data-wa href="#" target="_blank" rel="noopener">WhatsApp</a><a class="pill" data-max href="#" target="_blank" rel="noopener">MAX</a></div>
     </div>
   </div>
 </section>
@@ -367,7 +371,7 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
       <span class="mono">Ближайший вылет</span>
       <div class="d" id="nd">—</div>
       <dl><dt>На складе в СПб</dt><dd id="na">—</dd><dt>Следующий вылет</dt><dd id="nn">—</dd></dl>
-      <div class="cut"><span class="mono">Приём заявок на этот рейс</span><b id="cutT">—</b><small id="cutD">Заявки принимаем накануне вылета по московскому времени: на рейс в среду — до 23:59 вторника, на рейс в воскресенье — до 18:00 субботы.</small></div>
+      <div class="cut"><span class="mono">Приём заявок на этот рейс</span><b id="cutT">—</b><small id="cutD">Заявки принимаем по московскому времени: на рейс в среду — до 23:59 вторника, на рейс в воскресенье — до 18:00 пятницы.</small></div>
       <small>Даты рассчитаны по графику и ориентировочны. Точные сроки по вашему заказу уточняйте у нас.</small>
       <button class="pill" data-price>Успеть к этому вылету</button>
     </div>
@@ -422,13 +426,13 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
   <div class="faq rv">
     <details><summary>Какой минимальный заказ?<i></i></summary><p>1 банч, то есть одна упаковка.</p></details>
     <details><summary>Сколько ждать цветы под заказ?<i></i></summary><p>Вылеты каждую среду и воскресенье. До склада в Санкт-Петербурге обычно 7–8 дней, с запасом на таможню и транспорт — до 10.</p></details>
-    <details><summary>До какого времени принимаете заявки на рейс?<i></i></summary><p>Накануне вылета по московскому времени: на рейс в среду — до 23:59 вторника, на рейс в воскресенье — до 18:00 субботы.</p></details>
+    <details><summary>До какого времени принимаете заявки на рейс?<i></i></summary><p>По московскому времени: на рейс в среду — до 23:59 вторника, на рейс в воскресенье — до 18:00 пятницы.</p></details>
     <details><summary>Можно купить без ожидания рейса?<i></i></summary><p>Да. На складе в Санкт-Петербурге есть цветы в наличии. Напишите, и мы расскажем, что есть сейчас.</p></details>
     <details><summary>Доставляете в регионы?<i></i></summary><p>Да. Цветы можно забрать со склада или получить с доставкой в ваш регион.</p></details>
     <details><summary>Какие документы я получу?<i></i></summary><p>Полный комплект документов по партии. По каждой позиции указаны плантация, сорт, длина стебля и количество стеблей. Номера, вес и количество коробок в инвойсах, сертификатах и пакинге мы сверяем между собой.</p></details>
     <details><summary>Можно собрать заказ с разных плантаций?<i></i></summary><p>Да. Заказ не привязан к одной ферме, в одну партию можно собрать цветы с нескольких плантаций.</p></details>
     <details><summary>Как учитываются оплаты и рекламации?<i></i></summary><p>По каждому клиенту ведём выписку: инвойсы, оплаты, рекламации, остаток.</p></details>
-    <details><summary>Как получить прайс?<i></i></summary><p>Напишите в Telegram, WhatsApp или на почту, и мы пришлём актуальный прайс.</p></details>
+    <details><summary>Как получить прайс?<i></i></summary><p>Напишите в Telegram, WhatsApp, MAX или на почту, и мы пришлём актуальный прайс.</p></details>
   </div>
 </section>
 
@@ -441,12 +445,14 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
       <li><span class="k">Контактное лицо</span><span>Рахман</span></li>
       <li><span class="k">Телефон</span><span><a href="tel:+79312220042">+7 931 222-00-42</a></span></li>
       <li><span class="k">WhatsApp и Telegram</span><span><a href="tel:+79119624242">+7 911 962-42-42</a></span></li>
+      <li><span class="k">MAX</span><span><a data-max href="#" target="_blank" rel="noopener">+7 981 052-42-42</a></span></li>
       <li><span class="k">Почта</span><span><button class="reveal" type="button" data-mail>Показать почту</button></span></li>
       <li><span class="k">Склад</span><span><a id="mapLink" href="#" target="_blank" rel="noopener">Санкт-Петербург, пос. Шушары, 1-й Бадаевский, 9А</a><span class="lat mono">59°48′ с. ш. · 30°24′ в. д.</span></span></li>
     </ul>
     <div class="channels">
       <a class="pill solid" data-tg href="#" target="_blank" rel="noopener">Telegram<span class="mono">@home_roses_ltda</span></a>
       <a class="pill" data-wa href="#" target="_blank" rel="noopener">WhatsApp<span class="mono">+7 911 962-42-42</span></a>
+      <a class="pill" data-max href="#" target="_blank" rel="noopener">MAX<span class="mono">+7 981 052-42-42</span></a>
       <a class="pill" href="https://t.me/hr_LTDA" target="_blank" rel="noopener">Группа с фото<span class="mono">t.me/hr_LTDA</span></a>
       <a class="pill" href="https://instagram.com/homeroses_" target="_blank" rel="noopener">Instagram*<span class="mono">@homeroses_</span></a>
     </div>
@@ -463,6 +469,7 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
   <div class="channels">
     <a class="pill solid" data-tg href="#" target="_blank" rel="noopener">Telegram<span class="mono">@home_roses_ltda</span></a>
     <a class="pill" data-wa href="#" target="_blank" rel="noopener">WhatsApp<span class="mono">+7 911 962-42-42</span></a>
+      <a class="pill" data-max href="#" target="_blank" rel="noopener">MAX<span class="mono">+7 981 052-42-42</span></a>
     <a class="pill" data-mail href="#">Почта<span class="mono">написать письмо</span></a>
   </div>
 </div></dialog>
@@ -477,6 +484,9 @@ const L = {
 };
 document.querySelectorAll('[data-tg]').forEach(a => a.href = L.tg);
 document.querySelectorAll('[data-wa]').forEach(a => a.href = L.wa);
+// MAX has no open-chat-by-phone link: put the profile link from the app here (Профиль → Пригласить друзей → max.ru/u/…)
+const MAX_LINK = 'https://max.ru/';
+document.querySelectorAll('[data-max]').forEach(a => a.href = MAX_LINK);
 // e-mail is assembled only on click so scrapers find neither the address nor a mailto: link in the page
 const mailAddr = () => ['invoice', '2007'].join('.') + String.fromCharCode(64) + ['mail', 'ru'].join('.');
 const mailTo = () => 'mailto:' + mailAddr() + '?subject=' + encodeURIComponent('Запрос прайса HOME ROSES') + '&body=' + encodeURIComponent(MSG + '\n\nСорта:\nДлина стебля:\nКоличество коробок:\nГород доставки:');
@@ -533,7 +543,7 @@ const PHOTO = ['', 'img/p38.webp', 'img/p10.webp'];
 PHOTO.forEach(src => { if (src) { const im = new Image(); im.src = src; im.decode && im.decode().catch(() => {}); } });
 const worlds = document.getElementById('worlds');
 worlds.innerHTML = CHAIN.map((c, j) => `<button data-j="${j}">${c.nav}</button>`).join('');
-let G = [], W = 0, H = 0, D = 0, Gmax = 0, placeH = 300;
+let G = [], W = 0, H = 0, D = 0, Gmax = 0, textTop = 600;
 // rasterise the «О» once and find its counter (the hole): centre and diameter relative to the letter's box
 const holeCv = document.createElement('canvas'), holeCtx = holeCv.getContext('2d', {willReadFrequently: true});
 function counter(span) {
@@ -575,7 +585,7 @@ function measure() {
   probe.querySelector('.coord').textContent = c.coord;
   probe.querySelector('.name').innerHTML = c.name.split('\n').map(x => `<span>${x}</span>`).join('');
   probe.querySelector('p').textContent = c.text;
-  stage.appendChild(probe); placeH = probe.offsetHeight || placeH; probe.remove();
+  stage.appendChild(probe); textTop = Math.min(document.getElementById('intro').offsetTop, probe.offsetTop || H); probe.remove();
   portal.style.width = portal.style.height = D + 'px';
 }
 const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x)), seg = (p, a, b) => clamp((p - a) / (b - a));
@@ -597,7 +607,7 @@ function chainFrame() {
   const r = chainEl.getBoundingClientRect(), span = chainEl.offsetHeight - innerHeight;
   const p = clamp(-r.top / span), T = p * (N - 1 + TAIL);
   const i = Math.min(N - 1, Math.floor(T)), u = clamp(T - i), last = i === N - 1;
-  const C = [W / 2, W < 900 ? H * .4 : Math.max(90 + Gmax / 2, Math.min(H * .5, H - placeH - 120 - Gmax / 2))], g = G[i];
+  const mob = W < 900, C = [W / 2, Math.max((mob ? 165 : 90) + Gmax / 2, Math.min(H * (mob ? .4 : .5), textTop - (mob ? 56 : 72) - Gmax / 2))], g = G[i];
   const left = C[0] - g.w / 2, top = C[1] - g.h / 2, Pi = [left + g.ox, top + g.oy];
   els.forEach((e, j) => { e.style.visibility = (j === i || j === i + 1) ? 'visible' : 'hidden'; e.style.opacity = 1; });
   twins.forEach(t => t.style.visibility = 'hidden');
@@ -847,12 +857,12 @@ const flights = []; for (let d = new Date(today); flights.length < 2; d = add(d,
 document.getElementById('nd').textContent = fmt(flights[0], {weekday: 'long', day: 'numeric', month: 'long'}).replace(/^./, c => c.toUpperCase());
 document.getElementById('na').textContent = `${fmt(add(flights[0], 7), {day: 'numeric', month: 'long'})} – ${fmt(add(flights[0], 10), {day: 'numeric', month: 'long'})}`;
 document.getElementById('nn').textContent = fmt(flights[1], {weekday: 'long', day: 'numeric', month: 'long'});
-// cut-off the day before the flight, Moscow time (UTC+3): Wednesday flight -> Tue 23:59, Sunday flight -> Sat 18:00
-const cutDay = add(flights[0], -1), sunday = flights[0].getDay() === 0;
+// Wednesday flight -> Tuesday 23:59, Sunday flight -> Friday 18:00 (Moscow, UTC+3)
+const sunday = flights[0].getDay() === 0, cutDay = add(flights[0], sunday ? -2 : -1);
 const cutAt = Date.UTC(cutDay.getFullYear(), cutDay.getMonth(), cutDay.getDate(), sunday ? 15 : 20, sunday ? 0 : 59, sunday ? 0 : 59);
 const tickCut = () => {
   const m = Math.floor((cutAt - Date.now()) / 60000), d = Math.floor(m / 1440), h = Math.floor(m % 1440 / 60);
-  document.getElementById('cutT').textContent = m < 0 ? 'приём на этот рейс закрыт' : 'осталось ' + (d ? `${d} д ` : '') + (d || h ? `${h} ч ` : '') + `${m % 60} мин`;
+  document.getElementById('cutT').textContent = m < 0 ? 'приём закрыт — оформим на следующий рейс' : 'осталось ' + (d ? `${d} д ` : '') + (d || h ? `${h} ч ` : '') + `${m % 60} мин`;
 };
 tickCut(); setInterval(tickCut, 30000);
 /* ---------- GSAP polish (the chain stays hand-driven; GSAP only takes the sections below it) ---------- */
