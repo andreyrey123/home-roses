@@ -36,7 +36,9 @@
   --cream:#EEE8E0; --ink:#17120F; --dim:#857B72; --line:rgba(23,18,15,.13); --wine:#3D0A17; --accent:#8E1530;
   --bg:#EEE8E0; --fg:#17120F;
   --pad:clamp(18px,3.2vw,46px); --ease:cubic-bezier(.16,1,.3,1);
+  --sb:0px; /* height of the mobile browser toolbar when it is showing */
 }
+@supports (height:100svh){:root{--sb:calc(100vh - 100svh)}}
 *{box-sizing:border-box}
 html{background:var(--cream)}
 html.lenis{height:auto}.lenis.lenis-smooth{scroll-behavior:auto}
@@ -75,7 +77,7 @@ img{display:block;max-width:100%}
 .card span{display:block;margin-top:8px;opacity:.75}
 .geo{position:absolute;inset:0;z-index:5;pointer-events:none}
 .geo span{position:absolute;left:0;top:0;opacity:0;white-space:pre;text-align:center;font:400 clamp(9px,.78vw,12px)/1.45 "Martian Mono",monospace;letter-spacing:.06em;text-transform:uppercase}
-.intro{position:absolute;z-index:6;left:var(--pad);right:var(--pad);bottom:clamp(26px,5vh,48px);display:grid;grid-template-columns:minmax(0,1.3fr) auto;gap:30px;align-items:end}
+.intro{position:absolute;z-index:6;left:var(--pad);right:var(--pad);bottom:calc(clamp(26px,5vh,48px) + var(--sb));display:grid;grid-template-columns:minmax(0,1.3fr) auto;gap:30px;align-items:end}
 .intro h1{margin:0;font:300 clamp(20px,1.9vw,30px)/1.22 Unbounded;letter-spacing:-.03em;max-width:34ch}
 .ft{font-weight:500;color:transparent;-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 .6px rgba(23,18,15,.55))}
 .ft.ec{background-image:radial-gradient(circle at 50% 60%,#6B4F2A 0 .09em,transparent .1em),linear-gradient(#FFD100 0 52%,#034EA2 0 71%,#ED1C24 0)}
@@ -90,7 +92,7 @@ img{display:block;max-width:100%}
 .cue i{width:18px;height:26px;border:1.5px solid currentColor;border-radius:50%;position:relative}
 .cue i::after{content:"";position:absolute;left:50%;top:5px;width:2px;height:6px;margin-left:-1px;background:currentColor;border-radius:2px;animation:cue 1.8s var(--ease) infinite}
 @keyframes cue{0%{opacity:0;transform:translateY(-2px)}40%{opacity:1}100%{opacity:0;transform:translateY(8px)}}
-.place{position:absolute;z-index:6;left:var(--pad);bottom:clamp(26px,5vh,48px);max-width:min(620px,60vw)}
+.place{position:absolute;z-index:6;left:var(--pad);bottom:calc(clamp(26px,5vh,48px) + var(--sb));max-width:min(620px,60vw)}
 .place .coord{font:italic 500 clamp(38px,3.9vw,62px)/.95 "Cormorant Garamond",Georgia,serif;letter-spacing:-.01em}
 .place .name{margin:16px 0 12px;line-height:1.9}.place .name span{display:inline-block;margin-right:22px;white-space:nowrap}
 .flag{display:inline-block;width:20px;height:14px;margin-right:8px;vertical-align:-2px;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.18)}
@@ -106,7 +108,7 @@ img{display:block;max-width:100%}
 .worlds button::after{content:"";width:14px;height:1px;background:currentColor;transition:width .4s var(--ease)}
 .worlds button.on{opacity:1}.worlds button.on::after{width:34px}
 .worlds button:focus-visible{outline:1px solid currentColor;outline-offset:4px}
-.home{position:absolute;z-index:6;left:50%;bottom:clamp(26px,5vh,48px);transform:translateX(-50%);width:min(820px,92vw);text-align:center;opacity:0;pointer-events:none}
+.home{position:absolute;z-index:6;left:50%;bottom:calc(clamp(26px,5vh,48px) + var(--sb));transform:translateX(-50%);width:min(820px,92vw);text-align:center;opacity:0;pointer-events:none}
 .home .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 
 /* ---------- content sections ---------- */
@@ -275,7 +277,37 @@ dialog::backdrop{background:rgba(23,18,15,.55);backdrop-filter:blur(4px)}
   .assort .grp{grid-template-columns:1fr;gap:6px}.assort .cap{padding-top:0}
   .assort .side{flex-direction:row;justify-content:space-between;align-items:flex-end}.fl{width:42px;height:56px}
   .yarate .go{margin-left:0}
-  .revwrap{grid-template-columns:1fr}.minis{grid-template-columns:1fr}.ywidget{position:static}.ywidget iframe{height:640px}
+  .revwrap{grid-template-columns:minmax(0,1fr)}.ywidget{position:static}.ywidget iframe{height:560px}
+  /* three short reviews become a swipe row instead of three stacked cards */
+  .minis{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin:10px calc(-1 * var(--pad)) 0;padding:0 var(--pad);scrollbar-width:none;overscroll-behavior-x:contain}
+  .minis::-webkit-scrollbar{display:none}
+  .mini{flex:0 0 min(82%,320px);scroll-snap-align:center}
+  .fmt .big{font-size:12.3vw}
+  /* touch targets */
+  .worlds{gap:0;top:84px}.worlds button{padding:5px 0}
+  .clist a,.reveal{display:inline-block;padding:7px 0}
+  .faq summary{padding:20px 0}
+  section.s{padding-top:clamp(64px,13vw,170px);padding-bottom:clamp(64px,13vw,170px)}
+}
+@media (max-width:560px){
+  .contacts .homeword{font-size:calc((100vw - 2 * var(--pad)) / 3.2)}
+  .logo{white-space:nowrap;font-size:14px}
+  .pill{padding:0 18px}
+  .nav .pill{height:42px;font-size:13px}
+}
+/* landscape phones: the stage has no room for the long texts */
+@media (max-height:520px) and (min-aspect-ratio:1/1){
+  .stage{min-height:0}
+  .intro .isub,.ifacts,.cue,.worlds,.place .name,.place p{display:none}
+  .intro{grid-template-columns:minmax(0,1fr) auto;align-items:center}
+  .intro .act{flex-direction:row;align-items:center}
+  .place .coord{font-size:30px}
+}
+/* short phones: drop the sub-line so the hero text never runs into the word */
+@media (max-width:900px) and (max-height:760px){
+  .intro .isub,.intro .cue{display:none}
+  .intro{gap:14px}.ifacts{padding-top:14px;gap:10px 22px}
+  .intro h1{font-size:19px}
 }
 html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:none!important}
 @media (prefers-reduced-motion:reduce){.fill,.fl{animation:none}.reel{animation-duration:220s}.rv{opacity:1;transform:none}}
@@ -590,7 +622,7 @@ function measure() {
   probe.querySelector('p').textContent = c.text;
   stage.appendChild(probe); textTop = Math.min(document.getElementById('intro').offsetTop, probe.offsetTop || H); probe.remove();
   // words sit centred, but always above the bottom text (with room for the coordinate captions), on phones and desktops
-  const mob = W < 900;
+  const mob = W < 900 && H > 520;   // landscape phones use the compact desktop-like layout
   CY = Math.max((mob ? 165 : 90) + Gmax / 2, Math.min(H * (mob ? .4 : .5), textTop - (mob ? 56 : 72) - Gmax / 2));
   D = 2 * Math.hypot(W / 2, Math.max(CY, H - CY)) * 1.04;
   portal.style.width = portal.style.height = D + 'px';
