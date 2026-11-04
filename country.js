@@ -10,3 +10,13 @@
   }));
   document.getElementById('year').textContent = new Date().getFullYear();
 })();
+
+// colour filter of the variety gallery
+(() => {
+  const chips = document.querySelectorAll('.chip'), items = document.querySelectorAll('.vr');
+  chips.forEach(c => c.addEventListener('click', () => {
+    chips.forEach(x => x.classList.toggle('on', x === c));
+    const f = c.dataset.f;
+    items.forEach(li => { li.hidden = f !== 'all' && li.dataset.c !== f; });
+  }));
+})();

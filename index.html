@@ -33,7 +33,7 @@
 <script src="vendor/topojson-client.min.js"></script>
 <style>
 :root{
-  --cream:#EEE8E0; --ink:#17120F; --dim:#857B72; --line:rgba(23,18,15,.13); --wine:#3D0A17; --accent:#8E1530;
+  --cream:#EEE8E0; --ink:#17120F; --dim:#6F665E; --line:rgba(23,18,15,.13); --wine:#3D0A17; --accent:#8E1530;
   --bg:#EEE8E0; --fg:#17120F;
   --pad:clamp(18px,3.2vw,46px); --ease:cubic-bezier(.16,1,.3,1);
   --sb:0px; /* height of the mobile browser toolbar when it is showing */
@@ -56,9 +56,10 @@ img{display:block;max-width:100%}
 /* ---------- nav ---------- */
 .nav{position:fixed;z-index:50;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;padding:22px var(--pad);color:var(--fg);transition:background .35s,padding .35s,box-shadow .35s}
 .nav.bar{background:var(--bg);padding-top:14px;padding-bottom:14px;box-shadow:0 1px 0 color-mix(in srgb,var(--fg) 12%,transparent)}
-.logo{font:900 15px/1 Unbounded;letter-spacing:.08em;text-decoration:none}
+.logo{font:900 15px/1 Unbounded;letter-spacing:.08em;text-decoration:none;white-space:nowrap}
 .links{display:flex;gap:30px;font-size:14px}
-.links a{text-decoration:none;opacity:.7;transition:opacity .2s}.links a:hover{opacity:1}
+.links a{text-decoration:none;opacity:.7;transition:opacity .2s;white-space:nowrap}
+@media (max-width:1060px){.links{display:none}}.links a:hover{opacity:1}
 .pill{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 22px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:500 14px "Golos Text";cursor:pointer;text-decoration:none;white-space:nowrap}
 .pill:hover{background:var(--fg);color:var(--bg)}
 .pill.solid{background:var(--fg);color:var(--bg);border-color:var(--fg)}
@@ -66,7 +67,7 @@ img{display:block;max-width:100%}
 
 /* ---------- the chain ---------- */
 .chain{position:relative;height:270vh}
-.stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;background:var(--bg);color:var(--fg)}
+.stage{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--bg);color:var(--fg)}
 .portal{position:absolute;left:0;top:0;border-radius:50%;overflow:hidden;transform-origin:0 0;will-change:transform;z-index:1}
 .portal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(var(--pz,1.25));will-change:transform}
 .portal i{position:absolute;inset:0;background:var(--pc);opacity:var(--po,0)}
@@ -78,16 +79,20 @@ img{display:block;max-width:100%}
 .geo{position:absolute;inset:0;z-index:5;pointer-events:none}
 .geo span{position:absolute;left:0;top:0;opacity:0;white-space:pre;text-align:center;font:400 clamp(9px,.78vw,12px)/1.45 "Martian Mono",monospace;letter-spacing:.06em;text-transform:uppercase}
 .intro{position:absolute;z-index:6;left:var(--pad);right:var(--pad);bottom:calc(clamp(26px,5vh,48px) + var(--sb));display:grid;grid-template-columns:minmax(0,1fr);gap:22px;align-items:end}
-.countries{display:flex;flex-direction:column;align-items:flex-start;font:300 clamp(19px,1.9vw,30px)/1.3 Unbounded;letter-spacing:-.03em}
-.countries .ft{padding:3px 0;text-underline-offset:.22em}
+.countries{display:flex;flex-direction:column;width:min(calc(100% - 64px),440px);border-top:1px solid color-mix(in srgb,var(--fg) 20%,transparent)}
+.cn{display:grid;grid-template-columns:26px minmax(0,1fr) auto;align-items:baseline;gap:8px;padding:8px 0 7px;border-bottom:1px solid color-mix(in srgb,var(--fg) 14%,transparent);color:var(--fg);text-decoration:none}
+.cn i{font:400 10px/1 "Martian Mono",monospace;letter-spacing:.08em;font-style:normal;color:var(--accent)}
+.cn span{font:italic 500 clamp(28px,3vw,42px)/1 "Cormorant Garamond",Georgia,serif;letter-spacing:-.01em;transition:transform .5s var(--ease),color .3s}
+.cn em{font:400 9px/1 "Martian Mono",monospace;letter-spacing:.05em;text-transform:uppercase;font-style:normal;white-space:nowrap;color:color-mix(in srgb,var(--fg) 50%,transparent)}
+.cn:hover span,.cn:focus-visible span{transform:translateX(6px);color:var(--accent)}
 .ft{font-weight:500;color:var(--accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em;text-decoration-color:color-mix(in srgb,var(--accent) 45%,transparent);transition:text-decoration-color .2s}
 .ft:hover{text-decoration-color:var(--accent)}
-.intro .isub{margin:10px 0 0;max-width:52ch;font-size:clamp(15px,1.1vw,17px);line-height:1.5;opacity:.72}
+.intro .isub{margin:10px 0 0;max-width:52ch;font:italic 500 clamp(19px,1.5vw,23px)/1.3 "Cormorant Garamond",Georgia,serif;opacity:.8}
 .intro .act{display:flex;flex-direction:column;align-items:flex-end;gap:14px}
 .ifacts{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:14px clamp(18px,3.4vw,52px);padding-top:18px;border-top:1px solid var(--line)}
 .ifacts span{font-size:10px;opacity:1;color:color-mix(in srgb,var(--fg) 52%,transparent);padding-left:12px;border-left:2px solid color-mix(in srgb,var(--fg) 22%,transparent)}
 .ifacts b{display:block;margin-top:7px;font:500 clamp(16px,1.4vw,21px)/1.2 Unbounded;letter-spacing:-.02em;text-transform:none;color:var(--fg)}
-.cue{position:absolute;right:0;top:calc(4px - var(--cueup,0px));width:44px;height:clamp(120px,19vh,190px);color:var(--fg);pointer-events:none}
+.cue{position:absolute;right:var(--cuer,0px);top:calc(4px - var(--cueup,0px));width:44px;height:clamp(120px,19vh,190px);color:var(--fg);pointer-events:none}
 .cue::before{content:"";position:absolute;left:50%;top:0;bottom:14px;width:1.5px;margin-left:-.75px;background:linear-gradient(transparent,currentColor 30%,currentColor 70%,transparent);opacity:.2}
 .cue i{position:absolute;left:50%;top:0;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;background:currentColor;opacity:0;animation:cue 2.8s cubic-bezier(.45,.05,.25,1) infinite}
 .cue::after{content:"";position:absolute;left:50%;bottom:3px;width:14px;height:14px;margin-left:-7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);opacity:0;animation:cuearrow 2.8s ease-in-out infinite}
@@ -119,7 +124,7 @@ img{display:block;max-width:100%}
 section.s{padding:clamp(90px,13vw,170px) var(--pad);border-top:1px solid var(--line)}
 .kicker{display:flex;justify-content:space-between;align-items:baseline;gap:20px;margin-bottom:clamp(40px,6vw,80px)}
 .kicker h2{margin:0;font:300 clamp(34px,4.4vw,72px)/1.02 Unbounded;letter-spacing:-.045em;max-width:18ch}
-.kicker p{margin:0;max-width:36ch;color:var(--dim)}
+.kicker p{margin:0;max-width:34ch;color:var(--dim);font:italic 500 clamp(21px,1.7vw,26px)/1.28 "Cormorant Garamond",Georgia,serif}
 /* formats as photo-filled words */
 .fmt{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(20px,4vw,70px);align-items:center;padding:clamp(26px,3.6vw,46px) 0;border-top:1px solid var(--line);text-decoration:none;color:inherit}
 .fmt:last-child{border-bottom:1px solid var(--line)}
@@ -300,24 +305,41 @@ dialog::backdrop{background:rgba(23,18,15,.55);backdrop-filter:blur(4px)}
   .pill{padding:0 18px}
   .nav .pill{height:42px;font-size:13px}
 }
+/* desktop: the country list on the left, the sub-line and the facts to its right, so the whole block stays low */
+@media (min-width:1000px){
+  .intro{grid-template-columns:minmax(300px,440px) minmax(0,1fr);grid-template-rows:1fr auto;column-gap:clamp(40px,6vw,120px);row-gap:18px;align-items:end}
+  .intro > div:first-child{display:contents}
+  .countries{grid-column:1;grid-row:1/3;width:100%}
+  .intro .isub{grid-column:2;grid-row:1;align-self:end;margin:0 calc(var(--cuer,0px) + 80px) 0 0}
+  .ifacts{grid-column:2;grid-row:2;margin-right:calc(var(--cuer,0px) + 80px);gap:14px clamp(18px,2.4vw,40px)}
+  .cn span{font-size:clamp(28px,2.2vw,38px)}
+}
+/* low desktop windows: tighter rows, the address moves to the sections below */
+@media (min-width:1000px) and (max-height:680px){
+  .cn{padding:3px 0 2px}.cn span{font-size:24px}
+  .ifacts span:nth-child(n+5){display:none}
+}
 /* landscape phones: the stage has no room for the long texts */
 @media (max-height:520px) and (min-aspect-ratio:1/1){
   .stage{min-height:0}
   .intro .isub,.ifacts,.cue,.worlds,.place .name,.place p{display:none}
-  .intro{align-items:center}
+  .intro{align-items:center;grid-template-columns:minmax(0,1fr)}
+  .intro > div:first-child{display:block}
+  .countries{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:22px;width:100%;grid-column:1;grid-row:auto}
+  .cn{grid-template-columns:22px minmax(0,1fr);padding:5px 0 4px}.cn em{display:none}.cn span{font-size:22px}
   .place .coord{font-size:30px}
 }
 /* phones: the stage is exactly the screen (a 600px minimum pushed the bottom off-screen on 568px-high phones) */
 @media (max-width:900px){.stage{min-height:0}}
 /* very short phones: keep the four key facts, the rest is in the sections below */
 
-/* very short phones: the address and the rest are in the sections below */
-@media (max-width:900px) and (max-height:640px){.ifacts span:nth-child(n+5){display:none}}
+/* very short phones: the country list gets the room, the facts are repeated in the sections below */
+@media (max-width:900px) and (max-height:640px){.ifacts{display:none}}
 /* short phones: drop the sub-line so the hero text never runs into the word */
 @media (max-width:900px) and (max-height:760px){
   .intro .isub{display:none}
   .intro{gap:14px}.ifacts{padding-top:14px;gap:10px 22px}
-  .countries{font-size:17px}.countries .ft{padding:1px 0}
+  .cn{padding:5px 0 4px}.cn span{font-size:25px}
 }
 html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:none!important}
 @media (prefers-reduced-motion:reduce){.fill,.fl{animation:none}.reel{animation-duration:220s}.rv{opacity:1;transform:none}}
@@ -341,7 +363,7 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
     <div class="intro" id="intro">
       <div>
         <h1 class="vh">HOME ROSES — цветы из Эквадора, Колумбии, Голландии, Кении, Италии и Чили</h1>
-        <nav class="countries" aria-label="Страны, откуда мы привозим цветы"><a class="ft" href="ecuador.html">Эквадор</a><a class="ft" href="colombia.html">Колумбия</a><a class="ft" href="netherlands.html">Голландия</a><a class="ft" href="kenya.html">Кения</a><a class="ft" href="italy.html">Италия</a><a class="ft" href="chile.html">Чили</a></nav>
+        <nav class="countries" aria-label="Страны, откуда мы привозим цветы"><a class="cn" href="ecuador.html"><i>01</i><span>Эквадор</span><em>0°13′ ю. ш.</em></a><a class="cn" href="colombia.html"><i>02</i><span>Колумбия</span><em>4°36′ с. ш.</em></a><a class="cn" href="netherlands.html"><i>03</i><span>Голландия</span><em>52°22′ с. ш.</em></a><a class="cn" href="kenya.html"><i>04</i><span>Кения</span><em>1°17′ ю. ш.</em></a><a class="cn" href="italy.html"><i>05</i><span>Италия</span><em>41°54′ с. ш.</em></a><a class="cn" href="chile.html"><i>06</i><span>Чили</span><em>33°27′ ю. ш.</em></a></nav>
         <p class="isub">Под заказ и со склада в Санкт-Петербурге. Возим с 2018 года, по каждой партии сверяем документы.</p>
       </div>
       <span class="cue" aria-hidden="true"><i></i></span>
@@ -614,12 +636,24 @@ function counter(span) {
   while (b < holeCv.height - 1 && !ink(hx, b + 1)) b++;
   return {x: (l + r + 1) / 2, y: (t + b + 1) / 2, d: Math.min(r - l + 1, b - t + 1)};
 }
+let measuring2 = false, lastIntroTop = -1;
 function measure() {
   W = stage.clientWidth; H = stage.clientHeight; D = Math.hypot(W, H) * 1.04;
+  // measure the tallest text block (the plantations world) up front with an invisible copy, so the layout never jumps
+  const probe = place.cloneNode(true), c = CHAIN[1];
+  probe.removeAttribute('id'); probe.style.visibility = 'hidden'; probe.style.opacity = 0;
+  probe.querySelector('.coord').textContent = c.coord;
+  probe.querySelector('.name').innerHTML = c.name.split('\n').map(x => `<span>${x}</span>`).join('');
+  probe.querySelector('p').textContent = c.text;
+  stage.appendChild(probe); textTop = Math.min(document.getElementById('intro').offsetTop, probe.offsetTop || H); probe.remove();
+  const mob = W < 900 && H > 520;   // landscape phones use the compact desktop-like layout
+  const maxWordH = Math.max(110, textTop - (mob ? 56 : 72) - (mob ? 165 : 96));   // a word never grows into the text below it
   G = els.map(e => {
     e.style.transform = 'none'; e.style.fontSize = '';
     const fit = W * (W < 900 ? .9 : .74), r0 = e.getBoundingClientRect();
     if (r0.width > fit) e.style.fontSize = parseFloat(getComputedStyle(e).fontSize) * fit / r0.width + 'px';
+    const rh = e.getBoundingClientRect().height;
+    if (rh > maxWordH) e.style.fontSize = parseFloat(getComputedStyle(e).fontSize) * maxWordH / rh + 'px';
     const span = e.querySelector('.o'), r = e.getBoundingClientRect(), o = span.getBoundingClientRect(), hole = counter(span);
     twins[els.indexOf(e)].style.fontSize = e.style.fontSize;
     const g = hole ? {w: r.width, h: r.height, ox: o.left - r.left + hole.x, oy: o.top - r.top + hole.y, hd: hole.d}
@@ -630,21 +664,18 @@ function measure() {
   Gmax = Math.max(...G.map(g => g.h));
   // phones have room for latitude only under each code
   GEO.forEach(list => list.forEach(c => { c.el.textContent = W < 900 ? c.t.split('\n')[0].replace(W < 460 ? / ([сю])[.] ш[.]$/ : /$^/, '$1') : c.t; }));
-  // measure the tallest text block (the plantations world) up front with an invisible copy, so the layout never jumps
-  const probe = place.cloneNode(true), c = CHAIN[1];
-  probe.removeAttribute('id'); probe.style.visibility = 'hidden'; probe.style.opacity = 0;
-  probe.querySelector('.coord').textContent = c.coord;
-  probe.querySelector('.name').innerHTML = c.name.split('\n').map(x => `<span>${x}</span>`).join('');
-  probe.querySelector('p').textContent = c.text;
-  stage.appendChild(probe); textTop = Math.min(document.getElementById('intro').offsetTop, probe.offsetTop || H); probe.remove();
   // words sit centred, but always above the bottom text (with room for the coordinate captions), on phones and desktops
-  const mob = W < 900 && H > 520;   // landscape phones use the compact desktop-like layout
   CY = Math.max((mob ? 165 : 90) + Gmax / 2, Math.min(H * (mob ? .4 : .5), textTop - (mob ? 56 : 72) - Gmax / 2));
   // the scroll cue hangs right under the last letter of the word
   const introEl = document.getElementById('intro');
   introEl.style.setProperty('--cueup', Math.max(0, introEl.offsetTop - (CY + Gmax / 2) - 10) + 'px');
+  // ...and at the right edge of the first word (not of the screen), so it never sits on the side menu
+  const introR = introEl.getBoundingClientRect().right, wl = W >= 900 && worlds.offsetParent ? worlds.getBoundingClientRect().left : Infinity;
+  introEl.style.setProperty('--cuer', Math.max(0, introR - (W / 2 + G[0].w / 2), introR - (wl - 24)) + 'px');
   D = 2 * Math.hypot(W / 2, Math.max(CY, H - CY)) * 1.04;
   portal.style.width = portal.style.height = D + 'px';
+  // the right margin of the facts depends on --cuer and may change the block's height: measure once more if it did
+  if (!measuring2 && Math.abs(introEl.offsetTop - lastIntroTop) > 2) { lastIntroTop = introEl.offsetTop; measuring2 = true; measure(); measuring2 = false; }
 }
 const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x)), seg = (p, a, b) => clamp((p - a) / (b - a));
 const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;

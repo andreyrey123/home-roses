@@ -1,4 +1,4 @@
-:root{--cream:#EEE8E0;--ink:#17120F;--dim:#857B72;--line:rgba(23,18,15,.13);--wine:#3D0A17;--accent:#8E1530;--pad:clamp(18px,3.2vw,46px);--ease:cubic-bezier(.16,1,.3,1)}
+:root{--cream:#EEE8E0;--ink:#17120F;--dim:#6F665E;--line:rgba(23,18,15,.13);--wine:#3D0A17;--accent:#8E1530;--pad:clamp(18px,3.2vw,46px);--ease:cubic-bezier(.16,1,.3,1)}
 *{box-sizing:border-box}
 html{background:var(--cream)}
 body{margin:0;color:var(--ink);font:400 16px/1.6 "Golos Text",system-ui,sans-serif;overflow-x:clip}
@@ -20,7 +20,7 @@ main{padding:0 var(--pad)}
 .lat{color:var(--accent);margin:0 0 18px}
 .big{margin:0;font:900 clamp(44px,13vw,190px)/.9 Unbounded;letter-spacing:-.055em;color:transparent;-webkit-background-clip:text;background-clip:text;background-image:url(img/w/collage.webp);background-size:auto 150%;background-repeat:repeat-x;animation:drift 90s linear infinite;padding-bottom:.06em}
 @keyframes drift{to{background-position-x:-2700px}}
-.lead{margin:clamp(22px,3vw,40px) 0 0;max-width:46ch;font:300 clamp(20px,2.2vw,30px)/1.3 Unbounded;letter-spacing:-.03em}
+.lead{margin:clamp(22px,3vw,40px) 0 0;max-width:34ch;font:italic 500 clamp(26px,3vw,40px)/1.22 "Cormorant Garamond",Georgia,serif}
 .sec{padding:clamp(40px,6vw,84px) 0;border-bottom:1px solid var(--line)}
 .sec h2{margin:0 0 clamp(22px,3vw,40px);font:300 clamp(28px,3.6vw,56px)/1.04 Unbounded;letter-spacing:-.045em;max-width:20ch}
 .cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:0 clamp(24px,4vw,64px);margin:0;padding:0;list-style:none}
@@ -38,3 +38,21 @@ main{padding:0 var(--pad)}
 footer{background:var(--wine);color:rgba(245,228,232,.6);padding:30px var(--pad) 40px;font-size:13px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
 footer a{text-decoration-color:rgba(245,228,232,.3)}
 @media (prefers-reduced-motion:reduce){.big{animation:none}}
+
+/* ---------- variety gallery ---------- */
+.chips{display:flex;gap:8px;margin:0 calc(-1 * var(--pad)) 26px;padding:2px var(--pad);overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);font:500 14px "Golos Text",system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.chip i{font:400 10px/1 "Martian Mono",monospace;font-style:normal;opacity:.55}
+.chip:hover{border-color:var(--ink)}
+.chip.on{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.vgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0;padding:0;list-style:none}
+.vr[hidden]{display:none}
+.vr figure{margin:0;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px rgba(23,18,15,.06)}
+.vr img{display:block;width:100%;height:auto;aspect-ratio:560/760;object-fit:cover}
+.vr figcaption{display:flex;flex-direction:column;gap:5px;padding:2px 14px 16px;background:#fff}
+.vr figcaption b{font:italic 500 clamp(22px,2vw,28px)/1.05 "Cormorant Garamond",Georgia,serif;letter-spacing:-.01em;font-weight:500}
+.vr figcaption span{font:400 10px/1.3 "Martian Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+@media (min-width:700px){.vgrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}}
+@media (min-width:1000px){.vgrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}.chips{flex-wrap:wrap;overflow:visible;margin:0 0 30px;padding:0}}
+@media (min-width:1500px){.vgrid{grid-template-columns:repeat(5,minmax(0,1fr))}}
