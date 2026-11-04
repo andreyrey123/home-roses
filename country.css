@@ -40,19 +40,68 @@ footer a{text-decoration-color:rgba(245,228,232,.3)}
 @media (prefers-reduced-motion:reduce){.big{animation:none}}
 
 /* ---------- variety gallery ---------- */
-.chips{display:flex;gap:8px;margin:0 calc(-1 * var(--pad)) 26px;padding:2px var(--pad);overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tabs{display:flex;gap:6px 26px;margin:0 calc(-1 * var(--pad)) 22px;padding:0 var(--pad);overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;position:relative;padding:14px 0 15px;border:0;background:none;color:var(--dim);font:500 15px/1.2 "Golos Text",system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.tab i{font:400 10px/1 "Martian Mono",monospace;font-style:normal;margin-left:6px;opacity:.7}
+.tab.on{color:var(--ink)}
+.tab.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--ink)}
+.plead{margin:0 0 20px;max-width:46ch;font:italic 500 clamp(21px,1.8vw,26px)/1.28 "Cormorant Garamond",Georgia,serif;color:var(--dim)}
+.tools{display:flex;flex-direction:column;gap:14px;margin-bottom:24px}
+.chips{display:flex;gap:8px;margin:0 calc(-1 * var(--pad));padding:2px var(--pad);overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain}
 .chips::-webkit-scrollbar{display:none}
-.chip{flex:none;display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);font:500 14px "Golos Text",system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.chip{flex:none;display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 15px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);font:500 13px "Golos Text",system-ui,sans-serif;cursor:pointer;white-space:nowrap}
 .chip i{font:400 10px/1 "Martian Mono",monospace;font-style:normal;opacity:.55}
 .chip:hover{border-color:var(--ink)}
 .chip.on{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.search input{width:100%;max-width:340px;height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.55);color:var(--ink);font:400 15px "Golos Text",system-ui,sans-serif}
+.search input::placeholder{color:var(--dim)}
+.search input:focus{outline:none;border-color:var(--ink);background:#fff}
 .vgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0;padding:0;list-style:none}
-.vr[hidden]{display:none}
+.vgrid.s{grid-template-columns:repeat(2,minmax(0,1fr))}
+.vr[hidden],.panel[hidden],.empty[hidden]{display:none}
 .vr figure{margin:0;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px rgba(23,18,15,.06)}
-.vr img{display:block;width:100%;height:auto;aspect-ratio:560/760;object-fit:cover}
-.vr figcaption{display:flex;flex-direction:column;gap:5px;padding:2px 14px 16px;background:#fff}
-.vr figcaption b{font:italic 500 clamp(22px,2vw,28px)/1.05 "Cormorant Garamond",Georgia,serif;letter-spacing:-.01em;font-weight:500}
+.vr img{display:block;width:100%;height:auto}
+.vgrid.t img{aspect-ratio:560/760;object-fit:cover}
+.vgrid.s img{aspect-ratio:1/1;object-fit:cover}
+.vr figcaption{display:flex;flex-direction:column;gap:5px;padding:2px 14px 15px;background:#fff;min-height:58px}
+.vr figcaption b{font:italic 500 clamp(21px,1.9vw,27px)/1.05 "Cormorant Garamond",Georgia,serif;letter-spacing:-.01em}
 .vr figcaption span{font:400 10px/1.3 "Martian Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
-@media (min-width:700px){.vgrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}}
-@media (min-width:1000px){.vgrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}.chips{flex-wrap:wrap;overflow:visible;margin:0 0 30px;padding:0}}
-@media (min-width:1500px){.vgrid{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.vcard{display:block;width:100%;margin:0;padding:0;border:0;background:none;text-align:left;color:inherit;cursor:pointer;border-radius:14px;-webkit-tap-highlight-color:transparent}
+.vcard:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media (hover:hover){.vcard figure{transition:box-shadow .3s}.vcard:hover figure{box-shadow:0 0 0 1px rgba(23,18,15,.22),0 14px 34px -18px rgba(23,18,15,.35)}}
+.empty{margin:30px 0;color:var(--dim)}
+@media (min-width:560px){.vgrid.s{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:700px){.vgrid.t{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.vgrid.s{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}}
+@media (min-width:1000px){.vgrid.t{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}.vgrid.s{grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}
+  .tabs{margin:0 0 26px;padding:0;gap:6px 34px}.tools{flex-direction:row;align-items:center;justify-content:space-between;gap:24px}
+  .chips{flex-wrap:wrap;overflow:visible;margin:0;padding:0}.search{flex:none}}
+@media (min-width:1500px){.vgrid.t{grid-template-columns:repeat(5,minmax(0,1fr))}.vgrid.s{grid-template-columns:repeat(6,minmax(0,1fr))}}
+
+/* ---------- variety dialog ---------- */
+#vdlg{border:0;padding:0;background:transparent;max-width:none;max-height:none;width:100%;height:100%;margin:0;color:var(--ink)}
+#vdlg::backdrop{background:rgba(23,18,15,.55)}
+#vdlg:not([open]){display:none}
+#vdlg[open]{display:flex;align-items:flex-end;justify-content:center}
+.vd{position:relative;display:flex;flex-direction:column;width:100%;max-height:94vh;max-height:94dvh;overflow:auto;background:var(--cream);border-radius:22px 22px 0 0;overscroll-behavior:contain}
+.vd-x{position:sticky;top:12px;align-self:flex-end;z-index:2;flex:none;width:44px;height:44px;margin:12px 12px -56px 0;border:0;border-radius:50%;background:rgba(255,255,255,.92);color:var(--ink);font:300 28px/1 "Golos Text",system-ui,sans-serif;cursor:pointer;box-shadow:0 0 0 1px var(--line)}
+.vd-ph{display:flex;gap:2px;background:#fff;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.vd-ph::-webkit-scrollbar{display:none}
+.vd-ph img{flex:0 0 100%;width:100%;max-height:52vh;object-fit:contain;scroll-snap-align:center;background:#fff}
+.vd-in{padding:22px var(--pad) 28px}
+.vd-k{margin:0 0 8px;color:var(--accent)}
+.vd h3{margin:0 0 18px;font:italic 500 clamp(38px,9vw,56px)/1 "Cormorant Garamond",Georgia,serif;letter-spacing:-.01em}
+.vd-f{margin:0 0 24px;border-top:1px solid var(--line)}
+.vd-f div{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr);gap:14px;padding:11px 0;border-bottom:1px solid var(--line)}
+.vd-f dt{font:400 10px/1.5 "Martian Mono",monospace;letter-spacing:.07em;text-transform:uppercase;color:var(--dim);padding-top:3px}
+.vd-f dd{margin:0;font:400 16px/1.45 "Golos Text",system-ui,sans-serif}
+.vd-cta{display:flex;flex-wrap:wrap;gap:10px}
+@media (min-width:860px){
+  #vdlg[open]{align-items:center}
+  .vd{flex-direction:row;width:min(1000px,92vw);max-height:min(760px,90vh);border-radius:22px;overflow:hidden}
+  .vd-x{position:absolute;top:14px;right:14px;margin:0}
+  .vd-ph{flex:0 0 46%;overflow:hidden;align-items:center}
+  .vd-ph img{flex:0 0 100%;max-height:none;height:100%;min-height:0}
+  .vd-in{flex:1;overflow:auto;padding:44px 40px 36px}
+}
