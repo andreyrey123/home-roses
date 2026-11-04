@@ -77,8 +77,9 @@ img{display:block;max-width:100%}
 .card span{display:block;margin-top:8px;opacity:.75}
 .geo{position:absolute;inset:0;z-index:5;pointer-events:none}
 .geo span{position:absolute;left:0;top:0;opacity:0;white-space:pre;text-align:center;font:400 clamp(9px,.78vw,12px)/1.45 "Martian Mono",monospace;letter-spacing:.06em;text-transform:uppercase}
-.intro{position:absolute;z-index:6;left:var(--pad);right:var(--pad);bottom:calc(clamp(26px,5vh,48px) + var(--sb));display:grid;grid-template-columns:minmax(0,1.3fr) auto;gap:30px;align-items:end}
-.intro h1{margin:0;font:300 clamp(20px,1.9vw,30px)/1.22 Unbounded;letter-spacing:-.03em;max-width:34ch}
+.intro{position:absolute;z-index:6;left:var(--pad);right:var(--pad);bottom:calc(clamp(26px,5vh,48px) + var(--sb));display:grid;grid-template-columns:minmax(0,1fr);gap:22px;align-items:end}
+.countries{display:flex;flex-direction:column;align-items:flex-start;font:300 clamp(19px,1.9vw,30px)/1.3 Unbounded;letter-spacing:-.03em}
+.countries .ft{padding:3px 0;text-underline-offset:.22em}
 .ft{font-weight:500;color:var(--accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em;text-decoration-color:color-mix(in srgb,var(--accent) 45%,transparent);transition:text-decoration-color .2s}
 .ft:hover{text-decoration-color:var(--accent)}
 .intro .isub{margin:10px 0 0;max-width:52ch;font-size:clamp(15px,1.1vw,17px);line-height:1.5;opacity:.72}
@@ -86,12 +87,12 @@ img{display:block;max-width:100%}
 .ifacts{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:14px clamp(18px,3.4vw,52px);padding-top:18px;border-top:1px solid var(--line)}
 .ifacts span{font-size:10px;opacity:1;color:color-mix(in srgb,var(--fg) 52%,transparent);padding-left:12px;border-left:2px solid color-mix(in srgb,var(--fg) 22%,transparent)}
 .ifacts b{display:block;margin-top:7px;font:500 clamp(16px,1.4vw,21px)/1.2 Unbounded;letter-spacing:-.02em;text-transform:none;color:var(--fg)}
-.cue{position:relative;display:block;flex:none;width:24px;height:64px;margin-left:auto;color:var(--fg);pointer-events:none}
-.cue::before{content:"";position:absolute;left:50%;top:0;bottom:8px;width:1px;margin-left:-.5px;background:linear-gradient(transparent,currentColor 35%,currentColor 65%,transparent);opacity:.22}
-.cue i{position:absolute;left:50%;top:0;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:currentColor;opacity:0;animation:cue 2.6s cubic-bezier(.45,.05,.25,1) infinite}
-.cue::after{content:"";position:absolute;left:50%;bottom:2px;width:8px;height:8px;margin-left:-4px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);opacity:0;animation:cuearrow 2.6s ease-in-out infinite}
-@keyframes cue{0%{transform:translateY(0);opacity:0}18%{opacity:.5}72%{opacity:.5}100%{transform:translateY(46px);opacity:0}}
-@keyframes cuearrow{0%,55%{opacity:0;transform:translateY(-3px) rotate(45deg)}80%{opacity:.4;transform:translateY(0) rotate(45deg)}100%{opacity:0;transform:translateY(3px) rotate(45deg)}}
+.cue{position:absolute;right:0;top:calc(4px - var(--cueup,0px));width:44px;height:clamp(120px,19vh,190px);color:var(--fg);pointer-events:none}
+.cue::before{content:"";position:absolute;left:50%;top:0;bottom:14px;width:1.5px;margin-left:-.75px;background:linear-gradient(transparent,currentColor 30%,currentColor 70%,transparent);opacity:.2}
+.cue i{position:absolute;left:50%;top:0;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;background:currentColor;opacity:0;animation:cue 2.8s cubic-bezier(.45,.05,.25,1) infinite}
+.cue::after{content:"";position:absolute;left:50%;bottom:3px;width:14px;height:14px;margin-left:-7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);opacity:0;animation:cuearrow 2.8s ease-in-out infinite}
+@keyframes cue{0%{top:0;opacity:0}18%{opacity:.5}72%{opacity:.5}100%{top:calc(100% - 28px);opacity:0}}
+@keyframes cuearrow{0%,55%{opacity:0;transform:translateY(-5px) rotate(45deg)}80%{opacity:.45;transform:translateY(0) rotate(45deg)}100%{opacity:0;transform:translateY(5px) rotate(45deg)}}
 @media (prefers-reduced-motion:reduce){.cue i,.cue::after{animation:none}.cue::after{opacity:.35}}
 .place{position:absolute;z-index:6;pointer-events:none;left:var(--pad);bottom:calc(clamp(26px,5vh,48px) + var(--sb));max-width:min(620px,60vw)}
 .place .coord{font:italic 500 clamp(38px,3.9vw,62px)/.95 "Cormorant Garamond",Georgia,serif;letter-spacing:-.01em}
@@ -268,7 +269,7 @@ dialog::backdrop{background:rgba(23,18,15,.55);backdrop-filter:blur(4px)}
 @media (max-width:900px){
   .links{display:none}
   .word{font-size:23vw}
-  .intro{grid-template-columns:1fr;gap:18px}.intro .act{align-items:center;flex-direction:row;width:100%}.ifacts{flex-wrap:wrap;gap:12px 22px}.ifacts span{flex:0 0 calc(50% - 11px)}.ifacts span:last-child{flex-basis:100%}.ifacts b{font-size:14px}
+  .intro{gap:18px}.ifacts{flex-wrap:wrap;gap:12px 22px}.ifacts span{flex:0 0 calc(50% - 11px)}.ifacts span:last-child{flex-basis:100%}.ifacts b{font-size:14px}
   .worlds{top:auto;bottom:auto;top:90px;right:var(--pad);transform:none;gap:6px}.worlds button::after{width:8px}.worlds button.on::after{width:18px}
   .card{display:none}
   .place{max-width:none;right:var(--pad)}.place .name span{display:block}
@@ -303,8 +304,7 @@ dialog::backdrop{background:rgba(23,18,15,.55);backdrop-filter:blur(4px)}
 @media (max-height:520px) and (min-aspect-ratio:1/1){
   .stage{min-height:0}
   .intro .isub,.ifacts,.cue,.worlds,.place .name,.place p{display:none}
-  .intro{grid-template-columns:minmax(0,1fr) auto;align-items:center}
-  .intro .act{flex-direction:row;align-items:center}
+  .intro{align-items:center}
   .place .coord{font-size:30px}
 }
 /* phones: the stage is exactly the screen (a 600px minimum pushed the bottom off-screen on 568px-high phones) */
@@ -317,7 +317,7 @@ dialog::backdrop{background:rgba(23,18,15,.55);backdrop-filter:blur(4px)}
 @media (max-width:900px) and (max-height:760px){
   .intro .isub{display:none}
   .intro{gap:14px}.ifacts{padding-top:14px;gap:10px 22px}
-  .intro h1{font-size:19px}
+  .countries{font-size:17px}.countries .ft{padding:1px 0}
 }
 html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:none!important}
 @media (prefers-reduced-motion:reduce){.fill,.fl{animation:none}.reel{animation-duration:220s}.rv{opacity:1;transform:none}}
@@ -339,8 +339,12 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
     <div id="cards" aria-hidden="true"></div>
     <div class="geo" id="geo" aria-hidden="true"></div>
     <div class="intro" id="intro">
-      <div><h1><span class="vh">HOME ROSES — </span>Цветы из <a class="ft" href="ecuador.html">Эквадора</a>, <a class="ft" href="colombia.html">Колумбии</a>, <a class="ft" href="netherlands.html">Голландии</a>, <a class="ft" href="kenya.html">Кении</a>, <a class="ft" href="italy.html">Италии</a> и&nbsp;<a class="ft" href="chile.html">Чили</a></h1><p class="isub">Под заказ и со склада в Санкт-Петербурге. Возим с 2018 года, по каждой партии сверяем документы.</p></div>
-      <div class="act"><button class="pill solid" data-price>Запросить прайс</button><span class="cue" aria-hidden="true"><i></i></span></div>
+      <div>
+        <h1 class="vh">HOME ROSES — цветы из Эквадора, Колумбии, Голландии, Кении, Италии и Чили</h1>
+        <nav class="countries" aria-label="Страны, откуда мы привозим цветы"><a class="ft" href="ecuador.html">Эквадор</a><a class="ft" href="colombia.html">Колумбия</a><a class="ft" href="netherlands.html">Голландия</a><a class="ft" href="kenya.html">Кения</a><a class="ft" href="italy.html">Италия</a><a class="ft" href="chile.html">Чили</a></nav>
+        <p class="isub">Под заказ и со склада в Санкт-Петербурге. Возим с 2018 года, по каждой партии сверяем документы.</p>
+      </div>
+      <span class="cue" aria-hidden="true"><i></i></span>
       <div class="ifacts mono"><span>Вылеты<b>ср · вс</b></span><span>На складе СПб<b>через 5–6 дней</b></span><span>Заказ<b>от 1 банча</b></span><span>Доставка<b>по всему миру</b></span><span>Склад<b>Санкт-Петербург, 1-й Бадаевский пр., 9А</b></span></div>
     </div>
     <div class="place" id="place" aria-live="polite"><div class="coord" id="coord"></div><div class="name mono" id="pname"></div><p id="ptext"></p></div>
@@ -636,6 +640,9 @@ function measure() {
   // words sit centred, but always above the bottom text (with room for the coordinate captions), on phones and desktops
   const mob = W < 900 && H > 520;   // landscape phones use the compact desktop-like layout
   CY = Math.max((mob ? 165 : 90) + Gmax / 2, Math.min(H * (mob ? .4 : .5), textTop - (mob ? 56 : 72) - Gmax / 2));
+  // the scroll cue hangs right under the last letter of the word
+  const introEl = document.getElementById('intro');
+  introEl.style.setProperty('--cueup', Math.max(0, introEl.offsetTop - (CY + Gmax / 2) - 10) + 'px');
   D = 2 * Math.hypot(W / 2, Math.max(CY, H - CY)) * 1.04;
   portal.style.width = portal.style.height = D + 'px';
 }
