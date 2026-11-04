@@ -79,20 +79,21 @@ img{display:block;max-width:100%}
 .geo span{position:absolute;left:0;top:0;opacity:0;white-space:pre;text-align:center;font:400 clamp(9px,.78vw,12px)/1.45 "Martian Mono",monospace;letter-spacing:.06em;text-transform:uppercase}
 .intro{position:absolute;z-index:6;left:var(--pad);right:var(--pad);bottom:calc(clamp(26px,5vh,48px) + var(--sb));display:grid;grid-template-columns:minmax(0,1.3fr) auto;gap:30px;align-items:end}
 .intro h1{margin:0;font:300 clamp(20px,1.9vw,30px)/1.22 Unbounded;letter-spacing:-.03em;max-width:34ch}
-.ft{font-weight:500;color:transparent;-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 .6px rgba(23,18,15,.55))}
-.ft.ec{background-image:radial-gradient(circle at 50% 60%,#6B4F2A 0 .09em,transparent .1em),linear-gradient(#FFD100 0 52%,#034EA2 0 71%,#ED1C24 0)}
-.ft.co{background-image:linear-gradient(#FCD116 0 52%,#003893 0 71%,#CE1126 0)}
-.ft.nl{background-image:linear-gradient(#AE1C28 0 46%,#fff 0 63%,#21468B 0)}
-.ft.ke{background-image:linear-gradient(#141414 0 49%,#fff 0 53%,#BB0000 0 66%,#fff 0 70%,#006600 0)}
+.ft{font-weight:500;color:var(--accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em;text-decoration-color:color-mix(in srgb,var(--accent) 45%,transparent);transition:text-decoration-color .2s}
+.ft:hover{text-decoration-color:var(--accent)}
+.intro h1 .ft{display:inline-block;padding:2px 0}
 .intro .isub{margin:10px 0 0;max-width:52ch;font-size:clamp(15px,1.1vw,17px);line-height:1.5;opacity:.72}
 .intro .act{display:flex;flex-direction:column;align-items:flex-end;gap:14px}
 .ifacts{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:14px clamp(18px,3.4vw,52px);padding-top:18px;border-top:1px solid var(--line)}
 .ifacts span{font-size:10px;opacity:1;color:color-mix(in srgb,var(--fg) 52%,transparent);padding-left:12px;border-left:2px solid color-mix(in srgb,var(--fg) 22%,transparent)}
 .ifacts b{display:block;margin-top:7px;font:500 clamp(16px,1.4vw,21px)/1.2 Unbounded;letter-spacing:-.02em;text-transform:none;color:var(--fg)}
-.cue{display:flex;align-items:center;gap:10px}
-.cue i{width:18px;height:26px;border:1.5px solid currentColor;border-radius:50%;position:relative}
-.cue i::after{content:"";position:absolute;left:50%;top:5px;width:2px;height:6px;margin-left:-1px;background:currentColor;border-radius:2px;animation:cue 1.8s var(--ease) infinite}
-@keyframes cue{0%{opacity:0;transform:translateY(-2px)}40%{opacity:1}100%{opacity:0;transform:translateY(8px)}}
+.cue{position:relative;display:block;flex:none;width:24px;height:64px;margin-left:auto;color:var(--fg);pointer-events:none}
+.cue::before{content:"";position:absolute;left:50%;top:0;bottom:8px;width:1px;margin-left:-.5px;background:linear-gradient(transparent,currentColor 35%,currentColor 65%,transparent);opacity:.22}
+.cue i{position:absolute;left:50%;top:0;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:currentColor;opacity:0;animation:cue 2.6s cubic-bezier(.45,.05,.25,1) infinite}
+.cue::after{content:"";position:absolute;left:50%;bottom:2px;width:8px;height:8px;margin-left:-4px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);opacity:0;animation:cuearrow 2.6s ease-in-out infinite}
+@keyframes cue{0%{transform:translateY(0);opacity:0}18%{opacity:.5}72%{opacity:.5}100%{transform:translateY(46px);opacity:0}}
+@keyframes cuearrow{0%,55%{opacity:0;transform:translateY(-3px) rotate(45deg)}80%{opacity:.4;transform:translateY(0) rotate(45deg)}100%{opacity:0;transform:translateY(3px) rotate(45deg)}}
+@media (prefers-reduced-motion:reduce){.cue i,.cue::after{animation:none}.cue::after{opacity:.35}}
 .place{position:absolute;z-index:6;pointer-events:none;left:var(--pad);bottom:calc(clamp(26px,5vh,48px) + var(--sb));max-width:min(620px,60vw)}
 .place .coord{font:italic 500 clamp(38px,3.9vw,62px)/.95 "Cormorant Garamond",Georgia,serif;letter-spacing:-.01em}
 .place .name{margin:16px 0 12px;line-height:1.9}.place .name span{display:inline-block;margin-right:22px;white-space:nowrap}
@@ -266,7 +267,7 @@ dialog::backdrop{background:rgba(23,18,15,.55);backdrop-filter:blur(4px)}
 @media (max-width:900px){
   .links{display:none}
   .word{font-size:23vw}
-  .intro{grid-template-columns:1fr;gap:18px}.intro .act{align-items:flex-start;flex-direction:row}.ifacts{flex-wrap:wrap;gap:12px 22px}.ifacts span{flex:0 0 calc(50% - 11px)}.ifacts b{font-size:14px}
+  .intro{grid-template-columns:1fr;gap:18px}.intro .act{align-items:center;flex-direction:row;width:100%}.ifacts{flex-wrap:wrap;gap:12px 22px}.ifacts span{flex:0 0 calc(50% - 11px)}.ifacts b{font-size:14px}
   .worlds{top:auto;bottom:auto;top:90px;right:var(--pad);transform:none;gap:6px}.worlds button::after{width:8px}.worlds button.on::after{width:18px}
   .card{display:none}
   .place{max-width:none;right:var(--pad)}.place .name span{display:block}
@@ -311,7 +312,7 @@ dialog::backdrop{background:rgba(23,18,15,.55);backdrop-filter:blur(4px)}
 @media (max-width:900px) and (max-height:640px){.ifacts span:nth-child(n+5){display:none}}
 /* short phones: drop the sub-line so the hero text never runs into the word */
 @media (max-width:900px) and (max-height:760px){
-  .intro .isub,.intro .cue{display:none}
+  .intro .isub{display:none}
   .intro{gap:14px}.ifacts{padding-top:14px;gap:10px 22px}
   .intro h1{font-size:19px}
 }
@@ -327,7 +328,7 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
 </header>
 
 <main id="top">
-<!-- ============ THE CHAIN: Розы → Эквадор → Колумбия → Голландия → Дом ============ -->
+<!-- ============ THE CHAIN: Цветы → Эквадор → Колумбия → Голландия → Дом ============ -->
 <section class="chain" id="chain" aria-label="Откуда наши цветы">
   <div class="stage" id="stage">
     <div class="portal" id="portal" aria-hidden="true"><img id="pimg" src="img/p38.webp" alt=""><i></i></div>
@@ -335,8 +336,8 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
     <div id="cards" aria-hidden="true"></div>
     <div class="geo" id="geo" aria-hidden="true"></div>
     <div class="intro" id="intro">
-      <div><h1><span class="vh">HOME ROSES — </span>Цветы из <span class="ft ec">Эквадора</span>, <span class="ft co">Колумбии</span>, <span class="ft nl">Голландии</span> и&nbsp;<span class="ft ke">Кении</span></h1><p class="isub">Под заказ и со склада в Санкт-Петербурге. Возим с 2018 года, по каждой партии сверяем документы.</p></div>
-      <div class="act"><button class="pill solid" data-price>Запросить прайс</button><span class="cue mono"><i></i>Листайте</span></div>
+      <div><h1><span class="vh">HOME ROSES — </span>Цветы из <a class="ft" href="ecuador.html">Эквадора</a>, <a class="ft" href="colombia.html">Колумбии</a>, <a class="ft" href="netherlands.html">Голландии</a> и&nbsp;<a class="ft" href="kenya.html">Кении</a></h1><p class="isub">Под заказ и со склада в Санкт-Петербурге. Возим с 2018 года, по каждой партии сверяем документы.</p></div>
+      <div class="act"><button class="pill solid" data-price>Запросить прайс</button><span class="cue" aria-hidden="true"><i></i></span></div>
       <div class="ifacts mono"><span>Вылеты<b>ср · вс</b></span><span>На складе СПб<b>через 5–6 дней</b></span><span>Стебель<b>40–100+ см</b></span><span>Заказ<b>от 1 банча</b></span><span>Доставка<b>по всему миру</b></span><span>Склад<b>1-й Бадаевский пр., 9А</b></span></div>
     </div>
     <div class="place" id="place" aria-live="polite"><div class="coord" id="coord"></div><div class="name mono" id="pname"></div><p id="ptext"></p></div>
@@ -544,7 +545,7 @@ dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
 /* ---------- the chain ---------- */
 // each word hides the next one inside its «О»; inside the «О» you already see the next world's colour
 const CHAIN = [
-  {w: 'РОЗЫ',      o: 1, nav: 'Розы',      bg: '#EEE8E0', fg: '#17120F', pos: '0%'},
+  {w: 'ЦВЕТЫ',     o: 1, nav: 'Цветы',      bg: '#EEE8E0', fg: '#17120F', pos: '0%'},
   {w: 'EC CO NL KE', o: 4, nav: 'Плантации', bg: '#1D3A2F', fg: '#ECE6D8', pos: '-40%', coord: 'Напрямую с плантаций', name: '<i class="flag ec"></i>Эквадор\n<i class="flag co"></i>Колумбия\n<i class="flag nl"></i>Голландия\n<i class="flag ke"></i>Кения', geo: [{a: 0, b: 2, t: '0°13′ ю. ш.\n78°31′ з. д.'}, {a: 3, b: 5, t: '4°36′ с. ш.\n74°05′ з. д.'}, {a: 6, b: 8, t: '52°22′ с. ш.\n4°54′ в. д.'}, {a: 9, b: 11, t: '1°17′ ю. ш.\n36°49′ в. д.'}], text: 'Закупаем напрямую у плантаций. В одной партии может быть несколько ферм — плантация указана в документах по каждой позиции.'},
   {w: 'ДОМ',       o: 1, nav: 'Дом',       bg: '#3D0A17', fg: '#F5E4E8', pos: '-95%', geo: [{a: 0, b: 3, t: '59°48′ с. ш. · 30°24′ в. д.'}], coord: '59°48′ с. ш.', name: 'Санкт-Петербург · Шушары', text: 'Через 5–6 дней после вылета цветы на нашем складе.'},
 ];
@@ -595,10 +596,12 @@ function counter(span) {
   const px = holeCtx.getImageData(0, 0, holeCv.width, holeCv.height).data, ink = (x, y) => px[(y * holeCv.width + x) * 4 + 3] > 120;
   const midY = Math.round(asc - (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2);
   const midX = Math.round((m.actualBoundingBoxRight - m.actualBoundingBoxLeft) / 2);
-  if (ink(midX, midY)) return null;
-  let l = midX, r = midX, t = midY, b = midY;
-  while (l > 0 && !ink(l - 1, midY)) l--;
-  while (r < holeCv.width - 1 && !ink(r + 1, midY)) r++;
+  const top = asc - m.actualBoundingBoxAscent, bot = asc + m.actualBoundingBoxDescent;
+  let sy = midY;
+  if (ink(midX, sy)) { sy = [.3, .7].map(f => Math.round(top + (bot - top) * f)).find(y => !ink(midX, y)); if (sy === undefined) return null; }
+  let l = midX, r = midX, t = sy, b = sy;
+  while (l > 0 && !ink(l - 1, sy)) l--;
+  while (r < holeCv.width - 1 && !ink(r + 1, sy)) r++;
   const hx = Math.round((l + r) / 2);
   while (t > 0 && !ink(hx, t - 1)) t--;
   while (b < holeCv.height - 1 && !ink(hx, b + 1)) b++;
@@ -958,7 +961,7 @@ function sectionsFrame() {
 
 /* ---------- loop ---------- */
 const lenis = window.Lenis ? new Lenis({lerp: .085, virtualScroll: e => snapScroll(e)}) : null;
-// stops: РОЗЫ, EC CO NL, ДОМ (end of the chain), then the first section below it
+// stops: ЦВЕТЫ, EC CO NL, ДОМ (end of the chain), then the first section below it
 const snapStops = () => { const top = chainEl.offsetTop, span = chainEl.offsetHeight - innerHeight; return [top, top + span / (N - 1 + TAIL), top + span, top + chainEl.offsetHeight]; };
 let snapBusy = false, needQuiet = false, lastWheel = 0, touchAcc = 0, touchFresh = true;
 function snapScroll({deltaY, event}) {
