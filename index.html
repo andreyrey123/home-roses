@@ -72,7 +72,9 @@ img{display:block;max-width:100%}
 .portal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(var(--pz,1.25));will-change:transform}
 .portal i{position:absolute;inset:0;background:var(--pc);opacity:var(--po,0)}
 .word.solid{background:none;-webkit-background-clip:border-box;background-clip:border-box;animation:none;color:#FFF7F2;text-shadow:0 0 .12em rgba(0,0,0,.35)}
-.word{position:absolute;left:0;top:0;font:900 clamp(96px,20vw,380px)/.8 Unbounded;letter-spacing:-.06em;white-space:nowrap;transform-origin:0 0}
+.word{position:absolute;left:0;top:0;font:900 clamp(96px,20vw,380px)/.8 Unbounded;letter-spacing:-.06em;white-space:nowrap;transform-origin:0 0;text-align:center}
+.wsub2{display:block;margin-top:.9em;font:600 .17em/1 Unbounded;letter-spacing:.42em;text-transform:uppercase;padding-left:.42em}
+.wsub{display:block;margin-top:.6em;font:700 .33em/1 Unbounded;letter-spacing:.12em;text-transform:uppercase;padding-left:.12em}
 .card{position:absolute;z-index:4;width:clamp(110px,11.5vw,190px);pointer-events:none;opacity:0;will-change:transform,opacity}
 .card img{width:100%;aspect-ratio:3/4;object-fit:cover}
 .card span{display:block;margin-top:8px;opacity:.75}
@@ -101,7 +103,20 @@ img{display:block;max-width:100%}
 @media (prefers-reduced-motion:reduce){.cue i,.cue::after{animation:none}.cue::after{opacity:.35}}
 .place{position:absolute;z-index:6;pointer-events:none;left:var(--pad);bottom:calc(clamp(26px,5vh,48px) + var(--sb));max-width:min(620px,60vw)}
 .place .coord{font:italic 500 clamp(38px,3.9vw,62px)/.95 "Cormorant Garamond",Georgia,serif;letter-spacing:-.01em}
-.place .name{margin:16px 0 12px;line-height:1.9}.place .name span{display:inline-block;margin-right:22px;white-space:nowrap}
+.place .name{margin:16px 0 12px;line-height:1.9}.place .name span,.place .name a{display:inline-block;margin-right:22px;white-space:nowrap}
+.place .name a{font-size:clamp(14px,1.15vw,18px);color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:10px;margin:0 8px 10px 0;padding:10px 14px 10px 12px;border:1px solid color-mix(in srgb,currentColor 38%,transparent);border-radius:999px;pointer-events:none;transition:background .35s,color .35s,border-color .35s,transform .5s var(--ease)}
+.place .name a::after{content:"→";font-family:system-ui,sans-serif;opacity:.7;transition:transform .5s var(--ease),opacity .3s}
+.place.live .name a{pointer-events:auto;animation:nudge 5.5s ease-in-out infinite;animation-delay:calc(var(--q) * .22s + 1.2s)}
+.place .name a:hover,.place .name a:focus-visible{background:var(--fg);color:var(--bg);border-color:var(--fg);animation:none;transform:translateY(-2px)}
+.place .name a:hover::after,.place .name a:focus-visible::after{transform:translateX(4px);opacity:1}
+.place .name a:active{transform:scale(.97)}
+@keyframes nudge{0%,22%,100%{border-color:color-mix(in srgb,currentColor 38%,transparent);box-shadow:0 0 0 0 transparent}8%{border-color:currentColor;box-shadow:0 0 0 5px color-mix(in srgb,currentColor 14%,transparent)}}
+@keyframes nudgea{0%,22%,100%{transform:none}8%{transform:translateX(4px)}}
+.place.live .name a::after{animation:nudgea 5.5s ease-in-out infinite;animation-delay:calc(var(--q) * .22s + 1.2s)}
+.place .tap{display:block;margin:2px 0 14px;font:italic 500 clamp(16px,1.2vw,19px)/1.2 "Cormorant Garamond",Georgia,serif;opacity:.7}
+.veil{position:fixed;inset:0;z-index:300;pointer-events:none;background:#EEE8E0;clip-path:circle(0 at var(--vx,50%) var(--vy,50%));transition:clip-path .75s cubic-bezier(.65,0,.25,1)}
+.veil.go{clip-path:circle(150vmax at var(--vx,50%) var(--vy,50%))}
+@media (prefers-reduced-motion:reduce){.place.live .name a,.place.live .name a::after{animation:none}.veil{transition:none}}
 .flag{display:inline-block;width:20px;height:14px;margin-right:8px;vertical-align:-2px;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.18)}
 .flag.ec{background:radial-gradient(circle,#6B4F2A 0 2.3px,transparent 2.8px),linear-gradient(#FFD100 0 50%,#034EA2 0 75%,#ED1C24 0)}
 .flag.co{background:linear-gradient(#FCD116 0 50%,#003893 0 75%,#CE1126 0)}
@@ -137,7 +152,7 @@ section.s{padding:clamp(90px,13vw,170px) var(--pad);border-top:1px solid var(--l
 .fmt:hover .go i{background:var(--ink);border-color:var(--ink);color:var(--cream);transform:rotate(-45deg)}
 .note{display:flex;gap:30px;flex-wrap:wrap;margin-top:28px;color:var(--dim)}
 /* process */
-.steps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.6vw,40px)}
+.steps{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(16px,2.6vw,40px)}
 .steps::before{content:"";position:absolute;left:0;right:0;top:22px;height:1px;background:var(--line)}
 .steps::after{content:"";position:absolute;left:0;top:22px;height:1px;width:var(--prog,0%);background:var(--accent)}
 .step .n{position:relative;z-index:1;display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--cream);border:1px solid var(--line);font:400 15px Unbounded;transition:border-color .5s,color .5s}
@@ -278,6 +293,7 @@ dialog::backdrop{background:rgba(23,18,15,.55);backdrop-filter:blur(4px)}
   .worlds{top:auto;bottom:auto;top:90px;right:var(--pad);transform:none;gap:6px}.worlds button::after{width:8px}.worlds button.on::after{width:18px}
   .card{display:none}
   .place{max-width:none;right:var(--pad)}.place .name span{display:block}
+  .place .name{display:grid;grid-template-columns:1fr 1fr;gap:8px}.place .name a{margin:0;justify-content:space-between;padding:11px 12px 11px 11px;font-size:13px}
   .kicker{flex-direction:column}
   .fmt,.sched,.why,.cgrid,.route{grid-template-columns:1fr}
   .why h2{position:static}
@@ -307,12 +323,9 @@ dialog::backdrop{background:rgba(23,18,15,.55);backdrop-filter:blur(4px)}
 }
 /* desktop: the country list on the left, the sub-line and the facts to its right, so the whole block stays low */
 @media (min-width:1000px){
-  .intro{grid-template-columns:minmax(300px,440px) minmax(0,1fr);grid-template-rows:1fr auto;column-gap:clamp(40px,6vw,120px);row-gap:18px;align-items:end}
-  .intro > div:first-child{display:contents}
-  .countries{grid-column:1;grid-row:1/3;width:100%}
-  .intro .isub{grid-column:2;grid-row:1;align-self:end;margin:0 calc(var(--cuer,0px) + 80px) 0 0}
-  .ifacts{grid-column:2;grid-row:2;margin-right:calc(var(--cuer,0px) + 80px);gap:14px clamp(18px,2.4vw,40px)}
-  .cn span{font-size:clamp(28px,2.2vw,38px)}
+  .intro{grid-template-columns:minmax(0,1fr);row-gap:18px;align-items:end}
+  .intro .isub{margin:0}
+  .ifacts{margin-right:calc(var(--cuer,0px) + 80px);gap:14px clamp(18px,2.4vw,40px)}
 }
 /* low desktop windows: tighter rows, the address moves to the sections below */
 @media (min-width:1000px) and (max-height:680px){
@@ -363,13 +376,12 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
     <div class="intro" id="intro">
       <div>
         <h1 class="vh">HOME ROSES — цветы из Эквадора, Колумбии, Голландии, Кении, Италии и Чили</h1>
-        <nav class="countries" aria-label="Страны, откуда мы привозим цветы"><a class="cn" href="ecuador.html"><i>01</i><span>Эквадор</span><em>0°13′ ю. ш.</em></a><a class="cn" href="colombia.html"><i>02</i><span>Колумбия</span><em>4°36′ с. ш.</em></a><a class="cn" href="netherlands.html"><i>03</i><span>Голландия</span><em>52°22′ с. ш.</em></a><a class="cn" href="kenya.html"><i>04</i><span>Кения</span><em>1°17′ ю. ш.</em></a><a class="cn" href="italy.html"><i>05</i><span>Италия</span><em>41°54′ с. ш.</em></a><a class="cn" href="chile.html"><i>06</i><span>Чили</span><em>33°27′ ю. ш.</em></a></nav>
         <p class="isub">Под заказ и со склада в Санкт-Петербурге. Возим с 2018 года, по каждой партии сверяем документы.</p>
       </div>
       <span class="cue" aria-hidden="true"><i></i></span>
       <div class="ifacts mono"><span>Вылеты<b>ср · вс</b></span><span>На складе СПб<b>через 5–6 дней</b></span><span>Заказ<b>от 1 банча</b></span><span>Доставка<b>по всему миру</b></span><span>Склад<b>Санкт-Петербург, 1-й Бадаевский пр., 9А</b></span></div>
     </div>
-    <div class="place" id="place" aria-live="polite"><div class="coord" id="coord"></div><div class="name mono" id="pname"></div><p id="ptext"></p></div>
+    <div class="place" id="place" aria-live="polite"><div class="coord" id="coord"></div><div class="name mono" id="pname"></div><span class="tap" id="ptap" hidden>Нажмите на страну, чтобы открыть каталог</span><p id="ptext"></p></div>
     <nav class="worlds mono" id="worlds" aria-label="Путь цветов"></nav>
     <div class="home" id="home">
       <div class="actions"><a class="pill" data-tg href="#" target="_blank" rel="noopener">Telegram</a><a class="pill" data-wa href="#" target="_blank" rel="noopener">WhatsApp</a><a class="pill" data-max href="#" target="_blank" rel="noopener">MAX</a></div>
@@ -427,8 +439,9 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
   <ol class="steps" id="steps" style="list-style:none;margin:0;padding:0">
     <li class="step"><span class="n">1</span><h3>Заявка</h3><p>Сорта, длина стебля, количество коробок.</p></li>
     <li class="step"><span class="n">2</span><h3>Закупка</h3><p>Размещаем заказ на плантациях.</p></li>
-    <li class="step"><span class="n">3</span><h3>Доставка</h3><p>Вылет в среду или воскресенье. До склада в СПб обычно 5–6 дней.</p></li>
-    <li class="step"><span class="n">4</span><h3>Получение</h3><p>Забираете со склада или получаете доставкой по России, в СНГ или за рубеж — с полным комплектом документов.</p></li>
+    <li class="step"><span class="n">3</span><h3>Отчёт о закупке</h3><p>Присылаем отчёт: что куплено, с какой плантации, сорт, длина стебля и количество.</p></li>
+    <li class="step"><span class="n">4</span><h3>Доставка</h3><p>Вылет в среду или воскресенье. До склада в СПб обычно 5–6 дней.</p></li>
+    <li class="step"><span class="n">5</span><h3>Получение</h3><p>Забираете со склада или получаете доставкой по России, в СНГ или за рубеж — с полным комплектом документов.</p></li>
   </ol>
 </section>
 
@@ -539,7 +552,6 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
     <a class="pill solid" data-tg href="#" target="_blank" rel="noopener">Telegram<span class="mono">@home_roses_ltda</span></a>
     <a class="pill" data-wa href="#" target="_blank" rel="noopener">WhatsApp<span class="mono">+7 981 052-42-42</span></a>
       <a class="pill" data-max href="#" target="_blank" rel="noopener">MAX<span class="mono">+7 981 052-42-42</span></a>
-    <a class="pill" data-mail href="#">Почта<span class="mono">написать письмо</span></a>
   </div>
 </div></dialog>
 
@@ -574,8 +586,8 @@ dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
 /* ---------- the chain ---------- */
 // each word hides the next one inside its «О»; inside the «О» you already see the next world's colour
 const CHAIN = [
-  {w: 'ЦВЕТЫ',     o: 1, nav: 'Главная',      bg: '#EEE8E0', fg: '#17120F', pos: '0%'},
-  {w: 'EC CO NL KE IT CL', o: 4, nav: 'Плантации', bg: '#1D3A2F', fg: '#ECE6D8', pos: '-40%', coord: 'Напрямую с плантаций', name: '<i class="flag ec"></i>Эквадор\n<i class="flag co"></i>Колумбия\n<i class="flag nl"></i>Голландия\n<i class="flag ke"></i>Кения\n<i class="flag it"></i>Италия\n<i class="flag cl"></i>Чили', geo: [{a: 0, b: 2, t: '0°13′ ю. ш.\n78°31′ з. д.'}, {a: 3, b: 5, t: '4°36′ с. ш.\n74°05′ з. д.'}, {a: 6, b: 8, t: '52°22′ с. ш.\n4°54′ в. д.'}, {a: 9, b: 11, t: '1°17′ ю. ш.\n36°49′ в. д.'}, {a: 12, b: 14, t: '41°54′ с. ш.\n12°30′ в. д.'}, {a: 15, b: 17, t: '33°27′ ю. ш.\n70°40′ з. д.'}], text: 'Закупаем напрямую у плантаций. В одной партии может быть несколько ферм — плантация указана в документах по каждой позиции.'},
+  {w: 'ЦВЕТЫ',     o: 1, sub: 'со всего мира', sub2: 'по всему миру', nav: 'Главная',      bg: '#EEE8E0', fg: '#17120F', pos: '0%'},
+  {w: 'EC CO NL KE IT CL', o: 4, nav: 'Страны', bg: '#1D3A2F', fg: '#ECE6D8', pos: '-40%', coord: 'Страны', links: ['ecuador.html','colombia.html','netherlands.html','kenya.html','italy.html','chile.html'], name: '<i class="flag ec"></i>Эквадор\n<i class="flag co"></i>Колумбия\n<i class="flag nl"></i>Голландия\n<i class="flag ke"></i>Кения\n<i class="flag it"></i>Италия\n<i class="flag cl"></i>Чили', geo: [{a: 0, b: 2, t: '0°13′ ю. ш.\n78°31′ з. д.'}, {a: 3, b: 5, t: '4°36′ с. ш.\n74°05′ з. д.'}, {a: 6, b: 8, t: '52°22′ с. ш.\n4°54′ в. д.'}, {a: 9, b: 11, t: '1°17′ ю. ш.\n36°49′ в. д.'}, {a: 12, b: 14, t: '41°54′ с. ш.\n12°30′ в. д.'}, {a: 15, b: 17, t: '33°27′ ю. ш.\n70°40′ з. д.'}], text: 'Закупаем напрямую у плантаций. В одной партии может быть несколько ферм — плантация указана в документах по каждой позиции.'},
   {w: 'ДОМ',       o: 1, nav: 'О себе',      bg: '#3D0A17', fg: '#F5E4E8', pos: '-95%', geo: [{a: 0, b: 3, t: '59°48′ с. ш. · 30°24′ в. д.'}], coord: '59°48′ с. ш.', name: 'Санкт-Петербург · Шушары', text: 'Через 5–6 дней после вылета цветы на нашем складе.'},
 ];
 const N = CHAIN.length, TAIL = .3;               // extra scroll to rest on ДОМ
@@ -583,7 +595,7 @@ const nav = document.getElementById('nav'), stage = document.getElementById('sta
 const wordsEl = document.getElementById('words'), cardsEl = document.getElementById('cards'), place = document.getElementById('place');
 const els = CHAIN.map(c => {
   const e = document.createElement('div'); e.className = 'word fill';
-  e.innerHTML = [...c.w].map((ch, i) => i === c.o ? `<span class="o">${ch}</span>` : ch).join('');
+  e.innerHTML = [...c.w].map((ch, i) => i === c.o ? `<span class="o">${ch}</span>` : ch).join('') + (c.sub ? `<small class="wsub">${c.sub}</small>` : '') + (c.sub2 ? `<small class="wsub2">${c.sub2}</small>` : '');
   e.style.backgroundPositionX = c.pos; wordsEl.appendChild(e); return e;
 });
 // floating photo cards: two per world, drifting past as you fly
@@ -612,7 +624,7 @@ const PHOTO = ['', 'img/p38.webp', 'img/p10.webp'];
 PHOTO.forEach(src => { if (src) { const im = new Image(); im.src = src; im.decode && im.decode().catch(() => {}); } });
 const worlds = document.getElementById('worlds');
 worlds.innerHTML = CHAIN.map((c, j) => `<button data-j="${j}">${c.nav}</button>`).join('');
-let G = [], W = 0, H = 0, D = 0, CY = 0, Gmax = 0, textTop = 600;
+let G = [], W = 0, H = 0, D = 0, CY = 0, Gmax = 0, textTop = 600, introTop = 600;
 // rasterise the «О» once and find its counter (the hole): centre and diameter relative to the letter's box
 const holeCv = document.createElement('canvas'), holeCtx = holeCv.getContext('2d', {willReadFrequently: true});
 function counter(span) {
@@ -643,17 +655,19 @@ function measure() {
   const probe = place.cloneNode(true), c = CHAIN[1];
   probe.removeAttribute('id'); probe.style.visibility = 'hidden'; probe.style.opacity = 0;
   probe.querySelector('.coord').textContent = c.coord;
-  probe.querySelector('.name').innerHTML = c.name.split('\n').map(x => `<span>${x}</span>`).join('');
+  probe.querySelector('.name').innerHTML = c.name.split('\n').map(x => `<a>${x}</a>`).join('');
   probe.querySelector('p').textContent = c.text;
-  stage.appendChild(probe); textTop = Math.min(document.getElementById('intro').offsetTop, probe.offsetTop || H); probe.remove();
+  stage.appendChild(probe); introTop = document.getElementById('intro').offsetTop; textTop = Math.min(introTop, probe.offsetTop || H); probe.remove();
   const mob = W < 900 && H > 520;   // landscape phones use the compact desktop-like layout
-  const maxWordH = Math.max(110, textTop - (mob ? 56 : 72) - (mob ? 165 : 96));   // a word never grows into the text below it
+  const maxWordH0 = Math.max(110, introTop - (mob ? 56 : 72) - (mob ? 165 : 96)), maxWordH = Math.max(110, textTop - (mob ? 56 : 72) - (mob ? 165 : 96));   // a word never grows into the text below it (the first word only has the intro under it)
+  let cy0 = 0;
   G = els.map(e => {
     e.style.transform = 'none'; e.style.fontSize = '';
     const fit = W * (W < 900 ? .9 : .74), r0 = e.getBoundingClientRect();
     if (r0.width > fit) e.style.fontSize = parseFloat(getComputedStyle(e).fontSize) * fit / r0.width + 'px';
     const rh = e.getBoundingClientRect().height;
-    if (rh > maxWordH) e.style.fontSize = parseFloat(getComputedStyle(e).fontSize) * maxWordH / rh + 'px';
+    const first = e === els[0], lim = first ? maxWordH0 : Math.min(maxWordH, Math.max(110, 2 * (textTop - (mob ? 56 : 72) - cy0))); if (rh > lim) e.style.fontSize = parseFloat(getComputedStyle(e).fontSize) * lim / rh + 'px';
+    if (first) cy0 = Math.max((mob ? 165 : 90) + e.getBoundingClientRect().height / 2, Math.min(H * .4, introTop - (mob ? 56 : 72) - e.getBoundingClientRect().height / 2));
     const span = e.querySelector('.o'), r = e.getBoundingClientRect(), o = span.getBoundingClientRect(), hole = counter(span);
     twins[els.indexOf(e)].style.fontSize = e.style.fontSize;
     const g = hole ? {w: r.width, h: r.height, ox: o.left - r.left + hole.x, oy: o.top - r.top + hole.y, hd: hole.d}
@@ -665,7 +679,8 @@ function measure() {
   // phones have room for latitude only under each code
   GEO.forEach(list => list.forEach(c => { c.el.textContent = W < 900 ? c.t.split('\n')[0].replace(W < 460 ? / ([сю])[.] ш[.]$/ : /$^/, '$1') : c.t; }));
   // words sit centred, but always above the bottom text (with room for the coordinate captions), on phones and desktops
-  CY = Math.max((mob ? 165 : 90) + Gmax / 2, Math.min(H * (mob ? .4 : .5), textTop - (mob ? 56 : 72) - Gmax / 2));
+  const gapB = mob ? 56 : 72, lowest = G.map((g, j) => (j === 0 ? introTop : textTop) - gapB - g.h / 2);
+  CY = Math.max((mob ? 165 : 90) + Gmax / 2, Math.min(H * .4, ...lowest));
   // the scroll cue hangs right under the last letter of the word
   const introEl = document.getElementById('intro');
   introEl.style.setProperty('--cueup', Math.max(0, introEl.offsetTop - (CY + Gmax / 2) - 10) + 'px');
@@ -687,8 +702,9 @@ function showPlace(j) {
   setTimeout(() => {
     const c = CHAIN[j];
     document.getElementById('coord').textContent = c.coord || '';
-    document.getElementById('pname').innerHTML = (c.name || '').split('\n').map(x => `<span>${x}</span>`).join('');
+    document.getElementById('pname').innerHTML = (c.name || '').split('\n').map((x, q) => c.links ? `<a href="${c.links[q]}" style="--q:${q}">${x}</a>` : `<span>${x}</span>`).join('');
     document.getElementById('ptext').textContent = c.text || '';
+    document.getElementById('ptap').hidden = !c.links;
     place.classList.remove('swap');
   }, 260);
 }
@@ -750,6 +766,7 @@ function chainFrame() {
   if (focus > 0) showPlace(focus);
   place.style.opacity = focus === 0 || (last && u > .04) ? 0 : (u > .3 && u < .78 && !last ? 1 - seg(u, .3, .55) : 1);
   const home = document.getElementById('home'); home.style.opacity = last ? seg(u, .04, .16) : 0; home.style.pointerEvents = last && u > .08 ? 'auto' : 'none';
+  place.classList.toggle('live', focus === 1 && +place.style.opacity > .9);
   [...worlds.children].forEach((b, j) => b.classList.toggle('on', j === focus));
   // cards drift past: they live around the arrival of their world and slide outward as the next zoom starts
   CARDS.forEach(c => {
@@ -770,6 +787,19 @@ worlds.addEventListener('click', e => {
 });
 
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// country links: the cream page grows out of the tapped point, then the catalogue opens
+const veil = document.createElement('div'); veil.className = 'veil'; veil.setAttribute('aria-hidden', 'true'); document.body.appendChild(veil);
+document.getElementById('pname').addEventListener('click', e => {
+  const a = e.target.closest('a[href]'); if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+  e.preventDefault();
+  if (RM) { location.href = a.href; return; }
+  const r = a.getBoundingClientRect();
+  veil.style.setProperty('--vx', (r.left + r.width / 2) + 'px'); veil.style.setProperty('--vy', (r.top + r.height / 2) + 'px');
+  veil.classList.add('go');
+  setTimeout(() => { location.href = a.href; }, 640);
+});
+addEventListener('pageshow', e => { if (e.persisted) veil.classList.remove('go'); });
+
   /* ---------- globe ---------- */
   (function globe() {
     const cv = document.getElementById('globe'), ctx = cv.getContext('2d');
