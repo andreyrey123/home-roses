@@ -289,6 +289,7 @@ dialog::backdrop{background:rgba(23,18,15,.55);backdrop-filter:blur(4px)}
 @media (max-width:900px){
   .links{display:none}
   .word{font-size:23vw}
+  .wsub{margin-top:.95em;font-size:.35em}.wsub2{margin-top:1.7em;font-size:.21em;letter-spacing:.36em}
   .intro{gap:18px}.ifacts{flex-wrap:wrap;gap:12px 22px}.ifacts span{flex:0 0 calc(50% - 11px)}.ifacts span:last-child{flex-basis:100%}.ifacts b{font-size:14px}
   .worlds{top:auto;bottom:auto;top:90px;right:var(--pad);transform:none;gap:6px}.worlds button::after{width:8px}.worlds button.on::after{width:18px}
   .card{display:none}
@@ -663,11 +664,11 @@ function measure() {
   let cy0 = 0;
   G = els.map(e => {
     e.style.transform = 'none'; e.style.fontSize = '';
-    const fit = W * (W < 900 ? .9 : .74), r0 = e.getBoundingClientRect();
+    const fit = W * (W < 900 ? .94 : .74), r0 = e.getBoundingClientRect();
     if (r0.width > fit) e.style.fontSize = parseFloat(getComputedStyle(e).fontSize) * fit / r0.width + 'px';
     const rh = e.getBoundingClientRect().height;
     const first = e === els[0], lim = first ? maxWordH0 : Math.min(maxWordH, Math.max(110, 2 * (textTop - (mob ? 56 : 72) - cy0))); if (rh > lim) e.style.fontSize = parseFloat(getComputedStyle(e).fontSize) * lim / rh + 'px';
-    if (first) cy0 = Math.max((mob ? 165 : 90) + e.getBoundingClientRect().height / 2, Math.min(H * .4, introTop - (mob ? 56 : 72) - e.getBoundingClientRect().height / 2));
+    if (first) cy0 = Math.max((mob ? 165 : 90) + e.getBoundingClientRect().height / 2, Math.min(H * (mob ? .56 : .4), introTop - (mob ? 56 : 72) - e.getBoundingClientRect().height / 2));
     const span = e.querySelector('.o'), r = e.getBoundingClientRect(), o = span.getBoundingClientRect(), hole = counter(span);
     twins[els.indexOf(e)].style.fontSize = e.style.fontSize;
     const g = hole ? {w: r.width, h: r.height, ox: o.left - r.left + hole.x, oy: o.top - r.top + hole.y, hd: hole.d}
@@ -680,7 +681,7 @@ function measure() {
   GEO.forEach(list => list.forEach(c => { c.el.textContent = W < 900 ? c.t.split('\n')[0].replace(W < 460 ? / ([сю])[.] ш[.]$/ : /$^/, '$1') : c.t; }));
   // words sit centred, but always above the bottom text (with room for the coordinate captions), on phones and desktops
   const gapB = mob ? 56 : 72, lowest = G.map((g, j) => (j === 0 ? introTop : textTop) - gapB - g.h / 2);
-  CY = Math.max((mob ? 165 : 90) + Gmax / 2, Math.min(H * .4, ...lowest));
+  CY = Math.max((mob ? 165 : 90) + Gmax / 2, Math.min(H * (mob ? .56 : .4), ...lowest));
   // the scroll cue hangs right under the last letter of the word
   const introEl = document.getElementById('intro');
   introEl.style.setProperty('--cueup', Math.max(0, introEl.offsetTop - (CY + Gmax / 2) - 10) + 'px');
