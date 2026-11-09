@@ -50,7 +50,7 @@ img{display:block;max-width:100%}
 .mono{font:400 11px/1.35 "Martian Mono",monospace;letter-spacing:.07em;text-transform:uppercase}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 /* photo-filled display type: the brand device */
-.fill{color:transparent;-webkit-background-clip:text;background-clip:text;background-image:url(img/w/collage.webp?v=2);background-size:auto 150%;background-repeat:repeat-x;animation:drift 90s linear infinite}
+.fill{color:transparent;-webkit-background-clip:text;background-clip:text;background-image:url(img/w/collage.webp?v=3);background-size:auto 150%;background-repeat:repeat-x;animation:drift 90s linear infinite}
 @keyframes drift{to{background-position-x:-2700px}}
 
 /* ---------- nav ---------- */
@@ -73,9 +73,21 @@ img{display:block;max-width:100%}
 .portal i{position:absolute;inset:0;background:var(--pc);opacity:var(--po,0)}
 .word.solid{background:none;-webkit-background-clip:border-box;background-clip:border-box;animation:none;color:#FFF7F2;text-shadow:0 0 .12em rgba(0,0,0,.35)}
 .word{position:absolute;left:0;top:0;font:900 clamp(96px,20vw,380px)/.8 Unbounded;letter-spacing:-.06em;white-space:nowrap;transform-origin:0 0;text-align:center}
-.wsub2{display:flex;align-items:center;justify-content:center;gap:.9em;margin-top:.7em;font:700 .26em/1 Unbounded;letter-spacing:.2em;text-transform:uppercase;padding-left:.2em;color:#8E1530;-webkit-text-fill-color:#8E1530;white-space:nowrap}
-.wsub2::before{content:"";flex:none;width:1.5em;height:1.5em;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z'/%3E%3C/svg%3E") center/contain no-repeat;transform:rotate(90deg)}
-.wsub2::after{content:"";flex:none;width:1.4em;height:.12em;min-height:1px;background:currentColor;opacity:.55}
+.wsub2{position:relative;display:block;margin-top:.8em;padding:0 0 .2em .3em;font:500 .25em/1 Unbounded;letter-spacing:.28em;text-transform:uppercase;white-space:nowrap;color:transparent;-webkit-text-fill-color:transparent;background:linear-gradient(100deg,#7A2236 0%,#B4505F 48%,#7A2236 100%) 0 0/220% 100%;-webkit-background-clip:text;background-clip:text;animation:wsheen 9s ease-in-out infinite}
+@keyframes wsheen{0%,100%{background-position:0 0}50%{background-position:100% 0}}
+.wroute{position:absolute;left:50%;top:100%;width:100%;height:auto;margin:.04em 0 0;transform:translateX(-50%);overflow:visible;pointer-events:none;font-family:"Martian Mono",monospace}
+.wroute .rpath{fill:none;stroke:#8E1530;stroke-opacity:.5;stroke-width:.9;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+.wroute .rnode{opacity:.38;transition:opacity .6s ease}.wroute .rnode.on{opacity:1}
+.wroute .rn{fill:#B4505F}.wroute .end .rn{fill:#8E1530}.wroute .rring{fill:none;stroke:#8E1530;stroke-opacity:.45;stroke-width:.8}
+.wroute .rpulse{fill:none;stroke:#B4505F;stroke-width:1;opacity:0;transform-box:fill-box;transform-origin:center}
+.wroute .rnode.pulse .rpulse{animation:rpulse 1.5s ease-out}
+@keyframes rpulse{0%{opacity:.7;transform:scale(1)}100%{opacity:0;transform:scale(4.2)}}
+.wroute .rc{display:none;font-size:23px;letter-spacing:.1em;fill:#7A2236;text-anchor:middle;font-weight:500}
+.wroute .rname{font-size:12.5px;letter-spacing:.14em;fill:#7A2236;text-anchor:middle;font-weight:500}
+.wroute .rl{font-size:10.5px;letter-spacing:.04em;fill:#7A2236;fill-opacity:.62;text-anchor:middle}
+.wroute .rplane{fill:#8E1530;opacity:0}
+@media (max-width:900px){.wroute{width:100%}.wroute .rname,.wroute .rl{display:none}.wroute .rc{display:block}}
+@media (prefers-reduced-motion:reduce){.wsub2{animation:none}}
 .wsub{display:block;margin-top:.6em;font:700 .33em/1 Unbounded;letter-spacing:.12em;text-transform:uppercase;padding-left:.12em}
 .card{position:absolute;z-index:4;width:clamp(110px,11.5vw,190px);pointer-events:none;opacity:0;will-change:transform,opacity}
 .card img{width:100%;aspect-ratio:3/4;object-fit:cover}
@@ -98,7 +110,7 @@ img{display:block;max-width:100%}
 .ifacts{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:14px clamp(18px,3.4vw,52px);padding-top:18px;border-top:1px solid var(--line)}
 .ifacts span{font-size:10px;opacity:1;color:color-mix(in srgb,var(--fg) 52%,transparent);padding-left:12px;border-left:2px solid color-mix(in srgb,var(--fg) 22%,transparent)}
 .ifacts b{display:block;margin-top:7px;font:500 clamp(16px,1.4vw,21px)/1.2 Unbounded;letter-spacing:-.02em;text-transform:none;color:var(--fg)}
-.cue{position:absolute;right:var(--cuer,0px);top:calc(4px - var(--cueup,0px));width:44px;height:clamp(120px,19vh,190px);color:var(--fg);pointer-events:none}
+.cue{position:absolute;right:var(--cuex,var(--cuer,0px));top:calc(4px - var(--cueup,0px));width:44px;height:clamp(120px,19vh,190px);color:var(--fg);pointer-events:none}
 .cue::before{content:"";position:absolute;left:50%;top:0;bottom:14px;width:1.5px;margin-left:-.75px;background:linear-gradient(transparent,currentColor 30%,currentColor 70%,transparent);opacity:.2}
 .cue i{position:absolute;left:50%;top:0;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;background:currentColor;opacity:0;animation:cue 2.8s cubic-bezier(.45,.05,.25,1) infinite}
 .cue::after{content:"";position:absolute;left:50%;bottom:3px;width:14px;height:14px;margin-left:-7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);opacity:0;animation:cuearrow 2.8s ease-in-out infinite}
@@ -300,7 +312,7 @@ dialog::backdrop{background:rgba(23,18,15,.55);backdrop-filter:blur(4px)}
 @media (max-width:900px){
   .links{display:none}
   .word{font-size:23vw}
-  .wsub{margin-top:.95em;font-size:.35em}.wsub2{margin-top:1.2em;font-size:.265em;letter-spacing:.12em;gap:.7em}.wsub2::after{width:1em}
+  .wsub{margin-top:.95em;font-size:.35em}.wsub2{margin-top:1.1em;font-size:.26em;letter-spacing:.18em;padding-bottom:.2em}
   .intro{gap:18px}.ifacts{flex-wrap:wrap;gap:12px 22px}.ifacts span{flex:0 0 calc(50% - 11px)}.ifacts span:last-child{flex-basis:100%}.ifacts b{font-size:14px}
   .worlds{top:auto;bottom:auto;top:90px;right:var(--pad);transform:none;gap:6px}.worlds button::after{width:8px}.worlds button.on::after{width:18px}
   .card{display:none}
@@ -605,12 +617,55 @@ const CHAIN = [
 const N = CHAIN.length, TAIL = .3;               // extra scroll to rest on ДОМ
 const nav = document.getElementById('nav'), stage = document.getElementById('stage'), chainEl = document.getElementById('chain'), portal = document.getElementById('portal');
 const wordsEl = document.getElementById('words'), cardsEl = document.getElementById('cards'), place = document.getElementById('place');
+const ROUTE = `<svg class="wroute" viewBox="0 0 720 96" aria-hidden="true" focusable="false">
+  <path class="rpath" pathLength="1" d="M60 46 Q135 20 210 46 Q285 8 360 46 Q435 -2 510 46 Q585 14 660 46"/>
+  <g class="rnode" data-x="60"><circle class="rpulse" cx="60" cy="46" r="4"/><circle class="rn" cx="60" cy="46" r="3.4"/><text class="rc" x="60" y="78">NBO</text><text class="rname" x="60" y="72">НАЙРОБИ</text><text class="rl" x="60" y="88">1°17′ ю. ш.</text></g>
+  <g class="rnode" data-x="210"><circle class="rpulse" cx="210" cy="46" r="4"/><circle class="rn" cx="210" cy="46" r="3.4"/><text class="rc" x="210" y="78">UIO</text><text class="rname" x="210" y="72">КИТО</text><text class="rl" x="210" y="88">0°13′ ю. ш.</text></g>
+  <g class="rnode" data-x="360"><circle class="rpulse" cx="360" cy="46" r="4"/><circle class="rn" cx="360" cy="46" r="3.4"/><text class="rc" x="360" y="78">BOG</text><text class="rname" x="360" y="72">БОГОТА</text><text class="rl" x="360" y="88">4°36′ с. ш.</text></g>
+  <g class="rnode" data-x="510"><circle class="rpulse" cx="510" cy="46" r="4"/><circle class="rn" cx="510" cy="46" r="3.4"/><text class="rc" x="510" y="78">AMS</text><text class="rname" x="510" y="72">АМСТЕРДАМ</text><text class="rl" x="510" y="88">52°22′ с. ш.</text></g>
+  <g class="rnode end" data-x="660"><circle class="rpulse" cx="660" cy="46" r="4"/><circle class="rn" cx="660" cy="46" r="4.6"/><circle class="rring" cx="660" cy="46" r="9"/><text class="rc" x="660" y="78">LED</text><text class="rname" x="660" y="72">ПЕТЕРБУРГ</text><text class="rl" x="660" y="88">59°48′ с. ш.</text></g>
+  <g class="rplane"><g transform="rotate(90) translate(-12 -12)"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></g></g>
+</svg>`;
 const els = CHAIN.map(c => {
   const e = document.createElement('div'); e.className = 'word fill' + (c.flags ? ' flagword' : '');
   const lt = (ch, i) => i === c.o ? `<span class="o">${ch}</span>` : ch;
-  e.innerHTML = (c.flags ? c.w.split(/[  ]/).map((t, k) => `<span class="cc ${c.flags[k]}">${[...t].map((ch, q) => lt(ch, k * 3 + q)).join('')}</span>`).join(' ') : [...c.w].map(lt).join('')) + (c.sub ? `<small class="wsub">${c.sub}</small>` : '') + (c.sub2 ? `<small class="wsub2">${c.sub2}</small>` : '');
+  e.innerHTML = (c.flags ? c.w.split(/[  ]/).map((t, k) => `<span class="cc ${c.flags[k]}">${[...t].map((ch, q) => lt(ch, k * 3 + q)).join('')}</span>`).join(' ') : [...c.w].map(lt).join('')) + (c.sub ? `<small class="wsub">${c.sub}</small>` : '') + (c.sub2 ? `<small class="wsub2">${c.sub2}</small>` + ROUTE : '');
   e.style.backgroundPositionX = c.pos; if (c.links) { e.setAttribute('role', 'img'); e.setAttribute('aria-label', 'Эквадор, Колумбия, Голландия, Кения, Италия, Чили'); const im = new Image(); im.className = 'oarms'; im.alt = ''; im.src = 'img/co-arms.svg'; e.appendChild(im); } wordsEl.appendChild(e); return e;
 });
+// route mini-map: one shared clock draws the arcs, flies the plane and lights up the cities it passes (both hero copies)
+(() => {
+  const routes = [...document.querySelectorAll('.wroute')].map(svg => ({path: svg.querySelector('.rpath'), plane: svg.querySelector('.rplane'),
+    nodes: [...svg.querySelectorAll('.rnode')].map(n => ({el: n, x: +n.dataset.x, at: 0, seen: false})), len: 0}));
+  if (!routes.length) return;
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const T = 11000, FLY = .78;
+  const ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+  const init = r => {
+    try { r.len = r.path.getTotalLength(); } catch (e) { return false; }
+    if (!r.len) return false;
+    r.nodes.forEach(n => { let best = 0, bd = 1e9; for (let i = 0; i <= 300; i++) { const q = r.path.getPointAtLength(r.len * i / 300), d = Math.abs(q.x - n.x); if (d < bd) { bd = d; best = i / 300; } } n.at = best; });
+    return true;
+  };
+  const put = (r, p, po, pl) => {
+    if (!r.len && !init(r)) return;
+    r.path.style.strokeDashoffset = String(1 - p); r.path.style.opacity = po; r.plane.style.opacity = pl;
+    const a = r.path.getPointAtLength(p * r.len), b = r.path.getPointAtLength(Math.min(r.len, p * r.len + 1.5));
+    r.plane.setAttribute('transform', `translate(${a.x} ${a.y}) rotate(${Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI})`);
+    r.nodes.forEach(n => {
+      const on = p >= n.at - .004 && po > .5;
+      if (on && !n.seen) { n.seen = true; n.el.classList.add('on'); n.el.classList.remove('pulse'); void n.el.getBoundingClientRect(); if (n.at > .01) n.el.classList.add('pulse'); }
+      if (!on && n.seen && (p < .02 || po <= .5)) { n.seen = false; n.el.classList.remove('on', 'pulse'); }
+    });
+  };
+  const frame = now => {
+    const t = (now % T) / T, p = ease(Math.min(1, t / FLY));
+    const po = t < .93 ? 1 : Math.max(0, 1 - (t - .93) / .07);
+    const pl = t < .04 ? t / .04 : t < FLY ? 1 : t < .88 ? 1 - (t - FLY) / (.88 - FLY) : 0;
+    routes.forEach(r => put(r, p, po, .92 * pl));
+    requestAnimationFrame(frame);
+  };
+  if (calm) routes.forEach(r => { put(r, 1, 1, .92); r.nodes.forEach(n => n.el.classList.add('on')); }); else requestAnimationFrame(frame);
+})();
 // floating photo cards: two per world, drifting past as you fly
 const CARDS = [];
 CHAIN.forEach((c, j) => (c.cards || []).forEach((id, k) => {
@@ -680,7 +735,9 @@ function measure() {
     const fit = W * (W < 900 ? .94 : .74), r0 = e.getBoundingClientRect();
     if (r0.width > fit) e.style.fontSize = parseFloat(getComputedStyle(e).fontSize) * fit / r0.width + 'px';
     const rh = e.getBoundingClientRect().height;
-    const first = e === els[0], lim = first ? maxWordH0 : Math.min(maxWordH, Math.max(110, 2 * (textTop - (mob ? 56 : 72) - cy0))); if (rh > lim) e.style.fontSize = parseFloat(getComputedStyle(e).fontSize) * lim / rh + 'px';
+    const first = e === els[0], lim = first ? maxWordH0 : Math.min(maxWordH, Math.max(110, 2 * (textTop - (mob ? 56 : 72) - cy0)));
+    const need = first ? rh + e.getBoundingClientRect().width * 96 / 720 + 14 : rh;   // the first word also carries the flight route under it
+    if (need > lim) e.style.fontSize = parseFloat(getComputedStyle(e).fontSize) * lim / need + 'px';
     if (first) cy0 = Math.max((mob ? 165 : 90) + e.getBoundingClientRect().height / 2, Math.min(H * (mob ? .56 : .4), introTop - (mob ? 56 : 72) - e.getBoundingClientRect().height / 2));
     const span = e.querySelector('.o'), r = e.getBoundingClientRect(), o = span.getBoundingClientRect(), hole = counter(span);
     twins[els.indexOf(e)].style.fontSize = e.style.fontSize;
@@ -697,11 +754,17 @@ function measure() {
   // phones have room for latitude only under each code
   GEO.forEach(list => list.forEach(c => { c.i.textContent = W < 900 ? c.t.split('\n')[0].replace(W < 460 ? / ([сю])[.] ш[.]$/ : /$^/, '$1') : c.t; }));
   // words sit centred, but always above the bottom text (with room for the coordinate captions), on phones and desktops
-  const gapB = mob ? 84 : 76, lowest = G.map((g, j) => (j === 0 ? introTop : textTop) - gapB - g.h / 2);
+  const gapB = mob ? 84 : 76, routeH = G[0].w * 96 / 720 + 14, lowest = G.map((g, j) => (j === 0 ? introTop - routeH : textTop) - gapB - g.h / 2);
   CY = Math.max((mob ? 165 : 90) + Gmax / 2, Math.min(H * (mob ? .56 : .4), ...lowest));
   // the scroll cue hangs right under the last letter of the word
   const introEl = document.getElementById('intro');
-  introEl.style.setProperty('--cueup', Math.max(0, introEl.offsetTop - (CY + Gmax / 2) - 10) + 'px');
+  introEl.style.setProperty('--cueup', Math.max(0, introEl.offsetTop - (CY + Gmax / 2) - 10 - routeH) + 'px');   // below the flight route
+  // on wide screens the cue sits at the right edge, just under the side menu («О себе»)
+  if (W >= 900 && worlds.offsetParent) {
+    const wb = worlds.getBoundingClientRect(), ib = introEl.getBoundingClientRect();
+    introEl.style.setProperty('--cueup', (4 - (wb.bottom - ib.top + 22)) + 'px');
+    introEl.style.setProperty('--cuex', (ib.right - wb.right - 8) + 'px');
+  } else introEl.style.removeProperty('--cuex');
   // ...and at the right edge of the first word (not of the screen), so it never sits on the side menu
   const introR = introEl.getBoundingClientRect().right, wl = W >= 900 && worlds.offsetParent ? worlds.getBoundingClientRect().left : Infinity;
   introEl.style.setProperty('--cuer', Math.max(0, introR - (W / 2 + G[0].w / 2), introR - (wl - 24)) + 'px');
