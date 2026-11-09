@@ -12,8 +12,7 @@
 })();
 
 // variety gallery: tabs, colour chips, search, details dialog
-(() => {
-  const root = document.getElementById('sorts'); if (!root) return;
+const initGallery = root => {
   const country = document.body.dataset.country || '';
   const panels = [...root.querySelectorAll('.panel')];
   const tabs = [...root.querySelectorAll('.tab')];
@@ -26,12 +25,17 @@
     let f = 'all', q = '';
     const apply = () => {
       let n = 0;
-      items.forEach(li => { const ok = (f === 'all' || li.dataset.c === f) && (!q || li.dataset.n.includes(q)); li.hidden = !ok; n += ok; });
+      items.forEach(li => { const ok = (f === 'all' || (' ' + li.dataset.c + ' ').includes(' ' + f + ' ')) && (!q || li.dataset.n.includes(q)); li.hidden = !ok; n += ok; });
       empty.hidden = n > 0;
     };
     chips.forEach(c => c.addEventListener('click', () => { chips.forEach(x => x.classList.toggle('on', x === c)); f = c.dataset.f; apply(); }));
     if (inp) inp.addEventListener('input', () => { q = inp.value.trim().toLowerCase(); apply(); });
   });
+  return root;
+};
+(() => {
+  const root = initGallery(document.getElementById('sorts') || document.createElement('div'));
+  const prem = document.getElementById('premium'); if (prem) initGallery(prem);
   const dataEl = document.getElementById('vdata'), dlg = document.getElementById('vdlg');
   if (!dataEl || !dlg) return;
   const D = JSON.parse(dataEl.textContent);

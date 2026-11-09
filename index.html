@@ -50,7 +50,7 @@ img{display:block;max-width:100%}
 .mono{font:400 11px/1.35 "Martian Mono",monospace;letter-spacing:.07em;text-transform:uppercase}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 /* photo-filled display type: the brand device */
-.fill{color:transparent;-webkit-background-clip:text;background-clip:text;background-image:url(img/w/collage.webp);background-size:auto 150%;background-repeat:repeat-x;animation:drift 90s linear infinite}
+.fill{color:transparent;-webkit-background-clip:text;background-clip:text;background-image:url(img/w/collage.webp?v=2);background-size:auto 150%;background-repeat:repeat-x;animation:drift 90s linear infinite}
 @keyframes drift{to{background-position-x:-2700px}}
 
 /* ---------- nav ---------- */
@@ -73,13 +73,17 @@ img{display:block;max-width:100%}
 .portal i{position:absolute;inset:0;background:var(--pc);opacity:var(--po,0)}
 .word.solid{background:none;-webkit-background-clip:border-box;background-clip:border-box;animation:none;color:#FFF7F2;text-shadow:0 0 .12em rgba(0,0,0,.35)}
 .word{position:absolute;left:0;top:0;font:900 clamp(96px,20vw,380px)/.8 Unbounded;letter-spacing:-.06em;white-space:nowrap;transform-origin:0 0;text-align:center}
-.wsub2{display:block;margin-top:.9em;font:600 .17em/1 Unbounded;letter-spacing:.42em;text-transform:uppercase;padding-left:.42em}
+.wsub2{display:flex;align-items:center;justify-content:center;gap:.9em;margin-top:.7em;font:700 .26em/1 Unbounded;letter-spacing:.2em;text-transform:uppercase;padding-left:.2em;color:#8E1530;-webkit-text-fill-color:#8E1530;white-space:nowrap}
+.wsub2::before{content:"";flex:none;width:1.5em;height:1.5em;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z'/%3E%3C/svg%3E") center/contain no-repeat;transform:rotate(90deg)}
+.wsub2::after{content:"";flex:none;width:1.4em;height:.12em;min-height:1px;background:currentColor;opacity:.55}
 .wsub{display:block;margin-top:.6em;font:700 .33em/1 Unbounded;letter-spacing:.12em;text-transform:uppercase;padding-left:.12em}
 .card{position:absolute;z-index:4;width:clamp(110px,11.5vw,190px);pointer-events:none;opacity:0;will-change:transform,opacity}
 .card img{width:100%;aspect-ratio:3/4;object-fit:cover}
 .card span{display:block;margin-top:8px;opacity:.75}
 .geo{position:absolute;inset:0;z-index:5;pointer-events:none}
-.geo span{position:absolute;left:0;top:0;opacity:0;white-space:pre;text-align:center;font:400 clamp(9px,.78vw,12px)/1.45 "Martian Mono",monospace;letter-spacing:.06em;text-transform:uppercase}
+.geo span b{display:block;font-weight:600;letter-spacing:.14em;color:#ECE6D8;margin-bottom:3px}.geo span b+i{display:none}.geo span i{display:block;font-style:normal;opacity:.7}.geo span img{display:block;width:44px;height:44px;box-sizing:border-box;padding:8px;margin:12px auto 0;border-radius:50%;border:1px solid #D9B98C;background:radial-gradient(circle,rgba(244,231,195,.14),rgba(244,231,195,.03) 70%);box-shadow:0 6px 18px rgba(0,0,0,.28)}
+@media (min-width:900px){.geo span img{width:64px;height:64px;padding:11px;margin-top:14px}}
+.geo span{position:absolute;left:0;top:0;opacity:0;white-space:pre;text-align:center;font:400 clamp(10px,.78vw,12px)/1.45 "Martian Mono",monospace;letter-spacing:.06em;text-transform:uppercase}
 .intro{position:absolute;z-index:6;left:var(--pad);right:var(--pad);bottom:calc(clamp(26px,5vh,48px) + var(--sb));display:grid;grid-template-columns:minmax(0,1fr);gap:22px;align-items:end}
 .countries{display:flex;flex-direction:column;width:min(calc(100% - 64px),440px);border-top:1px solid color-mix(in srgb,var(--fg) 20%,transparent)}
 .cn{display:grid;grid-template-columns:26px minmax(0,1fr) auto;align-items:baseline;gap:8px;padding:8px 0 7px;border-bottom:1px solid color-mix(in srgb,var(--fg) 14%,transparent);color:var(--fg);text-decoration:none}
@@ -103,23 +107,30 @@ img{display:block;max-width:100%}
 @media (prefers-reduced-motion:reduce){.cue i,.cue::after{animation:none}.cue::after{opacity:.35}}
 .place{position:absolute;z-index:6;pointer-events:none;left:var(--pad);bottom:calc(clamp(26px,5vh,48px) + var(--sb));max-width:min(620px,60vw)}
 .place .coord{font:italic 500 clamp(38px,3.9vw,62px)/.95 "Cormorant Garamond",Georgia,serif;letter-spacing:-.01em}
-.place .name{margin:16px 0 12px;line-height:1.9}.place .name span,.place .name a{display:inline-block;margin-right:22px;white-space:nowrap}
+.place .name{margin:12px 0 12px;line-height:1.9}.place .name span,.place .name a{display:inline-block;margin-right:22px;white-space:nowrap}
 .place .name a{font-size:clamp(14px,1.15vw,18px);color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:10px;margin:0 8px 10px 0;padding:10px 14px 10px 12px;border:1px solid color-mix(in srgb,currentColor 38%,transparent);border-radius:999px;pointer-events:none;transition:background .35s,color .35s,border-color .35s,transform .5s var(--ease)}
-.place .name a::after{content:"→";font-family:system-ui,sans-serif;opacity:.7;transition:transform .5s var(--ease),opacity .3s}
-.place.live .name a{pointer-events:auto;animation:nudge 5.5s ease-in-out infinite;animation-delay:calc(var(--q) * .22s + 1.2s)}
+.place.live .name a{pointer-events:auto;animation:nudge 4.8s ease-in-out infinite;animation-delay:calc(var(--q) * .32s + 1s)}
 .place .name a:hover,.place .name a:focus-visible{background:var(--fg);color:var(--bg);border-color:var(--fg);animation:none;transform:translateY(-2px)}
-.place .name a:hover::after,.place .name a:focus-visible::after{transform:translateX(4px);opacity:1}
 .place .name a:active{transform:scale(.97)}
-@keyframes nudge{0%,22%,100%{border-color:color-mix(in srgb,currentColor 38%,transparent);box-shadow:0 0 0 0 transparent}8%{border-color:currentColor;box-shadow:0 0 0 5px color-mix(in srgb,currentColor 14%,transparent)}}
-@keyframes nudgea{0%,22%,100%{transform:none}8%{transform:translateX(4px)}}
-.place.live .name a::after{animation:nudgea 5.5s ease-in-out infinite;animation-delay:calc(var(--q) * .22s + 1.2s)}
-.place .tap{display:block;margin:2px 0 14px;font:italic 500 clamp(16px,1.2vw,19px)/1.2 "Cormorant Garamond",Georgia,serif;opacity:.7}
+@keyframes nudge{0%,34%,100%{border-color:color-mix(in srgb,currentColor 38%,transparent);background-color:transparent;box-shadow:0 0 0 0 transparent}14%{border-color:#D9B98C;background-color:rgba(217,185,140,.12);box-shadow:0 0 0 5px rgba(217,185,140,.1)}}
+.place .tap{display:block;margin:10px 0 0;font:italic 500 clamp(17px,1.3vw,20px)/1.2 "Cormorant Garamond",Georgia,serif;color:#D9B98C;opacity:.95}
 .veil{position:fixed;inset:0;z-index:300;pointer-events:none;background:#EEE8E0;clip-path:circle(0 at var(--vx,50%) var(--vy,50%));transition:clip-path .75s cubic-bezier(.65,0,.25,1)}
 .veil.go{clip-path:circle(150vmax at var(--vx,50%) var(--vy,50%))}
-@media (prefers-reduced-motion:reduce){.place.live .name a,.place.live .name a::after{animation:none}.veil{transition:none}}
+@media (prefers-reduced-motion:reduce){.place.live .name a{animation:none}.veil{transition:none}}
+.word.flagword{background-image:none}
+.cc{padding:0 .08em;margin:0 -.08em;display:inline-block;color:transparent;-webkit-background-clip:text;background-clip:text}
+.cc.ec{background-image:linear-gradient(#F1C40F 0 50%,#1F4E9B 0 75%,#D43A3F 0)}
+.cc.co{background-image:linear-gradient(#F7D44C 0 50%,#2A4FA0 0 75%,#C8283B 0)}
+.cc.nl{background-image:linear-gradient(#B8333C 0 33.4%,#ECE6D8 0 66.7%,#2F5290 0)}
+.cc.it{background-image:linear-gradient(90deg,#1E9456 0 33.4%,#ECE6D8 0 66.7%,#CB3A44 0)}
+.cc.cl{background-image:linear-gradient(#2F4F9C,#2F4F9C),linear-gradient(#ECE6D8 0 50%,#CB3A2E 0);background-size:34% 50%,100% 100%;background-repeat:no-repeat;background-position:0 0,0 0}
+.cc.ke{background-image:linear-gradient(#4A4A45 0 30%,#ECE6D8 0 35%,#B62F2A 0 65%,#ECE6D8 0 70%,#2C9A5A 0)}
+.cc.co{position:relative}.cc.co::after{display:none}
+.oarms{position:absolute;display:none;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))}.word.solid .oarms{display:none!important}
+.word.solid .cc{background:none;color:inherit}.word.solid .cc.co::after{display:none}
 .flag{display:inline-block;width:20px;height:14px;margin-right:8px;vertical-align:-2px;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.18)}
 .flag.ec{background:radial-gradient(circle,#6B4F2A 0 2.3px,transparent 2.8px),linear-gradient(#FFD100 0 50%,#034EA2 0 75%,#ED1C24 0)}
-.flag.co{background:linear-gradient(#FCD116 0 50%,#003893 0 75%,#CE1126 0)}
+.flag.co{background:url(img/co-arms.svg) center/7px 9px no-repeat,linear-gradient(#FCD116 0 50%,#003893 0 75%,#CE1126 0)}
 .flag.nl{background:linear-gradient(#AE1C28 0 33.4%,#fff 0 66.7%,#21468B 0)}
 .flag.it{background:linear-gradient(90deg,#009246 0 33.4%,#fff 0 66.7%,#CE2B37 0)}
 .flag.cl{background:linear-gradient(#0039A6,#0039A6) 0 0/34% 50% no-repeat,linear-gradient(#fff 0 50%,#D52B1E 0)}
@@ -128,7 +139,7 @@ img{display:block;max-width:100%}
 .place > *{transition:opacity .45s,transform .7s var(--ease)}
 .place.swap > *{opacity:0;transform:translateY(10px)}
 .worlds{position:absolute;z-index:6;right:var(--pad);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;text-align:right}
-.worlds button{all:unset;cursor:pointer;opacity:.38;transition:opacity .3s;display:flex;align-items:center;justify-content:flex-end;gap:10px}
+.worlds button{all:unset;cursor:pointer;opacity:.62;transition:opacity .3s;display:flex;align-items:center;justify-content:flex-end;gap:10px}
 .worlds button::after{content:"";width:14px;height:1px;background:currentColor;transition:width .4s var(--ease)}
 .worlds button.on{opacity:1}.worlds button.on::after{width:34px}
 .worlds button:focus-visible{outline:1px solid currentColor;outline-offset:4px}
@@ -239,7 +250,7 @@ section.s.gallery{padding-left:0;padding-right:0;overflow:hidden}
 .legs{list-style:none;margin:0;padding:0;border-top:1px solid rgba(236,230,216,.18)}
 .legs li{display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid rgba(236,230,216,.18)}
 .legs b{font:300 18px/1.2 Unbounded;letter-spacing:-.02em}
-.legs li{align-items:center}.legs span{opacity:.6;text-align:right;line-height:1.5}.legs i{display:block;font-style:normal;color:#D9B98C;opacity:1}
+.legs li{align-items:center}.legs span{opacity:.6;text-align:right;line-height:1.5}.legs li:has(>a){padding:0}.legs a{padding:14px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;width:100%;color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}.legs a b::after{content:' →';opacity:.5;transition:opacity .2s,margin .2s}.legs a:hover b::after,.legs a:focus-visible b::after{opacity:1;margin-left:4px}.legs a:focus-visible{outline:1px solid #D9B98C;outline-offset:4px}.legs i{display:block;font-style:normal;color:#D9B98C;opacity:1}
 .globe-box{position:relative;width:100%;max-width:640px;aspect-ratio:1;justify-self:center}
 .globe-box canvas{display:block;width:100%;height:100%;cursor:grab;touch-action:pan-y;-webkit-mask-image:radial-gradient(circle closest-side,#000 84%,transparent 100%);mask-image:radial-gradient(circle closest-side,#000 84%,transparent 100%)}
 .globe-box canvas:active{cursor:grabbing}
@@ -289,12 +300,12 @@ dialog::backdrop{background:rgba(23,18,15,.55);backdrop-filter:blur(4px)}
 @media (max-width:900px){
   .links{display:none}
   .word{font-size:23vw}
-  .wsub{margin-top:.95em;font-size:.35em}.wsub2{margin-top:1.7em;font-size:.21em;letter-spacing:.36em}
+  .wsub{margin-top:.95em;font-size:.35em}.wsub2{margin-top:1.2em;font-size:.265em;letter-spacing:.12em;gap:.7em}.wsub2::after{width:1em}
   .intro{gap:18px}.ifacts{flex-wrap:wrap;gap:12px 22px}.ifacts span{flex:0 0 calc(50% - 11px)}.ifacts span:last-child{flex-basis:100%}.ifacts b{font-size:14px}
   .worlds{top:auto;bottom:auto;top:90px;right:var(--pad);transform:none;gap:6px}.worlds button::after{width:8px}.worlds button.on::after{width:18px}
   .card{display:none}
   .place{max-width:none;right:var(--pad)}.place .name span{display:block}
-  .place .name{display:grid;grid-template-columns:1fr 1fr;gap:8px}.place .name a{margin:0;justify-content:space-between;padding:11px 12px 11px 11px;font-size:13px}
+  .place .name{display:grid;grid-template-columns:1fr 1fr;gap:8px}.place .name a{margin:0;justify-content:center;padding:11px 12px 11px 11px;font-size:13px}
   .kicker{flex-direction:column}
   .fmt,.sched,.why,.cgrid,.route{grid-template-columns:1fr}
   .why h2{position:static}
@@ -310,12 +321,12 @@ dialog::backdrop{background:rgba(23,18,15,.55);backdrop-filter:blur(4px)}
   .mini{flex:0 0 min(82%,320px);scroll-snap-align:center}
   .fmt .big{font-size:12.3vw}
   /* touch targets */
-  .worlds{gap:0;top:84px}.worlds button{padding:5px 0}
+  .worlds{gap:0;top:84px}.worlds button{padding:9px 0}
   .clist a,.reveal{display:inline-block;padding:7px 0}
   .faq summary{padding:20px 0}
   section.s{padding-top:clamp(64px,13vw,170px);padding-bottom:clamp(64px,13vw,170px)}
 }
-@media (max-width:400px){.geo span{letter-spacing:0;font-size:8.5px}}
+@media (max-width:400px){.geo span{letter-spacing:0;font-size:9.5px}.geo span b{letter-spacing:.02em;font-size:8.5px}.geo span img{width:36px;height:36px;padding:6px;margin-top:10px}}
 @media (max-width:560px){
   .contacts .homeword{font-size:calc((100vw - 2 * var(--pad)) / 3.2)}
   .logo{white-space:nowrap;font-size:14px}
@@ -382,7 +393,7 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
       <span class="cue" aria-hidden="true"><i></i></span>
       <div class="ifacts mono"><span>Вылеты<b>ср · вс</b></span><span>На складе СПб<b>через 5–6 дней</b></span><span>Заказ<b>от 1 банча</b></span><span>Доставка<b>по всему миру</b></span><span>Склад<b>Санкт-Петербург, 1-й Бадаевский пр., 9А</b></span></div>
     </div>
-    <div class="place" id="place" aria-live="polite"><div class="coord" id="coord"></div><div class="name mono" id="pname"></div><span class="tap" id="ptap" hidden>Нажмите на страну, чтобы открыть каталог</span><p id="ptext"></p></div>
+    <div class="place" id="place" aria-live="polite"><div class="coord" id="coord"></div><span class="tap" id="ptap" hidden>Нажмите на страну, чтобы открыть каталог</span><div class="name mono" id="pname"></div><p id="ptext"></p></div>
     <nav class="worlds mono" id="worlds" aria-label="Путь цветов"></nav>
     <div class="home" id="home">
       <div class="actions"><a class="pill" data-tg href="#" target="_blank" rel="noopener">Telegram</a><a class="pill" data-wa href="#" target="_blank" rel="noopener">WhatsApp</a><a class="pill" data-max href="#" target="_blank" rel="noopener">MAX</a></div>
@@ -395,7 +406,7 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
   <div class="rv">
     <h2>Шесть стран — один склад</h2>
     <p>Закупаем напрямую у плантаций. От плантации до нашего склада в Шушарах цветы едут в холодной цепи при +2…+4 °C.</p>
-    <ul class="legs mono"><li><b>Эквадор</b><span><i>0°13′ ю. ш.</i>плантации</span></li><li><b>Колумбия</b><span><i>4°36′ с. ш.</i>плантации</span></li><li><b>Голландия</b><span><i>52°22′ с. ш.</i>плантации</span></li><li><b>Кения</b><span><i>1°17′ ю. ш.</i>плантации</span></li><li><b>Италия</b><span><i>41°54′ с. ш.</i>плантации</span></li><li><b>Чили</b><span><i>33°27′ ю. ш.</i>плантации</span></li><li><b>Санкт-Петербург</b><span><i>59°48′ с. ш.</i>склад · Шушары</span></li></ul>
+    <ul class="legs mono"><li><a href="ecuador.html"><b>Эквадор</b><span><i>0°13′ ю. ш.</i>плантации</span></a></li><li><a href="colombia.html"><b>Колумбия</b><span><i>4°36′ с. ш.</i>плантации</span></a></li><li><a href="netherlands.html"><b>Голландия</b><span><i>52°22′ с. ш.</i>плантации</span></a></li><li><a href="kenya.html"><b>Кения</b><span><i>1°17′ ю. ш.</i>плантации</span></a></li><li><a href="italy.html"><b>Италия</b><span><i>41°54′ с. ш.</i>плантации</span></a></li><li><a href="chile.html"><b>Чили</b><span><i>33°27′ ю. ш.</i>плантации</span></a></li><li><b>Санкт-Петербург</b><span><i>59°48′ с. ш.</i>склад · Шушары</span></li></ul>
     <div class="cold mono"><span>Холодная цепь</span><b>+2…+4 °C</b><span>от плантации до нашего склада</span></div>
   </div>
   <div class="globe-box rv">
@@ -588,16 +599,17 @@ dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
 // each word hides the next one inside its «О»; inside the «О» you already see the next world's colour
 const CHAIN = [
   {w: 'ЦВЕТЫ',     o: 1, sub: 'со всего мира', sub2: 'по всему миру', nav: 'Главная',      bg: '#EEE8E0', fg: '#17120F', pos: '0%'},
-  {w: 'EC CO NL KE IT CL', o: 4, nav: 'Страны', bg: '#1D3A2F', fg: '#ECE6D8', pos: '-40%', coord: 'Страны', links: ['ecuador.html','colombia.html','netherlands.html','kenya.html','italy.html','chile.html'], name: '<i class="flag ec"></i>Эквадор\n<i class="flag co"></i>Колумбия\n<i class="flag nl"></i>Голландия\n<i class="flag ke"></i>Кения\n<i class="flag it"></i>Италия\n<i class="flag cl"></i>Чили', geo: [{a: 0, b: 2, t: '0°13′ ю. ш.\n78°31′ з. д.'}, {a: 3, b: 5, t: '4°36′ с. ш.\n74°05′ з. д.'}, {a: 6, b: 8, t: '52°22′ с. ш.\n4°54′ в. д.'}, {a: 9, b: 11, t: '1°17′ ю. ш.\n36°49′ в. д.'}, {a: 12, b: 14, t: '41°54′ с. ш.\n12°30′ в. д.'}, {a: 15, b: 17, t: '33°27′ ю. ш.\n70°40′ з. д.'}], text: 'Закупаем напрямую у плантаций. В одной партии может быть несколько ферм — плантация указана в документах по каждой позиции.'},
+  {w: 'EC CO NL KE IT CL', flags: ['ec','co','nl','ke','it','cl'], o: 4, nav: 'Страны', bg: '#1D3A2F', fg: '#ECE6D8', pos: '-40%', coord: 'Страны', links: ['ecuador.html','colombia.html','netherlands.html','kenya.html','italy.html','chile.html'], name: '<i class="flag ec"></i>Эквадор\n<i class="flag co"></i>Колумбия\n<i class="flag nl"></i>Голландия\n<i class="flag ke"></i>Кения\n<i class="flag it"></i>Италия\n<i class="flag cl"></i>Чили', geo: [{a: 0, b: 2, n: 'ЭКВАДОР', t: '0°13′ ю. ш.\n78°31′ з. д.'}, {a: 3, b: 5, n: 'КОЛУМБИЯ', arms: 1, t: '4°36′ с. ш.\n74°05′ з. д.'}, {a: 6, b: 8, n: 'ГОЛЛАНДИЯ', t: '52°22′ с. ш.\n4°54′ в. д.'}, {a: 9, b: 11, n: 'КЕНИЯ', t: '1°17′ ю. ш.\n36°49′ в. д.'}, {a: 12, b: 14, n: 'ИТАЛИЯ', t: '41°54′ с. ш.\n12°30′ в. д.'}, {a: 15, b: 17, n: 'ЧИЛИ', t: '33°27′ ю. ш.\n70°40′ з. д.'}], text: 'Закупаем напрямую у плантаций. В одной партии может быть несколько ферм — плантация указана в документах по каждой позиции.'},
   {w: 'ДОМ',       o: 1, nav: 'О себе',      bg: '#3D0A17', fg: '#F5E4E8', pos: '-95%', geo: [{a: 0, b: 3, t: '59°48′ с. ш. · 30°24′ в. д.'}], coord: '59°48′ с. ш.', name: 'Санкт-Петербург · Шушары', text: 'Через 5–6 дней после вылета цветы на нашем складе.'},
 ];
 const N = CHAIN.length, TAIL = .3;               // extra scroll to rest on ДОМ
 const nav = document.getElementById('nav'), stage = document.getElementById('stage'), chainEl = document.getElementById('chain'), portal = document.getElementById('portal');
 const wordsEl = document.getElementById('words'), cardsEl = document.getElementById('cards'), place = document.getElementById('place');
 const els = CHAIN.map(c => {
-  const e = document.createElement('div'); e.className = 'word fill';
-  e.innerHTML = [...c.w].map((ch, i) => i === c.o ? `<span class="o">${ch}</span>` : ch).join('') + (c.sub ? `<small class="wsub">${c.sub}</small>` : '') + (c.sub2 ? `<small class="wsub2">${c.sub2}</small>` : '');
-  e.style.backgroundPositionX = c.pos; wordsEl.appendChild(e); return e;
+  const e = document.createElement('div'); e.className = 'word fill' + (c.flags ? ' flagword' : '');
+  const lt = (ch, i) => i === c.o ? `<span class="o">${ch}</span>` : ch;
+  e.innerHTML = (c.flags ? c.w.split(/[  ]/).map((t, k) => `<span class="cc ${c.flags[k]}">${[...t].map((ch, q) => lt(ch, k * 3 + q)).join('')}</span>`).join(' ') : [...c.w].map(lt).join('')) + (c.sub ? `<small class="wsub">${c.sub}</small>` : '') + (c.sub2 ? `<small class="wsub2">${c.sub2}</small>` : '');
+  e.style.backgroundPositionX = c.pos; if (c.links) { e.setAttribute('role', 'img'); e.setAttribute('aria-label', 'Эквадор, Колумбия, Голландия, Кения, Италия, Чили'); const im = new Image(); im.className = 'oarms'; im.alt = ''; im.src = 'img/co-arms.svg'; e.appendChild(im); } wordsEl.appendChild(e); return e;
 });
 // floating photo cards: two per world, drifting past as you fly
 const CARDS = [];
@@ -608,7 +620,7 @@ CHAIN.forEach((c, j) => (c.cards || []).forEach((id, k) => {
 }));
 // coordinate captions: one span per code, placed under the letters every frame (they never scale with the dive)
 const geoEl = document.getElementById('geo');
-const GEO = CHAIN.map(c => (c.geo || []).map(g => { const el = document.createElement('span'); el.textContent = g.t; geoEl.appendChild(el); return {...g, el}; }));
+const GEO = CHAIN.map(c => (c.geo || []).map(g => { const el = document.createElement('span'); el.innerHTML = (g.n ? '<b>' + g.n + '</b>' : '') + '<i></i>' + (g.arms ? '<img src="img/co-arms.svg" alt="Герб Колумбии">' : ''); geoEl.appendChild(el); return {...g, el, i: el.querySelector('i')}; }));
 // screen box of characters a..b of a word, across the text nodes around the «О» span
 function charRect(el, a, b) {
   const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), range = document.createRange();
@@ -620,6 +632,7 @@ function charRect(el, a, b) {
   }
   return range.getBoundingClientRect();
 }
+const oarms = els[1].querySelector('.oarms');
 const twins = CHAIN.map((c, j) => { const t = els[j].cloneNode(true); t.className = 'word solid'; t.style.backgroundPositionX = ''; wordsEl.appendChild(t); return t; });
 const PHOTO = ['', 'img/p38.webp', 'img/p10.webp'];
 PHOTO.forEach(src => { if (src) { const im = new Image(); im.src = src; im.decode && im.decode().catch(() => {}); } });
@@ -677,10 +690,14 @@ function measure() {
     return g;
   });
   Gmax = Math.max(...G.map(g => g.h));
+  // Colombia's coat of arms sits inside the «О» of CO; where the hole is too small to read, it moves under the caption instead
+  { const g = G[1], h = g.hd * .8, w = h * 60 / 72, big = g.hd >= 22, cap = GEO[1][1] && GEO[1][1].el.querySelector('img');
+    Object.assign(oarms.style, {left: g.ox - w / 2 + 'px', top: g.oy - h / 2 + 'px', width: w + 'px', height: h + 'px', display: big ? 'block' : 'none'});
+    if (cap) cap.style.display = big ? 'none' : ''; }
   // phones have room for latitude only under each code
-  GEO.forEach(list => list.forEach(c => { c.el.textContent = W < 900 ? c.t.split('\n')[0].replace(W < 460 ? / ([сю])[.] ш[.]$/ : /$^/, '$1') : c.t; }));
+  GEO.forEach(list => list.forEach(c => { c.i.textContent = W < 900 ? c.t.split('\n')[0].replace(W < 460 ? / ([сю])[.] ш[.]$/ : /$^/, '$1') : c.t; }));
   // words sit centred, but always above the bottom text (with room for the coordinate captions), on phones and desktops
-  const gapB = mob ? 56 : 72, lowest = G.map((g, j) => (j === 0 ? introTop : textTop) - gapB - g.h / 2);
+  const gapB = mob ? 84 : 76, lowest = G.map((g, j) => (j === 0 ? introTop : textTop) - gapB - g.h / 2);
   CY = Math.max((mob ? 165 : 90) + Gmax / 2, Math.min(H * (mob ? .56 : .4), ...lowest));
   // the scroll cue hangs right under the last letter of the word
   const introEl = document.getElementById('intro');
@@ -713,13 +730,14 @@ function chainFrame() {
   const r = chainEl.getBoundingClientRect(), span = chainEl.offsetHeight - innerHeight;
   const p = clamp(-r.top / span), T = p * (N - 1 + TAIL);
   const i = Math.min(N - 1, Math.floor(T)), u = clamp(T - i), last = i === N - 1;
+  oarms.style.opacity = i === 1 ? 1 - seg(u, 0, .1) : 1;
   const C = [W / 2, CY], g = G[i];
   const left = C[0] - g.w / 2, top = C[1] - g.h / 2, Pi = [left + g.ox, top + g.oy];
   els.forEach((e, j) => { e.style.visibility = (j === i || j === i + 1) ? 'visible' : 'hidden'; e.style.opacity = 1; });
   twins.forEach(t => t.style.visibility = 'hidden');
   GEO.forEach(list => list.forEach(c => { c.el.style.opacity = 0; }));
   const geoAt = (j, tx, ty, sc, op) => op > 0 && GEO[j].forEach((c, q) => {
-    c.el.style.opacity = op * .8;
+    c.el.style.opacity = op * .92;
     c.el.style.transform = `translate(${tx + G[j].geo[q] * sc}px,${ty + G[j].h * sc + 14}px) translateX(-50%)`;
   });
   els[i].style.zIndex = 3;
