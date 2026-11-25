@@ -38,6 +38,7 @@ const initGallery = root => {
   const prem = document.getElementById('premium'); if (prem) initGallery(prem);
   const dataEl = document.getElementById('vdata'), dlg = document.getElementById('vdlg');
   if (!dataEl || !dlg) return;
+  const country = document.body.dataset.country || '';
   const D = JSON.parse(dataEl.textContent);
   const ph = dlg.querySelector('.vd-ph'), dl = dlg.querySelector('.vd-f'), kk = dlg.querySelector('.vd-k'), nm = dlg.querySelector('#vdn');
   const tg = dlg.querySelector('[data-vtg]'), wa = dlg.querySelector('[data-vwa]');
