@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HOME ROSES — розы и гвоздики с плантаций Эквадора, Колумбии, Голландии, Кении, Италии и Чили</title>
+<meta name="description" content="Импорт срезанных цветов из Эквадора, Колумбии, Голландии, Кении, Италии и Чили с 2018 года. Под заказ и со склада в Санкт-Петербурге, от 1 банча.">
+<!-- пока это альтернативная версия: не индексировать -->
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#e6ebe4">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/prata-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/onest-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="home.css">
+</head>
+<body>
+<header class="top" id="top"><div class="wrap">
+  <a class="logo" href="#main">Home Roses</a>
+  <nav aria-label="Разделы"><a href="#assort">Сорта</a><a href="#lands">Страны</a><a href="#formats">Форматы</a><a href="#schedule">Вылеты</a><a href="#reviews">Отзывы</a><a href="#faq">Вопросы</a><a href="#contacts">Контакты</a></nav>
+  <div class="right">
+    <details class="menu"><summary>Меню</summary><div><a href="#assort">Сорта</a><a href="#lands">Страны и каталоги</a><a href="#formats">Форматы</a><a href="#process">Как проходит заказ</a><a href="#schedule">Вылеты</a><a href="#reviews">Отзывы</a><a href="#faq">Вопросы</a><a href="#contacts">Контакты</a></div></details>
+    <button class="btn" type="button" data-price><span class="long">Запросить&nbsp;</span>прайс</button>
+  </div>
+</div></header>
+
+<main id="main">
+  <div class="wrap intro">
+    <h1>Выберите розы&nbsp;— пришлём цену на ближайший рейс</h1>
+    <p>Цветы из Эквадора, Колумбии, Голландии, Кении, Италии и Чили. Под заказ и со склада в Санкт-Петербурге, от 1 банча. Возим с 2018 года, по каждой партии сверяем документы.</p>
+  </div>
+  <div class="shelf">
+    <div class="row" id="row"></div>
+    <div class="wrap under">
+      <p>Нажмите на розу, чтобы добавить её в запрос. Листайте вбок, чтобы увидеть остальные.</p>
+      <div class="arrows">
+        <button type="button" id="prev" aria-label="Предыдущие сорта"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button type="button" id="next" aria-label="Следующие сорта"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <dl class="facts">
+      <div><dt>Вылеты</dt><dd>среда и воскресенье</dd></div>
+      <div><dt>На складе в СПб</dt><dd>через 5–6 дней</dd></div>
+      <div><dt>Заказ</dt><dd>от 1 банча</dd></div>
+      <div><dt>Холодная цепь</dt><dd>+2…+4 °C</dd></div>
+      <div><dt>Доставка</dt><dd>по России, в СНГ и за рубеж</dd></div>
+    </dl>
+  </div>
+
+  <section class="s wrap" id="assort">
+    <div class="head"><h2>Что мы привозим</h2><p>Эти сорта мы возим постоянно. Отметьте нужные, и они попадут в запрос. Наличие и цены на ближайший рейс — в прайсе.</p></div>
+    <div class="group"><h3>Розы</h3><ul class="chips" data-chips="">Explorer|Mondial|Candlelight|Esperance|Mandala|Gotcha|Pink Mondial|Red Panther|Nina|Be Sweet|Pink Floyd|Kahala|Full Monty|Lola|Mandarin X-pression|Playa Blanca|Country Blues|Silantoi|Frutteto|Freedom|Iguazu|Hermosa</ul></div>
+    <div class="group"><h3>Кустовые розы</h3><ul class="chips" data-chips="">SP — спрей-розы разных сортов</ul></div>
+    <div class="group"><h3>Гвоздики</h3><ul class="chips" data-chips="">Гвоздика стандартная|Гвоздика мини</ul></div>
+    <div class="group"><h3>Розам в компанию</h3><ul class="chips" data-chips="">Альстромерия|Гипсофила|Гортензия|Маттиола|Лимониум|Статица|Ранункулюс</ul></div>
+    <div class="afoot"><p>Другие сорта — под заказ.</p><button class="btn fill" type="button" data-price>Запросить прайс с наличием</button></div>
+  </section>
+
+  <section class="s wrap" id="lands">
+    <div class="head"><h2>Шесть стран, один склад</h2><p>Страны расставлены по широте, пунктир — экватор. Закупаем напрямую у плантаций, и до склада в Шушарах цветы едут при +2…+4 °C. Нажмите на страну, чтобы открыть каталог.</p></div>
+    <div class="lat">
+      <!-- ось: y = (59.80 − широта) / 93.25 × 760 -->
+      <svg aria-hidden="true" viewBox="0 0 130 760" preserveAspectRatio="none">
+        <g vector-effect="non-scaling-stroke">
+          <line x1="14" y1="0" x2="14" y2="760" vector-effect="non-scaling-stroke"/>
+          <line class="eq" x1="0" y1="487" x2="100" y2="487" vector-effect="non-scaling-stroke"/>
+          <path vector-effect="non-scaling-stroke" d="M14 0H130 M14 61C70 61 70 66 130 66 M14 146H130 M14 450C70 450 70 446 130 446 M14 489C70 489 70 516 130 516 M14 498C60 498 75 586 130 586 M14 760H130"/>
+          <path class="dots" vector-effect="non-scaling-stroke" d="M14 0h0 M14 61h0 M14 146h0 M14 450h0 M14 489h0 M14 498h0 M14 760h0"/>
+        </g>
+      </svg>
+      <ul>
+      <li class="home-row" style="--y:0px"><div><i aria-hidden="true">дом</i><b>Санкт-Петербург</b><span>59°48′ с. ш. · склад в Шушарах</span></div></li>
+      <li style="--y:66px"><a href="netherlands.html"><img src="cut/garden-peonikiss.webp" alt=""><b>Голландия</b><span>52°22′ с. ш. · Амстердам</span><em>каталог</em></a></li>
+      <li style="--y:146px"><a href="italy.html"><img src="cut/garden-candlelight.webp" alt=""><b>Италия</b><span>41°54′ с. ш. · Рим</span><em>каталог</em></a></li>
+      <li style="--y:446px"><a href="colombia.html"><img src="cut/garden-cotton-x-pression.webp" alt=""><b>Колумбия</b><span>4°36′ с. ш. · Богота</span><em>каталог</em></a></li>
+      <li style="--y:516px"><a href="ecuador.html"><img src="cut/garden-country-home.webp" alt=""><b>Эквадор</b><span>0°13′ ю. ш. · Кито</span><em>каталог</em></a></li>
+      <li style="--y:586px"><a href="kenya.html"><img src="cut/garden-mayra-s-hot.webp" alt=""><b>Кения</b><span>1°17′ ю. ш. · Найроби</span><em>каталог</em></a></li>
+      <li style="--y:760px"><a href="chile.html"><img src="cut/garden-princess-crown.webp" alt=""><b>Чили</b><span>33°27′ ю. ш. · Сантьяго</span><em>каталог</em></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="s wrap" id="formats">
+    <div class="head"><h2>Кому и как мы возим</h2><p>От крупной оптовой поставки до закупки со склада без ожидания рейса.</p></div>
+    <div class="formats">
+      <article class="format"><img src="../img/w/p40.webp" alt="Кустовые персиковые розы в коробке" loading="lazy"><div><span class="who">Оптовикам и цветочным базам</span><h3>Под заказ</h3><p>Вы присылаете сорта, длину и количество коробок, мы размещаем заказ на плантациях и привозим.</p><button class="btn" type="button" data-price>Запросить прайс</button></div></article>
+      <article class="format"><img src="../img/w/p23.webp" alt="Разноцветные герберы на складе" loading="lazy"><div><span class="who">Магазинам и флористам</span><h3>Со склада</h3><p>Цветы в наличии на складе в Санкт-Петербурге, ждать рейса не нужно.</p><button class="btn" type="button" data-price="Здравствуйте! Подскажите, какие цветы HOME ROSES сейчас есть на складе.">Узнать наличие</button></div></article>
+      <article class="format"><img src="../img/w/p16.webp" alt="Салатовые розы в фирменной коробке плантации" loading="lazy"><div><span class="who">Импортёрам без своей логистики</span><h3>Логистика</h3><p>Вы закупаете у плантаций сами, а доставку в Россию и документы мы берём на себя.</p><button class="btn" type="button" data-price="Здравствуйте! Хочу обсудить с HOME ROSES условия логистики.">Обсудить условия</button></div></article>
+    </div>
+    <p class="note">Доставка по России, в СНГ и за рубеж.</p>
+  </section>
+
+  <section class="s wrap" id="process">
+    <div class="head"><h2>От заявки до документов ведём партию сами</h2></div>
+    <ol class="steps">
+      <li><h3>Заявка</h3><p>Сорта, длина стебля, количество коробок.</p></li>
+      <li><h3>Закупка</h3><p>Размещаем заказ на плантациях.</p></li>
+      <li><h3>Отчёт о закупке</h3><p>Присылаем отчёт: что куплено, с какой плантации, сорт, длина стебля и количество.</p></li>
+      <li><h3>Доставка</h3><p>Вылет в среду или воскресенье. До склада в СПб обычно 5–6 дней.</p></li>
+      <li><h3>Получение</h3><p>Забираете со склада или получаете доставкой по России, в СНГ или за рубеж — с полным комплектом документов.</p></li>
+    </ol>
+  </section>
+
+  <section class="s wrap" id="schedule">
+    <div class="head"><h2>Вылеты каждую среду и&nbsp;воскресенье</h2><p>Постоянный график — можно планировать продажи заранее.</p></div>
+    <div class="sched">
+      <div class="cal">
+        <ul class="week" id="week" aria-label="Дни ближайшей недели, тёмным отмечены дни вылета"></ul>
+        <p class="legend">Тёмным отмечены дни вылета, красной рамкой — сегодня (по Москве).</p>
+        <dl class="dates">
+          <div><dt>Ближайший вылет</dt><dd id="nd">—</dd></div>
+          <div><dt>На складе в СПб</dt><dd id="na">—</dd></div>
+          <div><dt>Следующий вылет</dt><dd id="nn">—</dd></div>
+          <div><dt>Заявки принимаем до</dt><dd id="nc">—</dd></div>
+        </dl>
+      </div>
+      <div class="next">
+        <p class="k" id="what">До конца приёма заявок</p>
+        <div class="timer" role="timer"><div><b id="td">0</b><span>дн.</span></div><div><b id="th">00</b><span>час.</span></div><div><b id="tm">00</b><span>мин.</span></div><div><b id="ts">00</b><span>сек.</span></div></div>
+        <small>Заявки принимаем по московскому времени: на рейс в среду — до 23:00 воскресенья, на рейс в воскресенье — до 23:00 среды. Другие сроки подачи заявки обсуждаются индивидуально.</small>
+        <small>Даты рассчитаны по графику и ориентировочны. Точные сроки по вашему заказу уточняйте у нас.</small>
+        <button class="btn" type="button" data-price>Успеть к этому вылету</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="s wrap" id="why">
+    <div class="head"><h2>Как мы ведём каждую партию</h2></div>
+    <ul class="why">
+      <li><h3>Партия не зависит от одной фермы</h3><p>В одну партию собираем цветы с нескольких плантаций.</p></li>
+      <li><h3>Сверяем документы по каждой партии</h3><p>Проверяем в инвойсах, сертификатах и пакинге номера, вес и количество коробок. По каждой позиции видно, с какой она плантации.</p></li>
+      <li><h3>Расчёты в одной выписке</h3><p>По каждому клиенту ведём выписку: инвойсы, оплаты, рекламации, остаток.</p></li>
+    </ul>
+  </section>
+
+  <section class="s wrap" id="reviews">
+    <div class="head"><h2>Отзывы с Яндекс Карт</h2><p>Публикуем без правок. Все отзывы, включая критические, можно прочитать там же.</p></div>
+    <div class="score"><b>4,4</b><span>11 оценок · 9 отзывов</span><a class="btn" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener">Все отзывы</a></div>
+    <div class="reviews">
+      <a class="review" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener"><span class="who"><b>Pavel Voronov</b><span class="st" role="img" aria-label="Оценка 5 из 5">★★★★★</span></span><p>Отличное место с дружелюбным и компетентным персоналом. Приятные цены, минимальная покупка- упаковка (25шт.) На месте можно подарочно упаковать. Рассказали про каждый сорт, какой будет когда распустится полностью, будет запах или нет. Может делать индивидуальные заказы от одной упаковки за 7 дней.</p><small>22 декабря 2025, Яндекс Карты</small></a>
+      <a class="review" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener"><span class="who"><b>teenw</b><span class="st" role="img" aria-label="Оценка 5 из 5">★★★★★</span></span><p>Невероятный выбор, да ещё и такой свежак, только-только привезли поставку 😍 Супер!! Пахло ВО, КРАСОТА 💐💐💐</p><small>25 декабря 2025, Яндекс Карты</small></a>
+      <a class="review" href="https://yandex.ru/maps/org/home_roses/168479410734/reviews/" target="_blank" rel="noopener"><span class="who"><b>Евгения Стёпочкина</b><span class="st" role="img" aria-label="Оценка 5 из 5">★★★★★</span></span><p>Лучшие цветы в СПБ и ЛО</p><small>10 апреля 2026, Яндекс Карты</small></a>
+    </div>
+    <div class="maps">
+      <iframe src="https://yandex.ru/map-widget/v1/?ll=30.402762%2C59.808224&amp;z=16&amp;oid=168479410734&amp;ol=biz" title="Склад HOME ROSES на Яндекс Картах" loading="lazy" allowfullscreen></iframe>
+      <iframe src="https://yandex.ru/maps-reviews-widget/168479410734?comments" title="Отзывы о Home roses на Яндекс Картах" loading="lazy"></iframe>
+    </div>
+    <p class="maplink"><a href="https://yandex.ru/maps/org/home_roses/168479410734/" target="_blank" rel="noopener">Home roses на Яндекс Картах</a></p>
+  </section>
+
+  <section class="s" id="photos">
+    <div class="wrap head"><h2>Фото с нашего склада</h2><p>Новые партии выкладываем в <a href="https://t.me/hr_LTDA" target="_blank" rel="noopener">Telegram-группе</a>.</p></div>
+    <div class="reel"><div class="track" id="reel"></div></div>
+  </section>
+
+  <section class="s wrap" id="faq">
+    <div class="faq">
+      <h2>Частые вопросы</h2>
+      <div>
+        <details><summary>Какой минимальный заказ?</summary><p>1 банч, то есть одна упаковка.</p></details>
+        <details><summary>Сколько ждать цветы под заказ?</summary><p>Вылеты каждую среду и воскресенье. До склада в Санкт-Петербурге обычно 5–6 дней.</p></details>
+        <details><summary>До какого времени принимаете заявки на рейс?</summary><p>По московскому времени: на рейс в среду — до 23:00 воскресенья, на рейс в воскресенье — до 23:00 среды. Другие сроки подачи заявки обсуждаются индивидуально.</p></details>
+        <details><summary>Можно купить без ожидания рейса?</summary><p>Да. На складе в Санкт-Петербурге есть цветы в наличии. Напишите, и мы расскажем, что есть сейчас.</p></details>
+        <details><summary>Доставляете в регионы и за рубеж?</summary><p>Да. Доставляем по России и СНГ, возможна международная доставка. Цветы также можно забрать со склада.</p></details>
+        <details><summary>Какие документы я получу?</summary><p>Полный комплект документов по партии. По каждой позиции указаны плантация, сорт, длина стебля и количество стеблей. Номера, вес и количество коробок указаны в инвойсах, сертификатах и пакинге.</p></details>
+        <details><summary>Можно собрать заказ с разных плантаций?</summary><p>Да. Заказ не привязан к одной ферме, в одну партию можно собрать цветы с нескольких плантаций.</p></details>
+        <details><summary>Как учитываются оплаты и рекламации?</summary><p>По каждому клиенту ведём выписку: инвойсы, оплаты, рекламации, остаток. Рекламации обрабатываются в течение 24 часов после заявки.</p></details>
+        <details><summary>Как получить прайс?</summary><p>Напишите в Telegram, WhatsApp, MAX или на почту, и мы пришлём актуальный прайс.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="s wrap contacts" id="contacts">
+    <div class="box">
+      <div>
+        <h2>Запросите прайс&nbsp;— ответим в&nbsp;мессенджере</h2>
+        <p>Склад HOME ROSES в Санкт-Петербурге. Импортируем цветы с 2018 года.</p>
+        <ul class="clist">
+          <li><span>Контактное лицо</span><span>Рахман</span></li>
+          <li><span>Телефон, WhatsApp, MAX</span><span><a href="tel:+79810524242">+7 981 052-42-42</a></span></li>
+          <li><span>Telegram</span><span><a data-tg href="#" target="_blank" rel="noopener">@home_roses_ltda</a></span></li>
+          <li><span>Почта</span><span><button class="reveal" type="button" data-mail>Показать почту</button></span></li>
+          <li><span>Склад</span><span><a href="https://yandex.ru/maps/org/home_roses/168479410734/" target="_blank" rel="noopener">Санкт-Петербург, пос. Шушары, 1-й Бадаевский, 9А</a><small>59°48′ с. ш., 30°24′ в. д.</small></span></li>
+        </ul>
+      </div>
+      <div class="channels">
+        <a class="btn fill" data-tg href="#" target="_blank" rel="noopener">Telegram<small>@home_roses_ltda</small></a>
+        <a class="btn" data-wa href="#" target="_blank" rel="noopener">WhatsApp<small>+7 981 052-42-42</small></a>
+        <a class="btn" data-max href="#" target="_blank" rel="noopener">MAX<small>+7 981 052-42-42</small></a>
+        <a class="btn" href="https://t.me/hr_LTDA" target="_blank" rel="noopener">Группа с фото<small>t.me/hr_LTDA</small></a>
+        <a class="btn" href="https://instagram.com/homeroses_" target="_blank" rel="noopener">Instagram*<small>@homeroses_</small></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <p>© <span id="year"></span> HOME ROSES · Импорт цветов с 2018 года · Санкт-Петербург</p>
+  <p>Широты стран указаны по столицам. Склад — Шушары, 59°48′ с. ш.</p>
+  <p>* Instagram принадлежит компании Meta, признанной экстремистской организацией и запрещённой на территории РФ. Фотографии склада — реальные.</p>
+</div></footer>
+
+<div class="dock" id="dock">
+  <div class="txt" aria-live="polite"><b id="pick">Прайс на ближайший рейс</b><small id="when"></small></div>
+  <button class="clear" type="button" id="clear" hidden>Очистить</button>
+  <span class="break"></span>
+  <a class="btn fill" data-tg href="#" target="_blank" rel="noopener">Telegram</a>
+  <a class="btn" data-wa href="#" target="_blank" rel="noopener">WhatsApp</a>
+</div>
+
+<dialog class="price" id="dlg" aria-labelledby="dlgT">
+  <button class="x" type="button" data-close aria-label="Закрыть">×</button>
+  <h3 id="dlgT">Запросить прайс</h3>
+  <p id="dlgMsg"></p>
+  <div class="list">
+    <a class="btn fill" data-tg href="#" target="_blank" rel="noopener">Telegram</a>
+    <a class="btn" data-wa href="#" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="btn" data-max href="#" target="_blank" rel="noopener">MAX</a>
+  </div>
+</dialog>
+<script src="home.js"></script>
+</body>
+</html>

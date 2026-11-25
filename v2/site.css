@@ -1,0 +1,61 @@
+/* HOME ROSES v2 — «Стебли». Общие стили главной и каталогов. */
+:root{--wall:#e6ebe4;--wall2:#d9e1d6;--paper:#f6f8f4;--ink:#10281b;--soft:#43594b;--rose:#a30f38;--line:#b9c6b8;--pad:clamp(16px,4vw,56px);--serif:Prata,Georgia,serif;--ease:cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--wall);scroll-behavior:smooth;overflow-x:clip}
+body{background:var(--wall);color:var(--ink);font:400 16px/1.55 Onest,system-ui,sans-serif;overflow-x:clip}
+img{max-width:100%}
+a{color:inherit;text-underline-offset:.22em}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--rose);outline-offset:3px}
+::selection{background:var(--rose);color:#fff}
+[hidden]{display:none!important}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+h1,h2,h3{font-weight:400;text-wrap:balance}
+.wrap{max-width:calc(1320px + 2 * var(--pad));margin:0 auto;padding-inline:var(--pad)}
+
+.top{position:sticky;top:0;z-index:20;background:var(--wall);border-bottom:1px solid transparent;transition:border-color .3s}
+.top.stuck{border-color:var(--line)}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:10px}
+.logo{font:400 21px/1 var(--serif);text-decoration:none;white-space:nowrap}
+.top nav{display:flex;gap:clamp(14px,2vw,28px)}
+.top nav a{text-decoration:none;color:var(--soft);font-size:15px;padding:10px 0}
+.top nav a:hover{color:var(--ink)}
+.menu{display:none}
+.right{display:flex;gap:8px;align-items:center}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:0;min-height:46px;padding:0 22px;border-radius:99px;border:1.5px solid var(--ink);background:transparent;text-decoration:none;font-weight:500;font-size:15px;white-space:nowrap;cursor:pointer;transition:background .2s,color .2s}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.fill{background:var(--ink);color:var(--paper)}
+.btn.fill:hover{background:var(--rose);border-color:var(--rose)}
+
+section.s{padding-block:clamp(64px,10vh,128px) 0;scroll-margin-top:40px}
+.head{display:grid;grid-template-columns:1.3fr 1fr;gap:12px 48px;align-items:end;margin-bottom:clamp(24px,4vh,44px)}
+h2{font:400 clamp(27px,3.4vw,46px)/1.18 var(--serif)}
+.head p{color:var(--soft);max-width:48ch}
+
+footer{margin-top:clamp(64px,10vh,128px);background:var(--ink);color:#b9ccbe;font-size:14px}
+footer .wrap{display:grid;gap:10px;padding-block:36px 44px}
+
+dialog.price{border:0;border-radius:24px;padding:28px;width:min(440px,calc(100% - 24px));margin:auto;background:var(--paper);color:var(--ink)}
+dialog::backdrop{background:rgba(16,40,27,.6)}
+.price h3{font:400 28px/1.2 var(--serif);padding-right:40px}
+.price p{color:var(--soft);margin:10px 0 20px;overflow-wrap:anywhere}
+.price .list{display:grid;gap:10px}
+.x{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:transparent;font-size:24px;line-height:1;cursor:pointer}
+
+@media(max-width:980px){
+  .top nav{display:none}
+  .menu{display:block}
+  .menu summary{list-style:none;min-height:46px;padding:0 16px;display:flex;align-items:center;cursor:pointer;font-weight:500;font-size:15px}
+  .menu summary::-webkit-details-marker{display:none}
+  .menu div{position:absolute;left:0;right:0;top:100%;background:var(--paper);border-block:1px solid var(--line);padding:6px var(--pad) 12px;display:grid;box-shadow:0 24px 30px -20px rgba(16,40,27,.35)}
+  .menu div a{padding:13px 0;text-decoration:none;font:400 19px var(--serif);border-bottom:1px solid var(--line)}
+  .menu div a:last-child{border:0}
+}
+@media(max-width:760px){
+  .head{grid-template-columns:1fr}
+  .top .btn{padding:0 15px;font-size:14px;min-height:44px}
+  .logo{font-size:19px}
+}
+@media(max-width:360px){.top .menu summary{padding:0 10px}.top .long{display:none}.logo{font-size:18px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
