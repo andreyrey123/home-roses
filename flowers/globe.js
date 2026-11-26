@@ -88,6 +88,7 @@ window.Globe = (() => {
     }
     function frame(time) {
       requestAnimationFrame(frame);
+      if (window.hrPaused) { last = time; return; }   // экран не виден — не рисуем
       const dt = Math.max(0, Math.min(8, (time - (last || time)) / 16.7)); last = time;
       if (!calm) { spin += .0035 * dt; if (!state.touched) state.lon = -32 + 26 * Math.sin(time / 11000); }
       v = o.view(state.w, state.h);

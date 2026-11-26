@@ -65,6 +65,8 @@ img{display:block;max-width:100%}
 .pill.solid{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .pill.solid:hover{opacity:.88}
 
+/* second world: the interactive screen from /flowers/ */
+.fworld{position:absolute;z-index:40;left:0;top:76px;width:100%;height:calc(100% - 76px - var(--sb));border:0;opacity:0;visibility:hidden;pointer-events:none;color-scheme:normal}
 /* ---------- the chain ---------- */
 .chain{position:relative;height:270vh}
 .stage{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--bg);color:var(--fg)}
@@ -407,6 +409,7 @@ html.shot-mode *,html.shot-mode *::before,html.shot-mode *::after{transition:non
     </div>
     <div class="place" id="place" aria-live="polite"><div class="coord" id="coord"></div><span class="tap" id="ptap" hidden>Нажмите на страну, чтобы открыть каталог</span><div class="name mono" id="pname"></div><p id="ptext"></p></div>
     <nav class="worlds mono" id="worlds" aria-label="Путь цветов"></nav>
+    <iframe class="fworld" id="fworld" title="Все цветы и страны-поставщики" data-src="flowers/?embed&v=3"></iframe>
     <div class="home" id="home">
       <div class="actions"><a class="pill" data-tg href="#" target="_blank" rel="noopener">Telegram</a><a class="pill" data-wa href="#" target="_blank" rel="noopener">WhatsApp</a><a class="pill" data-max href="#" target="_blank" rel="noopener">MAX</a></div>
     </div>
@@ -611,7 +614,7 @@ dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
 // each word hides the next one inside its «О»; inside the «О» you already see the next world's colour
 const CHAIN = [
   {w: 'ЦВЕТЫ',     o: 1, sub: 'со всего мира', sub2: 'по всему миру', nav: 'Главная',      bg: '#EEE8E0', fg: '#17120F', pos: '0%'},
-  {w: 'EC CO NL KE IT CL', flags: ['ec','co','nl','ke','it','cl'], o: 4, nav: 'Страны', bg: '#1D3A2F', fg: '#ECE6D8', pos: '-40%', coord: 'Страны', links: ['ecuador.html','colombia.html','netherlands.html','kenya.html','italy.html','chile.html'], name: '<i class="flag ec"></i>Эквадор\n<i class="flag co"></i>Колумбия\n<i class="flag nl"></i>Голландия\n<i class="flag ke"></i>Кения\n<i class="flag it"></i>Италия\n<i class="flag cl"></i>Чили', geo: [{a: 0, b: 2, n: 'ЭКВАДОР', t: '0°13′ ю. ш.\n78°31′ з. д.'}, {a: 3, b: 5, n: 'КОЛУМБИЯ', arms: 1, t: '4°36′ с. ш.\n74°05′ з. д.'}, {a: 6, b: 8, n: 'ГОЛЛАНДИЯ', t: '52°22′ с. ш.\n4°54′ в. д.'}, {a: 9, b: 11, n: 'КЕНИЯ', t: '1°17′ ю. ш.\n36°49′ в. д.'}, {a: 12, b: 14, n: 'ИТАЛИЯ', t: '41°54′ с. ш.\n12°30′ в. д.'}, {a: 15, b: 17, n: 'ЧИЛИ', t: '33°27′ ю. ш.\n70°40′ з. д.'}], text: 'Закупаем напрямую у плантаций. В одной партии может быть несколько ферм — плантация указана в документах по каждой позиции.'},
+  {w: 'EC CO NL KE IT CL', flags: ['ec','co','nl','ke','it','cl'], o: 4, nav: 'Страны', bg: '#060F22', fg: '#EEF4FF', pos: '-40%', coord: 'Страны', links: ['ecuador.html','colombia.html','netherlands.html','kenya.html','italy.html','chile.html'], name: '<i class="flag ec"></i>Эквадор\n<i class="flag co"></i>Колумбия\n<i class="flag nl"></i>Голландия\n<i class="flag ke"></i>Кения\n<i class="flag it"></i>Италия\n<i class="flag cl"></i>Чили', geo: [{a: 0, b: 2, n: 'ЭКВАДОР', t: '0°13′ ю. ш.\n78°31′ з. д.'}, {a: 3, b: 5, n: 'КОЛУМБИЯ', arms: 1, t: '4°36′ с. ш.\n74°05′ з. д.'}, {a: 6, b: 8, n: 'ГОЛЛАНДИЯ', t: '52°22′ с. ш.\n4°54′ в. д.'}, {a: 9, b: 11, n: 'КЕНИЯ', t: '1°17′ ю. ш.\n36°49′ в. д.'}, {a: 12, b: 14, n: 'ИТАЛИЯ', t: '41°54′ с. ш.\n12°30′ в. д.'}, {a: 15, b: 17, n: 'ЧИЛИ', t: '33°27′ ю. ш.\n70°40′ з. д.'}], text: 'Закупаем напрямую у плантаций. В одной партии может быть несколько ферм — плантация указана в документах по каждой позиции.'},
   {w: 'ДОМ',       o: 1, nav: 'О себе',      bg: '#3D0A17', fg: '#F5E4E8', pos: '-95%', geo: [{a: 0, b: 3, t: '59°48′ с. ш. · 30°24′ в. д.'}], coord: '59°48′ с. ш.', name: 'Санкт-Петербург · Шушары', text: 'Через 5–6 дней после вылета цветы на нашем складе.'},
 ];
 const N = CHAIN.length, TAIL = .3;               // extra scroll to rest on ДОМ
@@ -789,6 +792,30 @@ function showPlace(j) {
     place.classList.remove('swap');
   }, 260);
 }
+/* ---------- second world: all flowers + countries ---------- */
+const fw = document.getElementById('fworld'), priceBtn = nav.querySelector('[data-price]');
+let fOn = false, fLabel = '';
+const fLoad = () => { if (!fw.getAttribute('src')) fw.src = fw.dataset.src; };
+addEventListener('load', () => setTimeout(fLoad, 1500));
+const paintPrice = () => { priceBtn.textContent = fOn && fLabel.startsWith('Заявка') ? fLabel : 'Запросить прайс'; };
+function flowersScreen(o) {
+  if (o > 0) fLoad();
+  fw.style.opacity = o; fw.style.visibility = o > 0 ? 'visible' : 'hidden'; fw.style.pointerEvents = o > .9 ? 'auto' : 'none';
+  if (o > 0) { const top = nav.offsetHeight - 6; fw.style.top = top + 'px'; fw.style.height = `calc(100% - ${top}px - var(--sb))`; }
+  if (fw.contentWindow) fw.contentWindow.hrPaused = o === 0;
+  const on = o > .9; if (on !== fOn) { fOn = on; paintPrice(); if (!on && document.activeElement === fw) fw.blur(); }
+}
+// the embedded page reports its order and hands page scrolling back to this one
+window.hrCart = label => { fLabel = label; paintPrice(); };
+window.hrGo = dir => {
+  const st = snapStops(), y = scrollY, t = dir > 0 ? st.find(v => v > y + 2) : [...st].reverse().find(v => v < y - 2);
+  if (t !== undefined) lenis ? lenis.scrollTo(t, {duration: 1.6}) : scrollTo({top: t, behavior: 'smooth'});
+};
+window.hrScroll = ev => { if (!lenis || RM) return scrollBy(0, ev.deltaY); snapScroll({deltaY: ev.deltaY, event: ev}); };
+document.addEventListener('click', e => {
+  if (!fOn || !fLabel.startsWith('Заявка') || !e.target.closest('#nav [data-price]') || !fw.contentWindow.hrOrder) return;
+  e.preventDefault(); e.stopImmediatePropagation(); fw.contentWindow.hrOrder();
+}, true);
 function chainFrame() {
   const r = chainEl.getBoundingClientRect(), span = chainEl.offsetHeight - innerHeight;
   const p = clamp(-r.top / span), T = p * (N - 1 + TAIL);
@@ -850,6 +877,11 @@ function chainFrame() {
   const home = document.getElementById('home'); home.style.opacity = last ? seg(u, .04, .16) : 0; home.style.pointerEvents = last && u > .08 ? 'auto' : 'none';
   place.classList.toggle('live', focus === 1 && +place.style.opacity > .9);
   [...worlds.children].forEach((b, j) => b.classList.toggle('on', j === focus));
+  // the second world is the interactive screen: its big letters and captions stay hidden
+  els[1].style.visibility = twins[1].style.visibility = 'hidden'; oarms.style.opacity = 0;
+  GEO[1].forEach(c => { c.el.style.opacity = 0; });
+  place.style.visibility = focus === 1 ? 'hidden' : '';
+  flowersScreen(!last && i === 0 ? seg(u, .62, .97) : i === 1 ? 1 - seg(u, 0, .3) : 0);
   // cards drift past: they live around the arrival of their world and slide outward as the next zoom starts
   CARDS.forEach(c => {
     const t = T - c.j;                                           // 0 when we arrive in world j

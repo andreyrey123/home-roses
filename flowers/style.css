@@ -107,3 +107,17 @@ h1{font:300 clamp(24px,2.3vw,38px)/1.1 Unbounded,'Inter Tight',sans-serif;letter
   .acts button{width:42px;height:42px;font-size:20px}.acts #undo{width:36px;height:36px;font-size:16px}
 }
 @media(prefers-reduced-motion:reduce){.card.go{transition:none}}
+/* встроенный режим: шапку заменяет меню главной */
+#next{display:none}
+.embed header{display:none}
+.embed body,.embed{background:#060f22}
+.embed body{touch-action:none}
+.embed #tabs{touch-action:pan-x}
+.embed .end,.embed #order{touch-action:pan-y}
+.embed #next{display:inline-flex;position:fixed;z-index:4;left:18px;top:6px;min-height:36px;padding:0 14px;font-size:13px;background:rgba(6,15,34,.6)}
+.embed #side{top:6px}
+@media(max-width:900px) and (orientation:portrait),(max-width:600px) and (min-height:521px){
+  .embed #side{top:calc(29vh + 54px);top:calc(29svh + 54px)}
+  .embed #next{left:10px;top:2px;min-height:32px;padding:0 11px;font-size:12px}
+}
+@media(orientation:landscape) and (max-height:520px){.embed #next{left:10px;top:4px;min-height:30px}}

@@ -3,6 +3,9 @@
   'use strict';
   const $ = id => document.getElementById(id);
   const SIZE = 20, KEY = 'hr-order';
+  // встроенный режим: страница показана экраном главной
+  const host = window.parent !== window && new URLSearchParams(location.search).has('embed') ? window.parent : null;
+  if (host) document.documentElement.classList.add('embed');
   const SHADES = [
     ['', 'Все цвета', null, 'conic-gradient(#c4143c,#f2bd0c,#9a6fc0,#ee86a5,#c4143c)'],
     ['red', 'Красные', ['red'], '#c4143c'], ['pink', 'Розовые', ['pink', 'softpink', 'hotpink'], '#ee86a5'], ['white', 'Белые', ['white'], '#f3eee0'],
@@ -21,7 +24,7 @@
     try { for (const [n, c] of JSON.parse(sessionStorage.getItem(KEY) || '[]')) if (c > 0) order.set(n, c); } catch (e) { /* хранилище недоступно */ }
   };
   const total = () => [...order.values()].reduce((a, b) => a + b, 0);
-  const paintCart = () => { $('cart').textContent = total() ? 'Заявка: ' + total() : 'Запросить прайс'; };
+  const paintCart = () => { $('cart').textContent = total() ? 'Заявка: ' + total() : 'Запросить прайс'; if (host && host.hrCart) host.hrCart($('cart').textContent); };
   const add = (label, n) => {
     const v = (order.get(label) || 0) + n;
     if (v > 0) order.set(label, v); else order.delete(label);
@@ -142,7 +145,8 @@
     const release = e => {
       if (e.pointerId !== id) return;
       id = null;
-      const far = Math.abs(x) > Math.min(90, card.offsetWidth * .28), flick = Math.abs(x) > 35 && Math.abs(x) / Math.max(1, e.timeStamp - t) > .5;
+      const level = Math.abs(x) > Math.abs(e.clientY - sy);
+      const far = level && Math.abs(x) > Math.min(90, card.offsetWidth * .28), flick = level && Math.abs(x) > 35 && Math.abs(x) / Math.max(1, e.timeStamp - t) > .5;
       if (e.type === 'pointerup' && (far || flick)) return swipe(x > 0);
       card.classList.add('go'); x = y = 0; set();
     };
@@ -176,7 +180,7 @@
     view: (w, h) => {
       const s = side.getBoundingClientRect(), t = tabs.getBoundingClientRect(), beside = s.left > w * .25;
       const width = beside ? s.left : w;
-      const top = beside && h <= 520 ? 46 : 60;
+      const top = host ? 8 : beside && h <= 520 ? 46 : 60;
       const hb = hint.getBoundingClientRect(), bottom = hb.height ? hb.top - 8 : t.top - 6;
       const room = Math.max(0, bottom - top);
       return { x: width / 2, y: top + room / 2, r: Math.min(width / 3.5, room / 2.12) };
@@ -184,8 +188,29 @@
     ring: () => ring,
     pick: bring,
     country: () => (list[Math.min(i, list.length - 1)] || {}).country,
-    open: c => { location.href = `../${c.id}.html`; }
+    open: c => { (host || window).location.href = new URL(`../${c.id}.html`, location.href).href; }
   });
+
+  /* ---------- встроенный режим: прокрутка страницы уходит главной ---------- */
+  if (host) {
+    document.querySelectorAll('#tabs a, .brand').forEach(a => { a.target = '_top'; });
+    window.hrOrder = showOrder;
+    $('next').addEventListener('click', () => host.hrGo(1));
+    const inner = t => dialog.open || (t.closest && t.closest('.end'));
+    addEventListener('wheel', e => { if (inner(e.target) || e.ctrlKey) return; e.preventDefault(); host.hrScroll(e); }, { passive: false });
+    addEventListener('keydown', e => {
+      const d = { ArrowDown: 1, PageDown: 1, ArrowUp: -1, PageUp: -1 }[e.key];
+      if (d && !dialog.open) { e.preventDefault(); host.hrGo(d); }
+    });
+    // вертикальный свайп везде, кроме шара, листает главную
+    let from = null;
+    addEventListener('touchstart', e => { from = e.touches.length === 1 && e.target.id !== 'globe' && !inner(e.target) ? e.touches[0] : null; }, { passive: true });
+    addEventListener('touchend', e => {
+      if (!from) return;
+      const dx = e.changedTouches[0].clientX - from.clientX, dy = e.changedTouches[0].clientY - from.clientY; from = null;
+      if (Math.abs(dy) > 60 && Math.abs(dy) > Math.abs(dx) * 1.4) host.hrGo(dy < 0 ? 1 : -1);
+    }, { passive: true });
+  }
 
   load(); paintCart(); build();
 })();
