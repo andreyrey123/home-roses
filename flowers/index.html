@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Откуда ваши цветы — HOME ROSES</title>
+<meta name="description" content="Цветы из каталогов HOME ROSES: смахивайте карточки, собирайте заявку и смотрите, откуда летят цветы в Петербург.">
+<meta name="theme-color" content="#060f22">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;800&family=Unbounded:wght@300;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+<canvas id="globe" role="img" aria-label="Глобус с маршрутами доставки цветов в Петербург. Нажмите на страну, чтобы открыть каталог."></canvas>
+<header>
+  <a class="brand" href="../" aria-label="HOME ROSES, на главную">HOME ROSES</a>
+  <button type="button" class="pill main" id="cart">Запросить прайс</button>
+</header>
+<p id="hint">Справа — цветы из всех каталогов. Выберите страну внизу, чтобы открыть её каталог.</p>
+<nav id="tabs" aria-label="Каталоги стран">
+  <a class="pill" href="../ecuador.html">Эквадор</a>
+  <a class="pill" href="../colombia.html">Колумбия</a>
+  <a class="pill" href="../kenya.html">Кения</a>
+  <a class="pill" href="../netherlands.html">Голландия</a>
+  <a class="pill" href="../italy.html">Италия</a>
+  <a class="pill" href="../chile.html">Чили</a>
+</nav>
+<main id="side">
+  <h1>Все цветы</h1>
+  <div id="dots" role="group" aria-label="Фильтр по цвету"></div>
+  <div id="stack" aria-live="polite"></div>
+  <div class="acts">
+    <button type="button" id="undo" aria-label="Вернуть предыдущий">↶</button>
+    <button type="button" id="no" aria-label="Мимо">✕</button>
+    <button type="button" id="yes" aria-label="Беру">♥</button>
+  </div>
+  <p id="info"></p>
+</main>
+<dialog id="order" aria-labelledby="orderTitle"></dialog>
+<noscript><p class="nojs">Включите JavaScript или откройте <a href="../">главную страницу</a>.</p></noscript>
+<script src="../vendor/d3-array.min.js"></script>
+<script src="../vendor/d3-geo.min.js"></script>
+<script src="../vendor/topojson-client.min.js"></script>
+<script src="data.js?v=1"></script>
+<script src="globe.js?v=1"></script>
+<script src="app.js?v=2"></script>
+</body>
+</html>
